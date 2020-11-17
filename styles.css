@@ -5,7 +5,6 @@ body{
   padding:10px;
   line-height:12px;
   transform: scale(1.2);
-
 }
 
 
@@ -53,7 +52,9 @@ td{
 	height: auto; 
   background: #FFFFFF; 
   margin: auto;
+  margin-top:100px;
   padding: 50px;
+  padding-bottom: 75px;
 }
 
 .bu{
