@@ -1,0 +1,76 @@
+body{
+  font-family: "Times New Roman", Times, serif;
+  background-color: #E0E0E0;
+  font-size:11px;
+  padding:10px;
+  line-height:12px;
+  transform: scale(1.2);
+
+}
+
+
+h1{
+  text-align: center;
+  font-size:18px;
+  font-weight:normal;
+  margin: auto;
+  padding-bottom:10px;
+}
+
+h2{
+  text-align:center;
+  margin:auto;
+  font-weight:normal;
+  font-size:11px;
+}
+
+hr{
+    border: none;
+    height: 1px;
+    background-color: #333;
+    padding-bottom:0px;
+    margin:0px;
+}
+table{
+  font-size:11px;
+  width: 0%;
+  padding-left: 20px;
+}
+
+td{
+  font-size:11px;
+  padding-left: 20px;
+  padding-top:0px;
+  padding-bottom:0px;
+}
+
+.b{
+  font-weight: bold;
+}
+
+.box{ 
+	width: 470px; 
+	height: auto; 
+  background: #FFFFFF; 
+  margin: auto;
+  padding: 50px;
+}
+
+.bu{
+  font-weight: bold;
+  text-decoration: underline;
+  margin: auto;
+}
+
+.profile{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.subtextIndent{
+  padding-left:40px;
+}
+
+.trailingIndent{
+  padding-left:80px;
+}
