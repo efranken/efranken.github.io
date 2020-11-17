@@ -7,7 +7,6 @@ body{
   transform: scale(1.2);
 }
 
-
 h1{
   text-align: center;
   font-size:18px;
@@ -24,12 +23,13 @@ h2{
 }
 
 hr{
-    border: none;
-    height: 1px;
-    background-color: #333;
-    padding-bottom:0px;
-    margin:0px;
+  border: none;
+  height: 1px;
+  background-color: #333;
+  padding-bottom:0px;
+  margin:0px;
 }
+
 table{
   font-size:11px;
   width: 0%;
@@ -47,25 +47,28 @@ td{
   font-weight: bold;
 }
 
-.box{ 
-	width: 470px; 
-	height: auto; 
+.box{
+  width: 470px; 
+  height: auto; 
   background: #FFFFFF; 
   margin: auto;
   margin-top:100px;
   padding: 50px;
   padding-bottom: 75px;
+  box-shadow:10px 10px 5px grey;
 }
 
 .bu{
   font-weight: bold;
   text-decoration: underline;
   margin: auto;
+  padding-bottom:2px;
 }
 
 .profile{
   text-align: justify;
   text-justify: inter-word;
+  text-indent: 40px;
 }
 
 .subtextIndent{
