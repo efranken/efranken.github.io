@@ -3,15 +3,15 @@ body{
   background-color: #E0E0E0;
   font-size:11px;
   padding:10px;
-  line-height:12px;
-  transform: scale(1.2);
+  line-height:12px; 
+  margin-top:100px;
 }
 
 h1{
-  text-align: center;
+  text-align:center;
   font-size:18px;
   font-weight:normal;
-  margin: auto;
+  margin:auto;
   padding-bottom:10px;
 }
 
@@ -48,11 +48,11 @@ td{
 }
 
 .box{
-  width: 470px; 
-  height: auto; 
+  transform: scale(1.2);
+  width: 473px;
   background: #FFFFFF; 
-  margin: auto;
-  margin-top:100px;
+  margin-left: 100px;
+  margin:auto;
   padding: 50px;
   padding-bottom: 75px;
   box-shadow:10px 10px 5px grey;
