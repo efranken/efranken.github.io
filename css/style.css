@@ -111,6 +111,12 @@ table, th, td{
 	tab-size:6;
 }
 
+.smallText{
+	font-size: 10px;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
 pre {
     font-size: 90%;
     font-family: "Courier 10 Pitch", Courier, monospace; 
