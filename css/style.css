@@ -6,6 +6,8 @@
 body {
   font-family: Consolas, Monospace, Courier;
   background: #fffff7;
+  width:900px;
+  margin:auto;
 }
 
 hr {
@@ -47,12 +49,6 @@ table, th, td{
   clear: both;
 }
 
-/*
-.mainText {
-	padding-left=150px;
-}
-*/
-
 .middle {
 	display: inline-block; 
 	vertical-align:middle;
@@ -76,6 +72,7 @@ table, th, td{
 	padding-right: 100px;
 	text-align: justify;
 	text-justify: inter-word;
+	
 }
 
 .imageDef {
@@ -86,6 +83,58 @@ table, th, td{
 	box-shadow:5px 5px 2px grey;
 }
 
+.imageVert {
+	width: 354;
+	height: 461px;
+	display: block;
+	margin: auto;
+	box-shadow:5px 5px 2px grey;
+}
+
+.imageVertSmall {
+	width: 272px;
+	height: 354px;
+	display: block;
+	margin: auto;
+	box-shadow:5px 5px 2px grey;
+}
+	
 .indent {
-	text-indent: 100px;
+	text-indent: 200px;
+}
+
+.codeIndent{
+	indent: 200px;
+}
+
+.tab{
+	tab-size:6;
+}
+
+pre {
+    font-size: 90%;
+    font-family: "Courier 10 Pitch", Courier, monospace; 
+    white-space: pre; 
+    white-space: pre-wrap; 
+    white-space: -moz-pre-wrap; 
+    white-space: -o-pre-wrap; 
+    
+    width: 700px;
+    display: block;
+    clear: both;
+    color: #555555;
+    margin: auto;
+	margin-left:140px;
+    background: #f4f4f4;
+    border: solid 1px #e1e1e1;
+	padding-right: 10px;
+} 
+
+code { 
+    font-size: 90%;
+    line-height: 1.2em;
+    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+    display: inline; 
+    color: #555555;
+    background: #f4f4f4;
 }
