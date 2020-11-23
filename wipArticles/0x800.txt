@@ -1,0 +1,48 @@
+
+
+
+A lot of the computers I work on are very uniquely configured.  It can take a couple days between other work to load one up with the required software, and even after that, a couple weeks until the user is fully back on track with a freshly loaded computer.  Wipe and reload is rarely an option.  Because of this, I've spent quite awhile chasing down specific errors that are usually just fixed with a fresh install.
+
+One of our users had a recurring 0x800f0922 on any new feature packs for Windows.  Updates would install to 63%, fail, reboot, and roll back changes.  This took about 20 minutes and was no longer feasible.
+
+Error 0x800f0922 states that updates may be failing due to a system reserved partition size being less than 500mb.  The only partion marked "reserved" that showed up in diskpart was 300mb, but I really wasn't convinced that was it.  The system had been upgraded from 7-10, then cloned from 1tb to 2tb, but nothing that would have changed the partition size existed.  
+
+I kept digging further and my coworker was able to figure out a couple .NET framework install issues that kept a couple updates from installing.  I tried the usual powershell script to fix clear all Windows updates out and install fresh, tried downloading the feature udpate pack independently, and tried forcing updates from the internet instead of our WSUS servr, all to no avail. Then I tried everything in different orders.  Still nothing.
+
+Looking around further, there was a drive mounted as E:\ with a folder "BOOT" in it, along with all associated boot files!  Clearly shouldn't be like that, and clearly that was the issue.  Opening the partition with "detail part" in command line diskpart shows:
+
+Partition 3
+Type	: ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+Hidden  : No
+Required: No
+Attrib  : 0x800000000000000
+Offset in Bytes: 541065216
+
+The type being "EBD.." marks it as a BDP, Basic Data Partition.  This is why I could browse to it.  It's also why Windows update was failing, it didn't know how to locate the system reserved partition.  I don't know why it was still booting, but I was already 3 hours late at the office so it wasn't really the time to continue researching.
+
+Here's the full set of commands I ran (dependent on :
+
+list disk
+sel disk 3
+list part
+sel part 3
+set id=c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+detail part
+
+After that detail part, diskpart shows:
+
+Partition 3
+Type	: c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+Hidden  : No
+Required: No
+Attrib  : 0x800000000000000
+Offset in Bytes: 541065216
+
+And running a list part shows partition 3 as a "system" type instead of "primary" as it previously displayed.  I rebooted the laptop and the updates kicked off and went fine!  
+
+For reference, Microsoft lists the types of partitions as:
+
+Recovery: de94bba4-06d1-4d40-a16a-bfd50179d6ac
+Normal: ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+EFI: c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+Reserved: e3c9e316-0b5c-4db8-817d-f92df00215ae

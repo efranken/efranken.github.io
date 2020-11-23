@@ -118,29 +118,23 @@ table, th, td{
 }
 
 pre {
-    font-size: 90%;
-    font-family: "Courier 10 Pitch", Courier, monospace; 
-    white-space: pre; 
-    white-space: pre-wrap; 
-    white-space: -moz-pre-wrap; 
-    white-space: -o-pre-wrap; 
-    
-    width: 700px;
-    display: block;
-    clear: both;
-    color: #555555;
-    margin: auto;
-	margin-left:140px;
-    background: #f4f4f4;
-    border: solid 1px #e1e1e1;
-	padding-right: 10px;
+	display: block;
+	width: 550px;
+	margin: auto;
 } 
 
 code { 
-    font-size: 90%;
-    line-height: 1.2em;
+	white-space: pre-line;
+	text-align: left;
+	margin:auto;
+    display: block; 
+	font-size: 90%;
     font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-    display: inline; 
-    color: #555555;
-    background: #f4f4f4;
+    color: #dadedf;
+    background: #0f0f0f;
+	padding-left: 35px;
+	padding-bottom: 20px; 
+	background: radial-gradient(circle, rgba(0,0,0,0.896796218487395) 0%, rgba(40,40,40,1) 100%);
+	box-shadow: 3px 3px #888888;
+
 }

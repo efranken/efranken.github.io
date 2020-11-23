@@ -1,0 +1,9 @@
+cloudresumedev challenge
+
+AWS Cloud Practicioner
+
+I've spent a lot of hobby time on my own between ec2 and s3 working between making e-mail servers, test linux servers, and anything else to familiarize myself with the cloud platform.  Most of the content in the study guides I followed was just aligning my existing knowledge of systems administration with how Amazon handles it in the cloud. 
+
+There are still usually one or two things that I pick up each time I delve into this that keep me excited to work in a space where a new server is provisioned with a script, instead of me sitting here for half a day while I follow a list of notes I've made about all the outdated software that has dependencies on other outdated software, with certain patches and updates to avoid and apply, and a laundry list of gotcha's.  
+
+This time around it was the way AWS handles creation of user accounts, oddly enough.  Right now I'm used to juggling around how to pass off a password to a new user, set up MFA, e-mail on phone, everything like that.  Running a hybrid Azure/on prem Active Directory has some extra hoops to jump through.  AWS user creation and the controls behind it seemed like a breath of fresh air.  A user forgetting a password doesn't mean I have to stop what I'm doing on a thanksgiving day to do the reset dance that the aforementioned writeback-less active directory configuration requires. 
