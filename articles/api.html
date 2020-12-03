@@ -5,7 +5,6 @@
 	<title>ERICFR@NKENBERGER.COM</title> 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
 </head>
 
 <body>
@@ -23,7 +22,7 @@
 	<br>
 
 	<div class="articles">
-		<p><span class="bold">27-11-2020 | </span>AWS Lambda/DynamoDB/API Gateway<br /></p>
+		<p><span class="bold">27-11-2020 | </span>AWS Lambda/DynamoDB/API Gateway - beginning implementation<br /></p>
 	</div>
 	<hr />
 	
@@ -37,29 +36,33 @@
 
 		Doing a get request of the Pets API that I started from https://bzy4xhbr70.execute-api.us-east-2.amazonaws.com/test/pets/ returns
 	</p>
-	<pre> <code>
-		<br>[
-			<br><br>{
-				"id": 1,
-				"type": "dog",
-				"price": 249.99
-			},
-			{
-				"id": 2,
-				"type": "cat",
-				"price": 124.99
-			},
-			{
-				"id": 3,
-				"type": "fish",
-				"price": 0.99
-			}
-		]
-	</code> </pre>
+	
+	<pre> 
+	<code>
+    [
+        {
+            "id": 1,
+            "type": "dog",
+            "price": 249.99
+        },
+        {
+            "id": 2,
+            "type": "cat",
+            "price": 124.99
+        },
+        {
+            "id": 3,
+            "type": "fish",
+            "price": 0.99
+        }
+    ]
+	</code> 
+	</pre>
+
 	<br />
 	<p class="articleBody">
 		
-		I can use lambda to make this request then put it into DynamoDB
+		I can use lambda to make this request then put it into DynamoDB 
 
 		Steps I'm gonna take
 
