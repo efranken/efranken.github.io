@@ -126,7 +126,7 @@ pre {
 } 
 
 code { 
-	white-space: pre-wrap;
+
 	margin:auto;
     display: block; 
 	font-size: 90%;
@@ -136,5 +136,5 @@ code {
 	padding-bottom: 20px; 
 	background: radial-gradient(circle, rgba(0,0,0,0.896796218487395) 0%, rgba(40,40,40,1) 100%);
 	box-shadow: 3px 3px #888888;
-
+    overflow:auto;
 }
