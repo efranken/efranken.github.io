@@ -69,11 +69,19 @@ table, th, td{
 }
 
 .articleBody {
-	padding-left: 100px;
-	padding-right: 100px;
+	padding-left: 50px;
+	padding-right: 50px;
 	text-align: justify;
 	text-justify: inter-word;
 	
+}
+
+ul {
+	padding-left: 100px;
+}
+
+h4 {
+	padding-left: 50px;
 }
 
 .imageDef {
