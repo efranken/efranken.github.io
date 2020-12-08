@@ -1,0 +1,7 @@
+unsupported
+
+Qualcom Atheros AR9285 
+Qualcom AR9002WB-1NG
+TP Link Archer T2U Nano
+Realtek 8811CU 
+Broadcom 4352 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<title>ERICFR@NKENBERGER.COM</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+</head>
+
+<body>
+	<br>
+	<center>
+	<div style="display: inline-block; vertical-align:middle;">
+		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
+		<br>
+		<hr style="width:200px"/>
+		<span class="bold">
+			<a class="title" href="../index.html">HOME</a> &nbsp;
+			<a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
+            <a class="title" href="https://github.com/efranken">GITHUB</a>
+		</span>
+	</center>
+	<br>
+
+	<div class="articles">
+		<p><span class="bold">[08-12-2020] | </span>Windows 10 MAC Address Spoofing <br /></p>
+	</div>
+	<hr />
+	
+	<p class="articleBody">
+		Some software is locked to a node with a specific MAC address.  This is an issue for computers in a configuration that don't have easy internet connectivity
+		- if the computer dies, there's no way to update a new computer with a license until internet is available.
+		<br /><br />
+		The goal here was to use a small USB NIC and spoof the MAC to make it sort of like a license key. 
+		<br /><br />
+		Windows 10 supports some level of MAC address spoofing.  NICs that are able to spoof will, as far as I can tell, have the option "Locally Administered Address" under the configure menu.  The ones that have option "MAC Address" or "Network Address" do not appear to actually change the MAC.  Manually installing a loopback adapter and changing the MAC does not work unless it begins with 01.
+		<br /><br />
+		I was unable to find much info on what NICs can and can't be spoofed, other than that the ones I plug in that didn't work also would say "Random hardware addresses are not supporte by the following adapters" when attempting to enable that feature in Windows.
+		<br /><br />
+		Here's a list of ones that I have confirmed to NOT work, hopefully to help narrow it down.
+		<br /><br />
+		Qualcom Atheros AR9285 
+		Qualcom AR9002WB-1NG
+		TP Link Archer T2U Nano
+		Realtek 8811CU 
+		Broadcom 4352 
+	</p>
+	
+	
+	
+</body>
+</html>
