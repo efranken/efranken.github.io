@@ -3,17 +3,8 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Consolas, Monospace, Courier;
-  font-size:15px;
-  background: #fffff7;
-  width:900px;
-  margin:auto;
-}
 
-hr {
-	width: 900px;
-}
+
 
 a:link, a:active {
   color: #3d3d3d;
@@ -24,6 +15,46 @@ a:visited, a:hover {
 	font-style: italic;
 }
 
+body {
+  font-family: Consolas, Monospace, Courier;
+  font-size:15px;
+  background: #fffff7;
+  max-width:1000px;
+  margin:auto;
+}
+
+code { 
+	margin:auto;
+    display: block; 
+	font-size: 90%;
+    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+    color: #dadedf;
+    background: #0f0f0f;
+	padding-bottom: 20px; 
+	background: radial-gradient(circle, rgba(0,0,0,0.896796218487395) 0%, rgba(40,40,40,1) 100%);
+	box-shadow: 3px 3px #888888;
+    overflow:auto;
+	
+	max-width: 700px;
+}
+
+h4 {
+	padding-left: 50px;
+}
+
+hr {
+	margin:auto;
+	margin-left:50px;
+	margin-right:50px;
+}
+
+pre {
+	display: block;
+	margin: auto;
+	white-space: pre;
+	overflow:auto;
+} 
+
 table, th, td{
 	margin:auto;
 	padding-left:10px;
@@ -31,17 +62,8 @@ table, th, td{
 	border:10px;
 }
 
-.header {
-  padding: 15px;
-  text-align: center;
-  font-size: 24px;
-}
-
-.column {
-  margin: auto;
-  width: 900px;
-  padding: 10px;
-
+ul, ol {
+	padding-left: 100px;
 }
 
 .row:after {
@@ -53,15 +75,6 @@ table, th, td{
 .middle {
 	display: inline-block; 
 	vertical-align:middle;
-}
-
-.bold {
-	font-weight: bold;
-}
-
-.boldRight{
-	font-weight: bold;
-	text-align: right;
 }
 
 .articles {
@@ -76,12 +89,30 @@ table, th, td{
 	
 }
 
-ul {
-	padding-left: 100px;
+.bold {
+	font-weight: bold;
 }
 
-h4 {
-	padding-left: 50px;
+.boldRight{
+	font-weight: bold;
+	text-align: right;
+}
+
+.codeIndent{
+	indent: 200px;
+}
+
+.column {
+  margin: auto;
+  width: 900px;
+  padding: 10px;
+
+}
+
+.header {
+  padding: 15px;
+  text-align: center;
+  font-size: 24px;
 }
 
 .imageDef {
@@ -112,37 +143,12 @@ h4 {
 	text-indent: 200px;
 }
 
-.codeIndent{
-	indent: 200px;
-}
-
-.tab{
-	tab-size:6;
-}
-
 .smallText{
 	font-size: 10px;
 	text-align: justify;
 	text-justify: inter-word;
 }
 
-pre {
-	display: block;
-	width: 550px;
-	margin: auto;
-	white-space: pre;
-} 
-
-code { 
-
-	margin:auto;
-    display: block; 
-	font-size: 90%;
-    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-    color: #dadedf;
-    background: #0f0f0f;
-	padding-bottom: 20px; 
-	background: radial-gradient(circle, rgba(0,0,0,0.896796218487395) 0%, rgba(40,40,40,1) 100%);
-	box-shadow: 3px 3px #888888;
-    overflow:auto;
+.tab{
+	tab-size:6;
 }

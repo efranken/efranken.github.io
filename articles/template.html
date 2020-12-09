@@ -25,13 +25,95 @@
 
 	<div class="articles">
 	</span>: <a href="articles/macSpoof.html"><
-		<p><span class="bold">[08-12-2020] | </span>Windows 10 MAC Address Spoofing <br /></p>
+		<p><span class="bold">[08-12-2020] | </span>Boto3 and DynamoDB continued <br /></p>
 	</div>
 	<hr />
 	
 	<p class="articleBody">
-	Article text
-	<img class="imageDef" src="../images/vigParts.jpg" alt="Vigorelli Parts">
+        I don't even know how to figure out how to ask the question of what I need to do next, but my steps seem to be:
+        
+        <ol>
+            <li>1.  Make an API post request when a visitor hits the site</li>
+            <li>2.  Make that POST request trigger a LAMBDA function</li>
+            <li>3.  Use the Lambda function to increment the visitor counter number in DynamoDB</li>
+        </ol>
+
+        Now that I typed it out, it seems easier.  I had some more grandiose plans including logging IP of visitor to do a pseudo unique visit count, but that's really a little much for what I want to do here.  Maybe more in the future.
+
+        I think that the plan is to "store" a variable in DynamoDB, get it, increment by 1, then edit the table entry to increment by 1.
+
+        I tried this code against the test I had set up in the last article:
+
+        test = table.query(
+               ProjectionExpression="id",
+               KeyConditionExpression=Key('id').eq('frankie'),
+        )
+
+        However, it just returns:
+
+        [{'id': 'frankie'}]
+
+        I switched it from a query to a get because we just need 1 single item.  Looks like this:
+
+        get = table.get_item(
+               Key={'id': 'frankie', 'type': 'cat'}
+        )
+
+        itemGot = get['Item']
+        name = itemGot['id']
+
+        print(name)
+
+        And it returns:
+
+        frankie
+
+        Now I can adapt this to the "counter" I want to do.
+
+        I created a new table and got it all going using this code:
+
+        import boto3
+        from boto3.dynamodb.conditions import Key
+
+        dynamodb = boto3.resource('dynamodb')
+
+
+        table=dynamodb.Table('visitorCounter')
+
+        get = table.get_item(
+               Key={'countId': '1', 'countNo': '1'}
+        )
+
+        itemGot = get['Item']
+        visitorNo = int(itemGot['countNos'])
+
+        print("pre incremented", visitorNo)
+
+        visitorNo += 1
+
+        print("incremented", visitorNo)
+
+        table.put_item(
+        Item={
+            'countId': '1',
+            'countNo': '1',
+            'countNos': str(visitorNo)
+        })
+
+        get = table.get_item(
+               Key={'countId': '1', 'countNo': '1'}
+        )
+
+        itemGot = get['Item']
+        visitorNo = int(itemGot['countNos'])
+
+        print("post table add", visitorNo)
+
+        This is sloppy but it works.  I'll clean the code up for the actual Lambda function.  Now that I have the update going, I just need to do the POST API call and have API Gateway trigger Lamda.
+
+
+        Atomic counter
+
 	</p>
 	
 	
