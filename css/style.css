@@ -4,8 +4,6 @@
 }
 
 
-
-
 a:link, a:active {
   color: #3d3d3d;
 }
@@ -17,9 +15,9 @@ a:visited, a:hover {
 
 body {
   font-family: Consolas, Monospace, Courier;
-  font-size:15px;
+  font-size:14px;
   background: #fffff7;
-  max-width:1000px;
+  max-width:900px;
   margin:auto;
 }
 
@@ -31,10 +29,10 @@ code {
     color: #dadedf;
     background: #0f0f0f;
 	padding-bottom: 20px; 
+
 	background: radial-gradient(circle, rgba(0,0,0,0.896796218487395) 0%, rgba(40,40,40,1) 100%);
 	box-shadow: 3px 3px #888888;
     overflow:auto;
-	
 	max-width: 700px;
 }
 
@@ -53,6 +51,8 @@ pre {
 	margin: auto;
 	white-space: pre;
 	overflow:auto;
+	padding-left: 5px;
+	padding-right: 5px;
 } 
 
 table, th, td{
@@ -63,7 +63,7 @@ table, th, td{
 }
 
 ul, ol {
-	padding-left: 100px;
+	padding-left: 35px;
 }
 
 .row:after {
@@ -78,12 +78,13 @@ ul, ol {
 }
 
 .articles {
-	padding-left: 100px;
+	padding-left: 5px;
+	overflow-wrap: break-word;
 }
 
 .articleBody {
-	padding-left: 50px;
-	padding-right: 50px;
+	padding-left: 5px;
+	padding-right: 5px;
 	text-align: justify;
 	text-justify: inter-word;
 	
@@ -104,7 +105,7 @@ ul, ol {
 
 .column {
   margin: auto;
-  width: 900px;
+  max-width: 900px;
   padding: 10px;
 
 }
@@ -116,24 +117,24 @@ ul, ol {
 }
 
 .imageDef {
-	width: 600px;
-	height: 461px;
-	margin: auto;
-	display: block;
+	max-width: 75%;
+	height:auto;
+	margin:auto;
+	display:block;
 	box-shadow:5px 5px 2px grey;
 }
 
 .imageVert {
-	width: 354;
-	height: 461px;
+	max-width: 70%;
+	height: auto;
 	display: block;
 	margin: auto;
 	box-shadow:5px 5px 2px grey;
 }
 
 .imageVertSmall {
-	width: 272px;
-	height: 354px;
+	max-width: 70%;
+	height: auto;
 	display: block;
 	margin: auto;
 	box-shadow:5px 5px 2px grey;
