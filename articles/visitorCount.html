@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<title>ERICFR@NKENBERGER.COM</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+</head>
+
+<body>
+	<br>
+	<center>
+	<div style="display: inline-block; vertical-align:middle;">
+		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
+		<br>
+		<hr style="width:200px"/>
+		<span class="bold">
+			<a class="title" href="../index.html">HOME</a> &nbsp;
+			<a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
+            <a class="title" href="https://github.com/efranken">GITHUB</a>
+		</span>
+	</center>
+	<br>
+
+	<div class="articles">
+	</span>
+		<p><span class="bold">[21-12-2020] | </span>Lambda/DynamoDB/API visitor counter <br /></p>
+	</div>
+	<hr />
+	
+	<p class="articleBody">
+		The finale!  I have the following things working.
+		<br />
+		<ol>
+			<li>Write to DynamoDB with Python</li>
+			<li>API triggering a Lambda function</li>
+			<li>Incrementing user count in a table</li>
+		</ol>
+		<br />
+		
+		Time to bring it all together.  For some reason my biggest hurdle was figuring out where the API fit in all this.  In all other cases, I think of an API as how to interact with an application through code, outside of its GUI basically.  In this case I couldn't wrap my mind around the single function of an API triggering Lambda and using DynamoDB, because it seemed like I could just take out one or two of the steps.  Regardless, that's what this exercise called for, so it's what I'm doing.
+		
+		Now that I have the code working in Lambda:
+		
+		</p>
+		<pre> <code>
+	import json
+	import boto3
+	from boto3.dynamodb.conditions import Key
+
+	def lambda_handler(event, context):
+
+		dynamodb = boto3.resource('dynamodb')
+		table=dynamodb.Table('visitorCounter')
+
+		get = table.get_item(
+			Key={'countId': '1', 'countNo': '1'}
+		)
+
+		itemGot = get['Item']
+		visitorNo = int(itemGot['countNos'])
+
+		print("pre inc", visitorNo)
+
+		visitorNo += 1
+
+		print("incremented", visitorNo)
+
+		table.put_item(
+		Item={
+			'countId': '1',
+			'countNo': '1',
+			'countNos': str(visitorNo)
+		})
+
+		responseObject = {}
+		responseObject['statusCode'] = 200
+		responseObject['headers'] = {}
+		responseObject['headers']['Content-Type'] ='application/json'
+		responseObject['body'] = json.dumps(visitorNo)
+		
+		return responseObject
+		</code> </pre>
+		
+		<p class="articleBody">
+		
+		I need to give the function permissions to access the database.  I alraeady set permissions for this to access Cloudwatch, so I'm just going to edit the IAM policy to include my db.  Only GetItem and PutItem are used, so that's all that gets permissions.
+		
+		The code above doesn't accept any arguements, it's literally just an API call to trigger the Lambda to run.  In the future I might rewrite it so I can do hits per article or something like that.  
+		
+		</p>
+		
+		<pre> <code>
+		
+		</code> </pre>
+		
+		<p class="articleBody">
+		For now it's just a home page traffic counter.  It can be found on the home page, in the center aligned text above the articles, hidden as body color text.  Select all text to view.
+		
+		</p>
+		
+		
+		
+	</p>
+</body>
+</html>
