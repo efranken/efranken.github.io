@@ -29,19 +29,20 @@
 	<div class="column">
 		<p align=center>This website contains articles on various technical and mechanical projects I have worked on.
 		<br /><br />I am currently following the outline at www.cloudresumechallenge.dev, participating in MASTERMND.IO classes, and soaking up as much DevOps related material as I can in my extra professional time.
-        <br /><br />* articles are mechanical or other, all others are technical.
 
-		</p>
+        <p align=center>* articles are mechanical or other, all others are technical.</p>
+		<p class="counter" id="counter"><script>document.write(counter);</script></p>
+		
 	</div>
 	
 	<hr />
 	
 	<div class="articles">
 		<br />
-		<span class="bold">[21-12-2020]</span>: <a href="articles/visitorCount.html">Lambda/DynamoDB/API visitor counter</a> <br />
+		<span class="bold">[21-12-2020]</span>: <a href="articles/visitorCount.html">Lambda/DynamoDB/API visitor count</a> <br />
         <span class="bold">[08-12-2020]</span>: <a href="articles/dynamoCont.html">Boto3 and DynamoDB continued</a> <br />
 		<span class="bold">[08-12-2020]</span>: <a href="articles/macSpoof.html">Windows 10 MAC Address Spoofing</a> <br />
-		<span class="bold">[30-11-2020]</span>: <a href="articles/api.html">Lambda/DynamoDB/API Gateway beginnings</a> <br />
+		<span class="bold">[30-11-2020]</span>: <a href="articles/api.html">AWS Lambda/DynamoDB/API beginnings</a> <br />
 		<span class="bold">[17-11-2020]</span>: <a href="articles/cinelliBuild.html">*Cinelli Vigorelli Shark build</a> <br />
 		<span class="bold">[10-09-2020]</span>: <a href="articles/walmartBuild.html">*Walmart track bike rebuild</a> <br />
 		<span class="bold">[09-06-2020]</span>: <a href="articles/0x800.html">0x800f0922</a> <br />
@@ -50,8 +51,10 @@
 	</div>
 
 
+
 	
 	    <script>
+		var test = 1;
     var requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -62,6 +65,7 @@
     fetch("https://qgb12s4p01.execute-api.us-east-2.amazonaws.com/test/transactions", requestOptions)
         .then(response => response.text())
         .then(result => {
+
             counter.innerHTML = result;
         })
         .catch(error => {
