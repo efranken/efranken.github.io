@@ -129,6 +129,15 @@ ul, ol {
 	box-shadow:5px 5px 2px grey;
 }
 
+.image75Cent{
+	max-width:75%; 
+	max-height:75%; 
+	align:center;  
+	display: block; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
 .imageVert {
 	max-width: 70%;
 	height: auto;
