@@ -28,11 +28,10 @@ code {
     color: #dadedf;
     background: #0f0f0f;
 	padding-bottom: 20px; 
-
 	background: radial-gradient(circle, rgba(0,0,0,0.896796218487395) 0%, rgba(40,40,40,1) 100%);
-	box-shadow: 3px 3px #888888;
     overflow:auto;
 	max-width: 700px;
+	box-shadow: 3px 3px #888888;
 }
 
 h4 {
@@ -52,6 +51,7 @@ pre {
 	overflow:auto;
 	padding-left: 5px;
 	padding-right: 5px;
+	
 } 
 
 table, th, td{
