@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>ERICFR@NKENBERGER.COM</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<br>
+	<center>
+	<div style="display: inline-block; vertical-align:middle;">
+		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
+		<br>
+		<hr style="width:200px"/>
+		<span class="bold">
+			<a class="title" href="index.html">HOME</a> &nbsp;
+			<a class="title" href="resume.html">RESUME/CONTACT</a> &nbsp;
+            <a class="title" href="https://github.com/efranken">GITHUB</a>
+		</span>
+	</center>
+	<br>
+
+	
+	
+	
+
+	<div class="column">
+		<p align=center>This website contains articles on various technical and mechanical things I have worked on.
+		<br /><br />I am currently following the outline at www.cloudresumechallenge.dev, participating in MASTERMND.IO classes, and soaking up as much DevOps related material as I can in my extra professional time.
+        <br /><br />* articles are mechanical or other, all others are technical.
+
+		</p>
+	</div>
+	
+	<hr />
+	
+	<div class="articles">
+		<br />
+        <span class="bold">[08-12-2020]</span>: <a href="articles/dynamoCont.html">Boto3 and DynamoDB continued</a> <br />
+		<span class="bold">[08-12-2020]</span>: <a href="articles/macSpoof.html">Windows 10 MAC Address Spoofing</a> <br />
+		<span class="bold">[30-11-2020]</span>: <a href="articles/api.html">Lambda/DynamoDB/API Gateway beginnings</a> <br />
+		<span class="bold">[17-11-2020]</span>: <a href="articles/cinelliBuild.html">*Cinelli Vigorelli Shark build</a> <br />
+		<span class="bold">[10-09-2020]</span>: <a href="articles/walmartBuild.html">*Walmart track bike rebuild</a> <br />
+		<span class="bold">[09-06-2020]</span>: <a href="articles/0x800.html">0x800f0922</a> <br />
+        <span class="bold">[01-04-2020]</span>: <a href="articles/simhubRPM.html">Arduino + SimHub tachometer</a> <br />
+		<span class="bold">[11-04-2019]</span>: <a href="articles/mapLite.html">Mikrotik mAP Lite Travel Router</a> <br />
+	</div>
+
+	<!--<div id="counter"></div>-->
+	
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+	<script>
+		var n = localStorage.getItem('on_load_counter');
+
+		if (n === null) {
+			n = 0;
+		}
+
+		n++;
+
+		localStorage.setItem("on_load_counter", n);
+
+		document.getElementById('counter').innerHTML = n;
+	</script>
+
+</body>
+</html>

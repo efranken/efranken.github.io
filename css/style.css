@@ -34,6 +34,14 @@ code {
 	box-shadow: 3px 3px #888888;
 }
 
+h2 {
+	padding-left: 50px;
+}
+
+h3 {
+	padding-left: 15px;
+}
+
 h4 {
 	padding-left: 50px;
 }
@@ -42,6 +50,13 @@ hr {
 	margin:auto;
 	margin-left:50px;
 	margin-right:50px;
+}
+
+p {
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: justify;
+	text-justify: inter-word;
 }
 
 pre {
@@ -135,7 +150,19 @@ ul, ol {
 	display: block; 
 	margin-left: auto; 
 	margin-right: auto;
+	box-shadow:5px 5px 2px grey;
 }
+
+.image50Cent{
+	max-width:50%; 
+	max-height:50%; 
+	align:center;  
+	display: block; 
+	margin-left: auto; 
+	margin-right: auto;
+	box-shadow:5px 5px 2px grey;
+}
+
 
 .imageVert {
 	max-width: 70%;
