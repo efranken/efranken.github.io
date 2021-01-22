@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<title>EricFr@nkenberger.com</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="prism.js"></script>
+</head>
+
+<body>
+	<script src="prism.js"></script>
+	<br>
+	<center>
+	<div style="display: inline-block; vertical-align:middle;">
+		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
+		<br>
+		<hr style="width:200px"/>
+		<span class="bold">
+			<a class="title" href="../index.html">HOME</a> &nbsp;
+			<a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
+            <a class="title" href="https://github.com/efranken">GITHUB</a>
+		</span>
+	</center>
+	<br>
+
+	<div class="articles">
+	</span>
+		<p class="articleBody"><span class="bold">[21-01-2021] | </span>Client VPN and External Networks<br /></p>
+	</div>
+	<hr />
+	
+	<p class="articleBody">
+		I was provided a router that accessed an external network, and was told the accepted solution was to either have it handle all DHCP on their provided subnet, or set a static route on every computer that needed to access it. 
+		<br />
+		<br />
+		I like to stay away from unique configuration of endpoints and resubnetting an entire network isn't feasible.  It is also preferable to expose this network to all sites, as well as client VPN, so remote users can access it.
+		<br />
+		<br />
+		IPs are example IPs and instructions are written for no particular networking equipment so as to maintain anonymity of all devices involved.
+	</p>
+	
+	<img class="image90Cent" src="../images/CVPNDiag.jpg" alt="Network diagram">
+	<br />
+	
+	
+	<h3>The Solution</h3>
+	<p class="articleBody">
+		From start to finish, a user connecting over Meraki client VPN needs to be able to see the outside company's network, which I am unable to configure.  For this configuration we will assume:
+		<ul>
+			<li> 192.168.10.0/24 is Outside company's network</li>
+			<li> 192.168.0.1 provided router's IP</li>
+			<li> 10.10.1.2 is Intermediary router's IP</li>
+			<li> 10.10.1.1 is default gateway's IP</li>
+			<li> 172.16.10.0/24 is site 1 client VPN subnet</li>
+			<li> 172.16.11.0/24 is site 2 client VPN subnet</li>
+			<li> 10.20.0.0/16 and 10.30.0.0/16 are other sites within a site to site VPN</li>
+		</ul>
+	</p>
+	
+	<h4>Default gateway configuration</h4>
+	<p class="articleBody">
+
+		Static routes are added on the default gateway (10.1.1.1) as follows:
+		</p>
+		<ul>
+			<li>Traffic for 192.168.10.0/24 uses 10.10.1.2 as gateway</li>
+			<li>Traffic for 192.168.0.0/24 uses 10.10.1.2 as gateway</li>
+		</ul>
+		<p class="articleBody">
+		The second route is used so I can ping the provided router to ensure it's up, if the external network stops responding.  The route is then added to be included in the site to site VPN.
+	</p>
+	
+	<h4>Intermediary router configuration</h4>
+	<p class="articleBody">
+		The route table of the intermediary router is as follows:
+		</p>
+		<ul>
+			<li>Traffic for 0.0.0.0/0 uses 192.168.0.1 as a gateway</li>
+			<li>Traffic for 10.0.0.0/8 uses 10.10.1.1 as a gateway</li>
+			<li>Traffic for 172.16.10.0/24 uses 10.10.1.1 as a gateway</li>
+			<li>Traffic for 172.16.11.0/24 uses 10.10.1.1 as a gateway</li>
+		</ul>
+		
+	<p class="articleBody">
+		The rules filter from most specific to least specific.
+		<br /><br />
+		Rule 1 ensures all traffic not matching any other rule is passed to the provided router.
+		<br /><br />
+		Rule 2 ensures any traffic from a site to site VPN address will use 10.10.1.1 as the gateway for its return path.  Otherwise, it gets forwarded to 192.168.0.1 where it dies.
+		<br /><br />
+		Rule 3 and 4 ensure any traffic from the 2 specified client VPN subnets use 10.10.1.1 as the gateway for their return path.  Functionally the same as rule 2.
+	</p>
+	
+</body>
+</html>
