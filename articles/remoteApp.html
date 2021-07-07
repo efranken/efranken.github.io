@@ -23,7 +23,7 @@
       </center>
       <br>
       <div class="articles">
-         <p><span class="bold">[07-79] | </span>External connection to Internal RemoteApp <br /></p>
+         <p><span class="bold">[07-79] | </span>RemotApp Cert Woes <br /></p>
       </div>
       <hr />
       <p class="articleBody">
@@ -38,7 +38,8 @@
       <ol>
          <li>Domain is private, will not be made public</li>
          <li>Internally issued enterprise certs are really only useful for domain added computers</li>
-         <li>I do not have access to corporate domain, so I can't create there</li>
+         <li>I do not have access to corporate domain, which users will be VPNing in from</li>
+		 <li>Almnost no feasible way to use a public cert internally</li>
       </ol>
       <p class="articleBody">
          The only realistic solution is just to get certificates working enough to allow a win10 connection to this short-term server.  Here's how I did it:
