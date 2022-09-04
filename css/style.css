@@ -67,8 +67,14 @@
      display: inline-block;
      vertical-align:middle;
 }
- .articles {
-     padding-left: 5px;
+
+ .articles{
+     padding-left: 10px;
+     overflow-wrap: break-word;    
+ }
+ .articlesList {
+     padding-left: 10%;
+     line-height: 1.4;
      overflow-wrap: break-word;
 }
  .articleBody {
