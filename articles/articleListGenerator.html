@@ -44,8 +44,9 @@
             <li>While I learned a lot, I have a ways to go on efficiency and code structuring</li>
         </ol>
 		</p>
+	
 
-		<div class="articleBody">How does index_generator.py work?</div>
+		<div class="bold articleBody", class="bold">How does index_generator.py work?</div>
 		<p class="articleBody">
 			The Python script looks in the /articles directory and starts by counting all files within that directory.
 			It then adds all the file names to a list, opens each individual file, and parses for a line that contains
@@ -55,13 +56,13 @@
 			This class is only ever found in one place within an article - one line above the actual title of the
 			article.  The next line
 			<br />
+			<br />
 			<span class="bold">&ltp&gt&ltspan class="bold"&gt[05-09-2022] |
 			&lt/span&gtGenerated Article List&ltbr /&gt&lt/p&gt</span>
 			<br />
-			in this article's case, is then saved to a list.
-			<br />
 			<br />
 			The line saved contains &ltp&gt&lt/p&gt tags not needed in the article block, so they are pruned.
+			<br />
 			<br />
 			<span class="bold">&ltspan class="bold"&gt[05-09-2022] |
 			&lt/span&gtGenerated Article List&ltbr /&gt</span>
@@ -72,9 +73,35 @@
 			and adding the respective link tags after and before.  Because articles names are not tied directly to the
 			article, the file name list is used to build the links.
 			<br />
+			<br />
 			<span class="bold">&ltspan class="bold"&gt[03-09-2022] | &lt/span&gt&lta href="articles/articleListGenerator.html"&gtSelenium 4 Custom Video Recording &lt/a&gt&ltbr /&gt</span>
-
-
-		</p>
-</body>
+			<br />
+			<br />
+			The links are now built, but they are in alphabetical order by file name.  They need to be sorted by date.
+			So, a sort of <span class="bold">key=lambda x: datetime.strptime(x[37:49], '[%d-%m-%Y]'</span> is ran on the list.
+			This works but it's rickety - it depends on the format of the line to always have the date start at column 37.
+			It seems like there's no good way to easily sort based on a date that's anywhere within a string that contains other data.
+			<br />
+			<br />
+			The data is ready to be injected into index.html.  Care had to be taken to make sure I could run this in
+			whatever state the last generation left it in.  To mark the lines that are added by the script,
+			<span class="bold">&lt!--generated--&gt</span>
+			comments are added at the beginning of each line that gets injected.
+			<br />
+			<br />
+			<span class="bold">&lt!--generated--&gt&ltspan class="bold"&gt[05-09-2022] | &lt/span &gt&lt a href="articles/articleListGenerator html" &gt Generated Article List &lt/a&gt&ltbr /&gt</span>
+			<br />
+         <br />
+			Before injection, the file needs to be prepared.  The generator looks at the file, and rewrites all lines
+			except for those that contain the aforementioned <span class="bold">&lt!--generated--&gt</span> comment.
+			<br />
+			<br />
+			Another comment <span class="bold">&lt!--articles begin--&gt</span>
+			is used as a locator for the beginning of the articles block.  With the articles blank and the start of the block located,
+			the list of finished article strings is injected into index.html.
+         <br />
+         <a class="title" href="../index.html">HOME</a> &nbsp;
+         <br />
+         <br />
+   </body>
 </html>
