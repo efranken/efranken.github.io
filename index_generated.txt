@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>EricFr@nkenberger.com</title> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<br>
+	<center>
+	<div style="display: inline-block; vertical-align:middle;">
+		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
+		<br>
+		<hr style="width:200px"/>
+		<span class="bold">
+			<a class="title" href="index.html">HOME</a> &nbsp;
+			<a class="title" href="resume.html">RESUME/CONTACT</a> &nbsp;
+            <a class="title" href="https://github.com/efranken">GITHUB</a>
+		</span>
+	</center>
+	<br>
+
+	
+	
+	
+
+	<div class="column">
+		<p align=center>This website contains articles on various technical and mechanical projects I have worked on.
+		<!--
+		<div style="text-align: center; font-weight:bold">
+			<div style="display: inline-block; text-align: left;">
+				+ articles are related to learning DevOps <br /> 
+				- articles are non-tech,<br /> 
+				&nbsp; all others are general tech.</p>
+			</div>
+		</div>
+		-->				
+	</div>
+	
+	<hr />
+	
+	<div class="counter" id="counter"><script>document.write(counter);</script></div>
+	
+	<div class="articlesList">
+		<br />
+		<p>
+		<span class="bold">[About]</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="articles/aboutSite.html">About this site</a> <br /><br />
+		<!--articles begin-->
+		<span class="bold">[11-04-2019] | </span><a href="articles/mapLite.html">Mikrotik mAP Lite Travel Router </a><br />
+		<span class="bold">[01-04-2020] | </span><a href="articles/simhubRPM.html">Arduino + SimHub RPM and gear indicator </a><br />
+		<span class="bold">[09-06-2020] | </span><a href="articles/0x800.html">0x800f0922</a><br />
+		<span class="bold">[10-09-2020] | </span><a href="articles/walmartBuild.html">Walmart track bike rebuild </a><br />
+		<span class="bold">[17-11-2020] | </span><a href="articles/cinelliBuild.html">Cinelli Vigorelli Shark Bike Build</a><br />
+		<span class="bold">[27-11-2020] | </span><a href="articles/api.html">AWS Lambda/DynamoDB/API Gateway</a><br />
+		<span class="bold">[08-12-2020] | </span><a href="articles/macSpoof.html">Windows 10 MAC Address Spoofing </a><br />
+		<span class="bold">[08-12-2020] | </span><a href="articles/dynamoCont.html">Boto3 and DynamoDB continued </a><br />
+		<span class="bold">[21-12-2020] | </span><a href="articles/visitorCount.html">Lambda/DynamoDB/API visitor count</a><br />
+		<span class="bold">[09-01-2021] | </span><a href="articles/bikeCloset.html">Arduino Bike Computer </a><br />
+		<span class="bold">[21-01-2021] | </span><a href="articles/CVPN.html">Client VPN and External Networks</a><br />
+		<span class="bold">[14-06-2021] | </span><a href="articles/radioSwitch.html">BaoFeng UV-82 Speaker Mic Switch</a><br />
+		<span class="bold">[07-07-2021] | </span><a href="articles/remoteApp.html">RemoteApp Cert Woes </a><br />
+		<span class="bold">[03-09-2022] | </span><a href="articles/videoRecording.html">Selenium 4 Custom Video Recording </a><br />
+		<!--
+			Selenium 4 node design
+			Selenium 4 fully distributed model
+			Selenium 4 scaling
+			Selenium 4 overview
+		-->
+
+	</div>
+
+
+
+	
+	    <script>
+		var test = 1;
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    let counter = document.getElementById('counter');
