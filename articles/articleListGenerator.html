@@ -36,15 +36,10 @@
 		contains the full source code for the generator.<br /><br />
 
 		I was looking for a productive way to keep learning Python, and this seemed like an interesting project to
-		tackle.  I learned multiple things:
-        
-        <ol>
-            <li>Python is likely not the best option for text processing</li>
-            <li>I probably could have done this much more concisely with a few lines of bash and sed/awk</li>
-            <li>While I learned a lot, I have a ways to go on efficiency and code structuring</li>
-        </ol>
+		tackle.  However, Python is  not the best option for text processing, and I could have done this with a few lines of
+		bash and sed/awk.
 		</p>
-	
+
 
 		<div class="bold articleBody", class="bold">How does index_generator.py work?</div>
 		<p class="articleBody">
@@ -54,7 +49,7 @@
 			<br />
 			<br />
 			This class is only ever found in one place within an article - one line above the actual title of the
-			article.  The next line
+			article.  A raw line looks like this:
 			<br />
 			<br />
 			<span class="bold">&ltp&gt&ltspan class="bold"&gt[05-09-2022] |
@@ -100,6 +95,9 @@
 			is used as a locator for the beginning of the articles block.  With the articles blank and the start of the block located,
 			the list of finished article strings is injected into index.html.
          <br />
+			<br />
+			<br />
+			<br />
          <a class="title" href="../index.html">HOME</a> &nbsp;
          <br />
          <br />
