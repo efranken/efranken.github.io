@@ -116,7 +116,6 @@ codeLine {
      height:auto;
      margin:auto;
      display:block;
-     box-shadow:5px 5px 2px grey;
 }
  .image25Cent{
      max-width:25%;
@@ -125,7 +124,6 @@ codeLine {
      display: block;
      margin-left: auto;
      margin-right: auto;
-     box-shadow:5px 5px 2px grey;
 }
  .image75Cent{
      max-width:75%;
@@ -134,7 +132,6 @@ codeLine {
      display: block;
      margin-left: auto;
      margin-right: auto;
-     box-shadow:5px 5px 2px grey;
 }
  .image90Cent{
      max-width:90%;
@@ -143,7 +140,6 @@ codeLine {
      display: block;
      margin-left: auto;
      margin-right: auto;
-     box-shadow:5px 5px 2px grey;
 }
  .image50Cent{
      max-width:50%;
@@ -152,28 +148,24 @@ codeLine {
      display: block;
      margin-left: auto;
      margin-right: auto;
-     box-shadow:5px 5px 2px grey;
 }
  .imageVert {
      max-width: 70%;
      height: auto;
      display: block;
      margin: auto;
-     box-shadow:5px 5px 2px grey;
 }
  .imageVertSmall {
      max-width: 70%;
      height: auto;
      display: block;
      margin: auto;
-     box-shadow:5px 5px 2px grey;
 }
  .imageSmall {
      max-width: 30%;
      height: auto;
      display: block;
      margin: auto;
-     box-shadow:5px 5px 2px grey;
 }
  .indent {
      text-indent: 200px;
