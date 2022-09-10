@@ -1,105 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <link rel="stylesheet" type="text/css" href="../css/style.css">
-      <title>EricFr@nkenberger.com</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script src="prism.js"></script>
-   </head>
-   <body>
-      <script src="prism.js"></script>
-      <br>
-      <center>
-         <div style="display: inline-block; vertical-align:middle;">
-         <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
-         <br>
-         <hr style="width:200px"/>
-         <span class="bold">
-         <a class="title" href="../index.html">HOME</a> &nbsp;
-         <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
-         <a class="title" href="https://github.com/efranken">GITHUB</a>
-         </span>
-      </center>
-      <br>
-	  
-	<div class="articles">
-		<p><span class="bold">[07-07-2021] | </span>RemoteApp Cert Woes <br /></p>
-	</div>
-	  
-      <hr />
-      <p class="articleBody">
-         I was tasked with serving up some software as a RemoteApp for the purposes of bug testing.  I set up a DC that also had DNS, ADCS, and RDS to make this happen.  I was able to load the RemoteApp on a MacOS client, but when someone tried to connect form Windows 10, it didn't work.
-         <br />
-         <br />
-         Not only did it just not work, each of the 3 ways to add a RemoteApp provided a different error, with one not even providing any information at all.  It turns out this was all due to cert errors, something which Microsoft seems to barely cover anywhere, and all third party help sites have a different idea on how to handle.
-         <br />
-         <br />
-         The complications I faced are:
-      </p>
-      <ol>
-         <li>Domain is private, will not be made public</li>
-         <li>Internally issued enterprise certs are really only useful for domain added computers</li>
-         <li>I do not have access to corporate domain, which users will be VPNing in from</li>
-		 <li>Almnost no feasible way to use a public cert internally</li>
-      </ol>
-      <p class="articleBody">
-         The only realistic solution is just to get certificates working enough to allow a win10 connection to this short-term server.  Here's how I did it:
-         <br />
-         <br />
-      <div class="bold articleBody"> Make sure IIS and Certificate Authority roles are installed</div>
-      <br />
-      <div class="bold articleBody">To create a cert request:</div>
-      </p>
-      <ul>
-         <li>Open IIS console (type IIS in start menu)</li>
-         <li>Expand server name</li>
-         <li>Double click Server Certificates under IIS in the main menu</li>
-         <li>Click Create Certificate Request</li>
-         <li>Common name FQDN</li>
-         <li>Organization is company name</li>
-         <li>Fill in OU, City, State, Country</li>
-         <li>Click next</li>
-         <li>Change bit length to 2048 (not required, good for "security")</li>
-         <li>Specify a name for the .txt file, save it somewhere you'll remember</li>
-         <li>Click finish</li>
-      </ul>
-      <div class="bold articleBody">To issue the cert from your local CA:</div>
-      <ul>
-         <li>Open Certification Authority (type Certification in start menu)</li>
-         <li>Click the dropdown for the server you want to add the cert on</li>
-         <li>Click action at the top, all tasks, submit new request</li>
-         <li>Browse to the cert request .txt file from the above steps, click open</li>
-         <li>Click Pending Requests</li>
-         <li>Locate the pending request, right click, all tasks, issue</li>
-      </ul>
-      <div class="bold articleBody">To export the certificate:</div>
-      <ul>
-         <li>Open the start menu, type certlm.msc, hit enter</li>
-         <li>Navigate to personal, then certificates</li>
-         <li>Locate and right click the certificate that was issued earlier</li>
-         <li>Right click it, all tasks, export</li>
-         <li>Click next, select "Yes, export the private key"</li>
-         <li>Ensure ".PFX" file type is selected, click next</li>
-         <li>Check password box, enter your password (password is ticket name), click next</li>
-         <li>Save in a location you'll remember</li>
-      </ul>
-      <div class="bold articleBody">To add the certificate to all Remote Desktop services:</div>
-      <ul>
-         <li>Open Server Manager (type Server Manager in start menu)</li>
-         <li>Click Remote Desktop Services</li>
-         <li>Under Deployment Overview, select the tasks dropdown, click edit deployment properties</li>
-         <li>Click Certificates</li>
-         <li>For each one, select the role service, then click "Select existing certificate"</li>
-         <li>Select Choose a different certificate, open the .pfx file from earlier, then enter the password</li>
-         <li>Click apply</li>
-      </ul>
-      <p class="articleBody">
-         You can now browse to the server's FQDN as https://fqdn/rdweb and, although you will still be prompted with certification warnings, at least you can proceed.
-         <br />
-         <br />
-         <a class="title" href="../index.html">HOME</a> &nbsp;
-         <br />
-         <br />
-   </body>
+<head>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.6.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>EricFr@nkenberger.com</title>
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1">
+    <script src="prism.js"></script>
+</head>
+<body>
+    <script src="prism.js"></script><br>
+    <center>
+        <div style="display: inline-block; vertical-align:middle;">
+            <a href=
+            "mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a><br>
+
+            <hr style="width:200px">
+            <span class="bold"><a class="title" href=
+            "../index.html">HOME</a> &nbsp; <a class="title" href=
+            "../resume.html">RESUME/CONTACT</a> &nbsp; <a class=
+            "title" href=
+            "https://github.com/efranken">GITHUB</a></span>
+        </div>
+    </center><br>
+    <div class="articles">
+        <p><span class="bold">[07-07-2021] |</span> RemoteApp Cert
+        Woes<br></p>
+    </div>
+    <hr>
+    <p class="articleBody">I was tasked with serving up some
+    software as a RemoteApp for the purposes of bug testing. I set
+    up a DC that also had DNS, ADCS, and RDS to make this happen. I
+    was able to load the RemoteApp on a MacOS client, but when
+    someone tried to connect form Windows 10, it didn't work.<br>
+    <br>
+    Not only did it just not work, each of the 3 ways to add a
+    RemoteApp provided a different error, with one not even
+    providing any information at all. It turns out this was all due
+    to cert errors, something which Microsoft seems to barely cover
+    anywhere, and all third party help sites have a different idea
+    on how to handle.<br>
+    <br>
+    The complications I faced are:</p>
+    <ol>
+        <li>Domain is private, will not be made public</li>
+        <li>Internally issued enterprise certs are really only
+        useful for domain added computers</li>
+        <li>I do not have access to corporate domain, which users
+        will be VPNing in from</li>
+        <li>Almnost no feasible way to use a public cert
+        internally</li>
+    </ol>
+    <p class="articleBody">The only realistic solution is just to
+    get certificates working enough to allow a win10 connection to
+    this short-term server. Here's how I did it:<br>
+    <br></p>
+    <div class="bold articleBody">
+        Make sure IIS and Certificate Authority roles are installed
+    </div><br>
+    <div class="bold articleBody">
+        To create a cert request:
+    </div>
+    <ul>
+        <li>Open IIS console (type IIS in start menu)</li>
+        <li>Expand server name</li>
+        <li>Double click Server Certificates under IIS in the main
+        menu</li>
+        <li>Click Create Certificate Request</li>
+        <li>Common name FQDN</li>
+        <li>Organization is company name</li>
+        <li>Fill in OU, City, State, Country</li>
+        <li>Click next</li>
+        <li>Change bit length to 2048 (not required, good for
+        "security")</li>
+        <li>Specify a name for the .txt file, save it somewhere
+        you'll remember</li>
+        <li>Click finish</li>
+    </ul>
+    <div class="bold articleBody">
+        To issue the cert from your local CA:
+    </div>
+    <ul>
+        <li>Open Certification Authority (type Certification in
+        start menu)</li>
+        <li>Click the dropdown for the server you want to add the
+        cert on</li>
+        <li>Click action at the top, all tasks, submit new
+        request</li>
+        <li>Browse to the cert request .txt file from the above
+        steps, click open</li>
+        <li>Click Pending Requests</li>
+        <li>Locate the pending request, right click, all tasks,
+        issue</li>
+    </ul>
+    <div class="bold articleBody">
+        To export the certificate:
+    </div>
+    <ul>
+        <li>Open the start menu, type certlm.msc, hit enter</li>
+        <li>Navigate to personal, then certificates</li>
+        <li>Locate and right click the certificate that was issued
+        earlier</li>
+        <li>Right click it, all tasks, export</li>
+        <li>Click next, select "Yes, export the private key"</li>
+        <li>Ensure ".PFX" file type is selected, click next</li>
+        <li>Check password box, enter your password (password is
+        ticket name), click next</li>
+        <li>Save in a location you'll remember</li>
+    </ul>
+    <div class="bold articleBody">
+        To add the certificate to all Remote Desktop services:
+    </div>
+    <ul>
+        <li>Open Server Manager (type Server Manager in start
+        menu)</li>
+        <li>Click Remote Desktop Services</li>
+        <li>Under Deployment Overview, select the tasks dropdown,
+        click edit deployment properties</li>
+        <li>Click Certificates</li>
+        <li>For each one, select the role service, then click
+        "Select existing certificate"</li>
+        <li>Select Choose a different certificate, open the .pfx
+        file from earlier, then enter the password</li>
+        <li>Click apply</li>
+    </ul>
+    <p class="articleBody">You can now browse to the server's FQDN
+    as https://fqdn/rdweb and, although you will still be prompted
+    with certification warnings, at least you can proceed.<br>
+    <br>
+    <a class="title" href="../index.html">HOME</a> &nbsp;<br>
+    <br></p>
+</body>
 </html>

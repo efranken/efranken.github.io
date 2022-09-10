@@ -1,173 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<title>EricFr@nkenberger.com</title> 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="prism.js"></script>
+    <meta name="generator" content=
+    "HTML Tidy for HTML5 for Linux version 5.6.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>EricFr@nkenberger.com</title>
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1">
+    <script src="prism.js"></script>
 </head>
-
 <body>
-	<script src="prism.js"></script>
-	<br>
-	<center>
-	<div style="display: inline-block; vertical-align:middle;">
-		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
-		<br>
-		<hr style="width:200px"/>
-		<span class="bold">
-			<a class="title" href="../index.html">HOME</a> &nbsp;
-			<a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
-            <a class="title" href="https://github.com/efranken">GITHUB</a>
-		</span>
-	</center>
-	<br>
+    <script src="prism.js"></script><br>
+    <center>
+        <div style="display: inline-block; vertical-align:middle;">
+            <a href=
+            "mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a><br>
 
-	<div class="articles">
-		<p><span class="bold">[09-01-2021] | </span>Arduino Bike Computer <br /></p>
-	</div>
-	<hr />
-	
-	<p class="articleBody">
-		To keep up with the spandex boys at work, I needed to keep my cycling strength up over the winter.  Instead of blowing $1,000+ on a smart trainer and everything for Zwift I went went as cheap as possible.  The setup is:
-	</p>
-	
-	<table>
-	<tr>
-	<td width=60%>
-	<ul>
-		<li>$50 CycleOps trainer from Facebook Marketplace</li>
-		<li>$0 Raleigh Technium 430 my mom doesn't use </li>
-		<li>$24 on spokes to rebuild rear wheel</li>
-		<li>$22 Nextion NX3224T024 320x240 screen</li>
-		<li>$10 Nano Every</li>
-		<li>$10 5000mAh battery pack</li>
-		<li>$10 misc - magnets, cabling, 3d printing, etc</li>
-		<li>$0 TV I've had for 10 years and a fire stick</li>
-	</ul>
-	</td>
-	<td>	
-		<img class="image75Cent" src="../images/bikeCloset2.jpg" alt="Closet Bike">
-	</td>
-	</table>
-	<p class="articleBody">
-	Strain gauges for cranks are prohibitively expensive, and due to the resistance trainer I have applying a constant force, I can use average speed over the ride as a pretty good gauge of performance.  Instead of just pedaling for 20-30 minutes, I have a goal to beat each time now.
-	
-	<br />
-	<br />
-	</p>
-	
-	<h3>Putting it all together</h3>
-	<p class="articleBody">
-		<span class="bold">List of items required</span>
-	<ol>
-		<li>Arduino Nano</li>
-		<li>Nextion NX3224T024</li>
-		<li>3.5mm jack headset extension cable (cable muse have 3 black rings on pin end)</li>
-		<li>USB battery (I used an Aukey 5000mAh)</li>
-		<li>Jumper wires and speaker wire, or any other kind of similar wire</li>
-		<li>Pulldown resistor for hall effect sensor</li>
-		<li>Magnet for bike spoke</li>
-		<li>Hall effect sensor</li>
-	</ol>
-	<img class="imageDef" src="../images/bikeComputerAnim.gif" alt="Bike Computer GIF">
-	</p>
-	
-
-
-	<p class="articleBody">
-	<br>
-	<span class="bold">Wiring it all up</span>
-	First things first - measure the distance from where you want to mount the computer to where you'll place the sensor (likely on the chainstay near the outside of the wheel) and keep this in mind as you measure out the length for the sensor end of the wires.
-	<ul>
-		<li>Arduino wires</li>
-			<ol>
-				<li>VIN to Nextion power supply positive</li>
-				<li>5V to split - 3.5mm jack socket end red wire and Nextion +</li>
-				<li>GND to split - 3.5mm jack socket end white wire and Nextion -</li>
-				<li>GND to Nextion power supply negative (2 wires in same GND on my build)</li>
-				<li>TX to yellow Nextion</li>
-				<li>RX to blue Nextion</li>
-				<li>D2 to 3.5mm jack socket end yellow wire</li>
-			</ol>
-			<br>
-		<li>Sensor side of 3.5mm jack (pin end)</li>
-			<ol>
-				<li>Left most pin to split - 3.5mm jack pin end red wire (5V) and pulldown resistor</li>
-				<li>Middle pin to 3.5mm jack pin end yellow wire</li>
-				<li>Right most pin to split - 3.5mm jack pin end and white wire (GND) and pulldown resistor</li>
-			</ol>
-		</li>
-		</ul>
-		<br>
-	<img class="image50Cent" src="../images/bikeComputerProgress.jpg" alt="Bike Computer wiring progress">
-	<br>
-	</p>
-		
-	<p class="articleBody">
-	<span class="bold">Loading the Arduino:</span>
-	<br>
-
-	<ol>
-		<li>Download the Nextion.H library, see "troubleshooting" below if using Arduino with only 1 serial</li>
-		<li>Place library in necessary location</li>
-		<li>Load the .tft file from the Nextion Screen file onto an SD card (NO OTHER FILES ON SD CARD)</li>
-		<li>Power off Nextion, insert SD card, wait for load, power off, remove SD card</li>
-		<li>Open the code from Arduino Code/ArduinoBikeComputer folder </li>
-		<li>Compile the code and upload to Arduino</li>
-	</ol>	
-	
-	<p class="articleBody">
-	<span class="bold">Printing the case:</span>
-	<br /><br />
-	
-	Not much to say here - print the case out on a 3d printer or use a web store to get it done.  It takes a bit to cram all the wires in there, but you can put some superglue or other around the edges to get it all to stay together.  The brackets on the bottom of the extruded cylinder are used to tywrap the case to handlebars.
-	<Br />
-	</p>
-	<img class="image50Cent" src="../images/bikeComputerCase.jpg" alt="Bike Computer Case">
-	
-	
-		<br /><br />
-	<h3>Troubleshooting</h3>
-	<p class="articleBody">
-	I used an Arduino Nano for this.  The Nextion.h library is set up to use an Arduino with multiple serial ports by default.  First build of my code I got this - 
-	</p>
-	
-	<pre>
-	<code>
-	In file included from C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexHardware.h:18:0,
+            <hr style="width:200px">
+            <span class="bold"><a class="title" href=
+            "../index.html">HOME</a> &nbsp; <a class="title" href=
+            "../resume.html">RESUME/CONTACT</a> &nbsp; <a class=
+            "title" href=
+            "https://github.com/efranken">GITHUB</a></span>
+        </div>
+    </center><br>
+    <div class="articles">
+        <p><span class="bold">[09-01-2021] |</span> Arduino Bike
+        Computer<br></p>
+    </div>
+    <hr>
+    <p class="articleBody">To keep up with the spandex boys at
+    work, I needed to keep my cycling strength up over the winter.
+    Instead of blowing $1,000+ on a smart trainer and everything
+    for Zwift I went went as cheap as possible. The setup is:</p>
+    <table>
+        <tr>
+            <td width="60%">
+                <ul>
+                    <li>$50 CycleOps trainer from Facebook
+                    Marketplace</li>
+                    <li>$0 Raleigh Technium 430 my mom doesn't
+                    use</li>
+                    <li>$24 on spokes to rebuild rear wheel</li>
+                    <li>$22 Nextion NX3224T024 320x240 screen</li>
+                    <li>$10 Nano Every</li>
+                    <li>$10 5000mAh battery pack</li>
+                    <li>$10 misc - magnets, cabling, 3d printing,
+                    etc</li>
+                    <li>$0 TV I've had for 10 years and a fire
+                    stick</li>
+                </ul>
+            </td>
+            <td><img class="image75Cent" src=
+            "../images/bikeCloset2.jpg" alt="Closet Bike"></td>
+        </tr>
+    </table>
+    <p class="articleBody">Strain gauges for cranks are
+    prohibitively expensive, and due to the resistance trainer I
+    have applying a constant force, I can use average speed over
+    the ride as a pretty good gauge of performance. Instead of just
+    pedaling for 20-30 minutes, I have a goal to beat each time
+    now.<br>
+    <br></p>
+    <h3>Putting it all together</h3>
+    <p class="articleBody"><span class="bold">List of items
+    required</span></p>
+    <ol>
+        <li>Arduino Nano</li>
+        <li>Nextion NX3224T024</li>
+        <li>3.5mm jack headset extension cable (cable muse have 3
+        black rings on pin end)</li>
+        <li>USB battery (I used an Aukey 5000mAh)</li>
+        <li>Jumper wires and speaker wire, or any other kind of
+        similar wire</li>
+        <li>Pulldown resistor for hall effect sensor</li>
+        <li>Magnet for bike spoke</li>
+        <li>Hall effect sensor</li>
+    </ol><img class="imageDef" src="../images/bikeComputerAnim.gif"
+    alt="Bike Computer GIF">
+    <p class="articleBody"><br>
+    <span class="bold">Wiring it all up</span> First things first -
+    measure the distance from where you want to mount the computer
+    to where you'll place the sensor (likely on the chainstay near
+    the outside of the wheel) and keep this in mind as you measure
+    out the length for the sensor end of the wires.</p>
+    <ul>
+        <li>Arduino wires</li>
+        <ol>
+            <li>VIN to Nextion power supply positive</li>
+            <li>5V to split - 3.5mm jack socket end red wire and
+            Nextion +</li>
+            <li>GND to split - 3.5mm jack socket end white wire and
+            Nextion -</li>
+            <li>GND to Nextion power supply negative (2 wires in
+            same GND on my build)</li>
+            <li>TX to yellow Nextion</li>
+            <li>RX to blue Nextion</li>
+            <li>D2 to 3.5mm jack socket end yellow wire</li>
+        </ol><br>
+        <li>Sensor side of 3.5mm jack (pin end)</li>
+        <ol>
+            <li>Left most pin to split - 3.5mm jack pin end red
+            wire (5V) and pulldown resistor</li>
+            <li>Middle pin to 3.5mm jack pin end yellow wire</li>
+            <li>Right most pin to split - 3.5mm jack pin end and
+            white wire (GND) and pulldown resistor</li>
+        </ol>
+    </ul><br>
+    <img class="image50Cent" src=
+    "../images/bikeComputerProgress.jpg" alt=
+    "Bike Computer wiring progress"><br>
+    <p class="articleBody"><span class="bold">Loading the
+    Arduino:</span><br></p>
+    <ol>
+        <li>Download the Nextion.H library, see "troubleshooting"
+        below if using Arduino with only 1 serial</li>
+        <li>Place library in necessary location</li>
+        <li>Load the .tft file from the Nextion Screen file onto an
+        SD card (NO OTHER FILES ON SD CARD)</li>
+        <li>Power off Nextion, insert SD card, wait for load, power
+        off, remove SD card</li>
+        <li>Open the code from Arduino Code/ArduinoBikeComputer
+        folder</li>
+        <li>Compile the code and upload to Arduino</li>
+    </ol>
+    <p class="articleBody"><span class="bold">Printing the
+    case:</span><br>
+    <br>
+    Not much to say here - print the case out on a 3d printer or
+    use a web store to get it done. It takes a bit to cram all the
+    wires in there, but you can put some superglue or other around
+    the edges to get it all to stay together. The brackets on the
+    bottom of the extruded cylinder are used to tywrap the case to
+    handlebars.<br></p><img class="image50Cent" src=
+    "../images/bikeComputerCase.jpg" alt="Bike Computer Case"><br>
+    <br>
+    <h3>Troubleshooting</h3>
+    <p class="articleBody">I used an Arduino Nano for this. The
+    Nextion.h library is set up to use an Arduino with multiple
+    serial ports by default. First build of my code I got this
+    -</p>
+    <pre>
+        <code>
+        In file included from C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexHardware.h:18:0,
         from C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexHardware.cpp:15:
-	C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexHardware.cpp: In function 'bool recvRetNumber(uint32_t*, uint32_t)':
-	C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexConfig.h:37:19: error: 'Serial2' was not declared in this scope
-	#define nexSerial Serial2
+        C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexHardware.cpp: In function 'bool recvRetNumber(uint32_t*, uint32_t)':
+        C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexConfig.h:37:19: error: 'Serial2' was not declared in this scope
+        #define nexSerial Serial2
                    ^
-	C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexHardware.cpp:55:5: note: in expansion of macro 'nexSerial'
-		nexSerial.setTimeout(timeout);
-		^~~~~~~~~
-	</code>
-	</pre>
-	
-	
-	<h3>Things learned in the process/final notes</h3>
-	<p class="articleBody">
-	I actually started all this using a SSD1306 TFT display.  I tried multiple different libraries and rewrote my code a few times, but updating the screen took so much of the Arduino's processing power that the main loop slowed down to the point where the hall effect sensor wouldn't register the magnet on a rotation of the wheel.  It went from 100+hz to about 4hz.  The SSD1306 also required something like 8 wires and 6 resistors.
-	<br>
-	<br>
-	The Nextion display has a built in processor for the screen, so it only needs power and 2 data lines, which makes packaging much easier. The built in processor for video processing means instructions are just passed over the RX/TX lines, rather than requiring the Arduino to use its own processing power to draw every frame.  The editor is also incredibly easy to use, and updating the screen with a Micro SD card is a dead simple process.
-	<br>
-	<br>
-	I think I spent $7 extra on this Nextion as compared to the SSD1306.  I read elsewhere that TJC panels are the same as Nextion, and can be found for around half price on AliExpress.  I'll probably go that route next time.
-	<br>
-	<br>
-		I found the main code for the timer and added my functionality on top.  I originally tried using the main loop to measure everything, but as I added more features to the code, it slowed down and would only read millis() at like 3hz,  so the magnet could pass by the sensor without being read among other issues.
-	<br>
-	<br>
-	The basic part of the code is to read the time between when the magnet passes by the hall effect sensor.  Each other piece of functionality (avg mph, mph, distance) is all built on top of that.  I also rely on millis() to do hour/minute/second readout.  I don't necessarily need the precision of an RTC.
-	<br><br><br><br><br><br><br><br><br>
-	
-	
-	</p>
-	
+        C:\Program Files (x86)\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\NexHardware.cpp:55:5: note: in expansion of macro 'nexSerial'
+                nexSerial.setTimeout(timeout);
+                ^~~~~~~~~
+        </code>
+        </pre>
+    <h3>Things learned in the process/final notes</h3>
+    <p class="articleBody">I actually started all this using a
+    SSD1306 TFT display. I tried multiple different libraries and
+    rewrote my code a few times, but updating the screen took so
+    much of the Arduino's processing power that the main loop
+    slowed down to the point where the hall effect sensor wouldn't
+    register the magnet on a rotation of the wheel. It went from
+    100+hz to about 4hz. The SSD1306 also required something like 8
+    wires and 6 resistors.<br>
+    <br>
+    The Nextion display has a built in processor for the screen, so
+    it only needs power and 2 data lines, which makes packaging
+    much easier. The built in processor for video processing means
+    instructions are just passed over the RX/TX lines, rather than
+    requiring the Arduino to use its own processing power to draw
+    every frame. The editor is also incredibly easy to use, and
+    updating the screen with a Micro SD card is a dead simple
+    process.<br>
+    <br>
+    I think I spent $7 extra on this Nextion as compared to the
+    SSD1306. I read elsewhere that TJC panels are the same as
+    Nextion, and can be found for around half price on AliExpress.
+    I'll probably go that route next time.<br>
+    <br>
+    I found the main code for the timer and added my functionality
+    on top. I originally tried using the main loop to measure
+    everything, but as I added more features to the code, it slowed
+    down and would only read millis() at like 3hz, so the magnet
+    could pass by the sensor without being read among other
+    issues.<br>
+    <br>
+    The basic part of the code is to read the time between when the
+    magnet passes by the hall effect sensor. Each other piece of
+    functionality (avg mph, mph, distance) is all built on top of
+    that. I also rely on millis() to do hour/minute/second readout.
+    I don't necessarily need the precision of an RTC.<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br></p>
 </body>
 </html>
