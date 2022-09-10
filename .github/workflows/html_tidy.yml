@@ -1,0 +1,32 @@
+---
+name: html_tidy
+
+on: push
+
+jobs:
+  html_tidy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - run: sudo apt install tidy
+      
+      - name: Tidy index.html
+        run: tidy --indent auto --wrap 0 --indent-spaces 4 --force-output yes -o index.html index.html
+        continue-on-error: true
+        
+      - name: Tidy resume.html
+        run: tidy --indent auto --wrap 0 --indent-spaces 4 --force-output yes -o resume.html resume.html
+        continue-on-error: true
+
+      - name: Tidy articles/ directory
+        run: tidy --indent auto --wrap 0 --indent-spaces 4 --force-output yes -mq articles/**.*
+        continue-on-error: true
+
+      - run: tree tidy/efranken.github.io/
+
+      - run: |
+          git status
+          git config --global user.name 'actions-efranken'
+          git config --global user.email 'efranken@users.noreply.github.com'
+          git commit -a --reuse-message=HEAD
+          git push
