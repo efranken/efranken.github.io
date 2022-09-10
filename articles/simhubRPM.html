@@ -1,76 +1,54 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<title>EricFr@nkenberger.com</title> 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>EricFr@nkenberger.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body class="stackedit">
-
-	
-	<br>
-	<center>
-	<div style="display: inline-block; vertical-align:middle;">
-		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
-		<br>
-		<hr style="width:200px"/>
-		<span class="bold">
-			<a class="title" href="../index.html">HOME</a> &nbsp;
-			<a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
-            <a class="title" href="https://github.com/efranken">GITHUB</a>
-		</span>
-	</center>
-	<br>
-
-	<div class="articles">
-		<p><span class="bold">[01-04-2020] | </span>Arduino RPM and Gear indicator <br /></p>
-	</div>
-	<hr />
-
-    
-    <img class="imageDef" src="..\images\simhubRPMGif.gif" alt="Animated shift light"><br>
-    
-    <p class="articleBody">Instructions specific to Arduino Nano Every
-    Project requires:
+    <br>
+    <center>
+        <div style="display: inline-block; vertical-align:middle;">
+            <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a><br>
+            <hr style="width:200px">
+            <span class="bold"><a class="title" href="../index.html">HOME</a> &nbsp; <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp; <a class="title" href="https://github.com/efranken">GITHUB</a></span>
+        </div>
+    </center><br>
+    <div class="articles">
+        <p><span class="bold">[01-04-2020] |</span> Arduino RPM and Gear indicator<br></p>
+    </div>
+    <hr>
+    <img class="imageDef" src="../images/simhubRPMGif.gif" alt="Animated shift light"><br>
+    <p class="articleBody">Instructions specific to Arduino Nano Every Project requires:</p>
     <ul>
-    <li>1x Arduino Nano Every</li>
-    <li>1x SSD1306 128x64px OLED screen</li>
-    <li>2x 8 pixel Neopixel strips</li>
-    <li>3d printed case (STL included in repository)</li>
-    <li>SimHub software</li>
+        <li>1x Arduino Nano Every</li>
+        <li>1x SSD1306 128x64px OLED screen</li>
+        <li>2x 8 pixel Neopixel strips</li>
+        <li>3d printed case (STL included in repository)</li>
+        <li>SimHub software</li>
     </ul>
-	</p>
-    
-	<p class="articleBody">
-    I started to get in to sim racing at the beginning of the pandemic, like everyone else who recently got into it.  I had been wanting a wheel for awhile and finally pulled the trigger on it.  From there everything went out of hand in usual fashion and within a month I had triple monitors, an 8020 sim rig, and a racing seat.
-    <br /><br />    
-    <img class="imageDef" src="..\images\simhubRPMsim.jpg">
-    <br /><br />
-    I kept thinking it would be fun to start messing with an Arduino, and that LED's were relatively simple to control.  I also really like the customizable LEDs that the steering wheels on the IndyCars run, so I wanted to see if I could make it all come together in a racing sim with my own setup.
-    <br /><br />
-    I ended up finding the incredibly powerful Simhub software.  It taps into the shared RAM or UDP stream that most sims output, formats everything into a common type, then allows you to output that data to a number of different devices.  
-    <br /><br />
-    I used the Arduino capabilities mainly, but you can even use an existing analog gauge cluster from a car to output telemetry to.  An example even uses an e36 cluster which I had laying around at the time.  Anyway, here's the basic instructions on how to replicate what I did.  The repository mentioned can be found on my Github.
-    <br />
-	
-		<img class ="imageDef" src="..\images\simhubRPMWiring.jpg">
-		<p align="center">Arduino Nano Every wiring diagram</p>
-    <h4 id="neopixel-setup">Neopixel setup</h2>
-</p>
-
-
+    <p class="articleBody">I started to get in to sim racing at the beginning of the pandemic, like everyone else who recently got into it. I had been wanting a wheel for awhile and finally pulled the trigger on it. From there everything went out of hand in usual fashion and within a month I had triple monitors, an 8020 sim rig, and a racing seat.<br>
+    <br>
+    <img class="imageDef" src="../images/simhubRPMsim.jpg"><br>
+    <br>
+    I kept thinking it would be fun to start messing with an Arduino, and that LED's were relatively simple to control. I also really like the customizable LEDs that the steering wheels on the IndyCars run, so I wanted to see if I could make it all come together in a racing sim with my own setup.<br>
+    <br>
+    I ended up finding the incredibly powerful Simhub software. It taps into the shared RAM or UDP stream that most sims output, formats everything into a common type, then allows you to output that data to a number of different devices.<br>
+    <br>
+    I used the Arduino capabilities mainly, but you can even use an existing analog gauge cluster from a car to output telemetry to. An example even uses an e36 cluster which I had laying around at the time. Anyway, here's the basic instructions on how to replicate what I did. The repository mentioned can be found on my Github.<br>
+    <img class="imageDef" src="../images/simhubRPMWiring.jpg"></p>
+    <p align="center">Arduino Nano Every wiring diagram</p>
+    <h4 id="neopixel-setup">Neopixel setup</h4>
     <ul>
-        <li> Place 2 strips together end to end</li>
-        <li>Flip over, solder all 4 pads straight across </li>
+        <li>Place 2 strips together end to end</li>
+        <li>Flip over, solder all 4 pads straight across</li>
         <li>Wire GND to Arduino GND</li>
-        <li>Wire 4-7VDC to 5v on Arduino </li>
+        <li>Wire 4-7VDC to 5v on Arduino</li>
         <li>Wire DIN to D6 on Arduino</li>
     </ul>
-    <h4 id="oled-setup---ssd1306-128x64">OLED setup - SSD1306 128x64</h2>
-    
+    <h4 id="oled-setup---ssd1306-128x64">OLED setup - SSD1306 128x64</h4>
     <ul>
         <li>Desolder pins on GND, VCC, SCL, SDA if necessary</li>
         <li>Wire GND to Arduino GND</li>
@@ -79,14 +57,9 @@
         <li>Wire SDA to A4 on Arduino</li>
         <li>SCL and SDA pins for Arduino Nano Every, may change per board</li>
     </ul>
-	
-
-
-    <p class="articleBody">Everything can now be placed in the case.</p>
-	
-	<img class="imageDef" src="..\images\simhubRPMCase.jpg">
-    <h4 id="simhub-setup">SIMHUB setup</h2>
-        <ul>
+    <p class="articleBody">Everything can now be placed in the case.</p><img class="imageDef" src="../images/simhubRPMCase.jpg">
+    <h4 id="simhub-setup">SIMHUB setup</h4>
+    <ul>
         <li>Plug in Arduino</li>
         <li>Open Arduino, go to My Hardware</li>
         <li>Set WS2812B leds count to 16</li>
@@ -94,13 +67,18 @@
         <li>Click open in Arduino IDE</li>
         <li>As you can see, the only 2 lines in the includes that aren't commented are the LCD and LED ones</li>
         <li>If you want to modify how the gear selection displays -
-            <ul><li>Go to SHGLCD_I2COLED.h file
-            <li>setRotation value can be changed to change orientation of text</li>
-            <li>setTextSize and setFont can be changed to change the size of text
-                <ul><li>Mine looks like this</li>
-        </ul></ul></ul>
-        
-                 <pre><code>
+            <ul>
+                <li>Go to SHGLCD_I2COLED.h file</li>
+                <li>setRotation value can be changed to change orientation of text</li>
+                <li>setTextSize and setFont can be changed to change the size of text
+                    <ul>
+                        <li>Mine looks like this</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <pre><code>
     void Init() {
         glcd1.begin(SSD1306_SWITCHCAPVCC, 0x3C);
         glcd1.clearDisplay();
@@ -112,14 +90,16 @@
         glcd1.print("");
         glcd1.display();
         }
-                 </pre></code>
-        <ul>
+                 </code></pre>
+    <ul>
         <li>Save the files necessary</li>
         <li>Import "LED Strip.ledsprofile" in Simhub under Arduino/RGB LEDs</li>
         <li>Modify part1.ini under SimHub\OLEDTemplate\Ingame\0_Default or overwrite with file from this repository</li>
-           <ul><li> Mine looks like this </li>  
-        </ul></ul>
-                <pre><code>
+        <ul>
+            <li>Mine looks like this</li>
+        </ul>
+    </ul>
+    <pre><code>
     [Text]
     X=37
     Y=100
@@ -128,16 +108,18 @@
     FontSize=3
     FontType=2
     Align=3
-                </pre></code>
-    
+                </code></pre>
     <ul>
-    <li>Upload sketch to Arduino from the Arduino IDE</li>
-    <li>After you get it where you want, back up the files in SimHub\_Addons\Arduino\DisplayClientV2</li>
-    </ul>
-    
-    </div>
-		
-    <br /><br /><br /><br /><br /><br /><br /><br /><br />
-    </body>
-
+        <li>Upload sketch to Arduino from the Arduino IDE</li>
+        <li>After you get it where you want, back up the files in SimHub\_Addons\Arduino\DisplayClientV2</li>
+    </ul><br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
 </html>
