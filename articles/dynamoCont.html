@@ -1,71 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<title>EricFr@nkenberger.com</title> 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>EricFr@nkenberger.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
-	<br>
-	<center>
-	<div style="display: inline-block; vertical-align:middle;">
-		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
-		<br>
-		<hr style="width:200px"/>
-		<span class="bold">
-			<a class="title" href="../index.html">HOME</a> &nbsp;
-			<a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
-            <a class="title" href="https://github.com/efranken">GITHUB</a>
-		</span>
-	</center>
-	<br>
-
-	<div class="articles">
-		<p><span class="bold">[08-12-2020] | </span>Boto3 and DynamoDB continued <br /></p>
-	</div>
-	<hr />
-	
-	<p class="articleBody">
-        As I start this off, I don't even know how to figure out how to ask the question of what I need to do next, but my steps seem to be:
-    </p>
-        <ol>
-            <li>Make an API post request when a visitor hits the site</li>
-            <li>Make that POST request trigger a LAMBDA function</li>
-            <li>Use the Lambda function to increment the visitor counter number in DynamoDB</li>
-        </ol>
-    
-    <p class="articleBody">
-        Now that I typed it out, it seems easier.  I had some more grandiose plans including logging IP of visitor to do a pseudo unique visit count, but that's really a little much for what I want to do here.  I have a lot more to go and I want to focus more on the CI/CD aspect of all this. Maybe more in the future.
-        <br />
-        <br />
-        I think that the plan is to "store" a variable in DynamoDB, get it, increment by 1, then edit the table entry to increment by 1.
-        <br />
-        <br />
-        I tried this code against the test I had set up in the last article:
-    </p>
-    
+    <br>
+    <center>
+        <div style="display: inline-block; vertical-align:middle;">
+            <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a><br>
+            <hr style="width:200px">
+            <span class="bold"><a class="title" href="../index.html">HOME</a> &nbsp; <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp; <a class="title" href="https://github.com/efranken">GITHUB</a></span>
+        </div>
+    </center><br>
+    <div class="articles">
+        <p><span class="bold">[08-12-2020] |</span> Boto3 and DynamoDB continued<br></p>
+    </div>
+    <hr>
+    <p class="articleBody">As I start this off, I don't even know how to figure out how to ask the question of what I need to do next, but my steps seem to be:</p>
+    <ol>
+        <li>Make an API post request when a visitor hits the site</li>
+        <li>Make that POST request trigger a LAMBDA function</li>
+        <li>Use the Lambda function to increment the visitor counter number in DynamoDB</li>
+    </ol>
+    <p class="articleBody">Now that I typed it out, it seems easier. I had some more grandiose plans including logging IP of visitor to do a pseudo unique visit count, but that's really a little much for what I want to do here. I have a lot more to go and I want to focus more on the CI/CD aspect of all this. Maybe more in the future.<br>
+    <br>
+    I think that the plan is to "store" a variable in DynamoDB, get it, increment by 1, then edit the table entry to increment by 1.<br>
+    <br>
+    I tried this code against the test I had set up in the last article:</p>
     <pre> <code>
     test = table.query(
            ProjectionExpression="id",
            KeyConditionExpression=Key('id').eq('frankie'),
     )
     </code> </pre>
-    
-    <p class="articleBody">
-        However, it just returns:
-    </p>
-    
+    <p class="articleBody">However, it just returns:</p>
     <pre> <code>
     [{'id': 'frankie'}]
     </code> </pre>
-    
-    <p class="articleBody">
-        I switched it from a query to a get because we just need 1 single item.  Looks like this:
-    </p>
-    
+    <p class="articleBody">I switched it from a query to a get because we just need 1 single item. Looks like this:</p>
     <pre> <code>
     get = table.get_item(
            Key={'id': 'frankie', 'type': 'cat'}
@@ -76,22 +52,12 @@
 
     print(name)
     </code> </pre>
-    
-    <p class="articleBody">
-
-        And it returns:
-    </p>
-    
+    <p class="articleBody">And it returns:</p>
     <pre> <code>
     frankie
     </code> </pre>
-    
-    <p class="articleBody">
-        Now I can adapt this to the "counter" I want to do.
-    <br />
-        I created a new table and got it all going using this code:
-    </p>
-    
+    <p class="articleBody">Now I can adapt this to the "counter" I want to do.<br>
+    I created a new table and got it all going using this code:</p>
     <pre> <code>
     import boto3
     from boto3.dynamodb.conditions import Key
@@ -130,12 +96,6 @@
 
     print("post table add", visitorNo)
     </code> </pre>
-    
-    <p class="articleBody">
-        This is sloppy but it works.  I'll clean the code up for the actual Lambda function.  Now that I have the update going, I just need to do the POST API call and have API Gateway trigger Lamda.
-	</p>
-	
-	
-	
+    <p class="articleBody">This is sloppy but it works. I'll clean the code up for the actual Lambda function. Now that I have the update going, I just need to do the POST API call and have API Gateway trigger Lamda.</p>
 </body>
 </html>
