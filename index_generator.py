@@ -10,9 +10,6 @@ from datetime import datetime
 FOLDER_NAME = "articles"
 ARTICLE_PATH = pathlib.Path(__file__).parent / FOLDER_NAME
 
-INDEX_NAME = "index_generated.txt"
-INDEX_PATH = pathlib.Path(__file__).parent / "index_generated.txt"
-
 DIR_LIST = os.listdir(ARTICLE_PATH)
 
 TITLE_LOCATOR = "<div class=\"articles\">"
@@ -73,17 +70,15 @@ def add_links():
 
     link_builder_close = "</a>"
     link_locator_open = "</span>"
-    link_locator_close = "<br />"
+    link_locator_close = "<br>"
 
     for title in title_lines:
         link_builder_open = "<a href=\"articles/" + links[link_iterator] + "\">"
         link_builder_open_pattern = re.compile(link_locator_open, re.I)
         link_builder_string = (link_builder_open_pattern.sub(link_locator_open+link_builder_open, title))
-
+        
         link_builder_close_pattern = re.compile(link_locator_close, re.I)
-        link_builder_string = (
-            link_builder_close_pattern.sub
-            (link_builder_close+link_locator_close, link_builder_string))
+        link_builder_string = (link_builder_close_pattern.sub(link_builder_close+link_locator_close, link_builder_string))
 
         links_added_titles.append(link_builder_string)
         link_iterator += 1
@@ -96,15 +91,13 @@ def sort_links():
 
     sort_list = sorted(
         sort_list,
-        key=lambda x: datetime.strptime(x[37:49], '[%d-%m-%Y]'))  # very dependent on doc format
+        key=lambda x: datetime.strptime(x[43:55], '[%d-%m-%Y]'))  # very dependent on doc format
 
     return sort_list
 
 def write_index():
     write_list = sort_links()
-    full_length = 0
-
-    print(write_list)
+    print(os.listdir())
     with open("index.html", 'r') as file:
         lines = file.readlines()
         file.close()
@@ -118,13 +111,15 @@ def write_index():
     with open("index.html", 'r') as file:
         lines = file.readlines()
 
+
     with open("index.html", 'w') as file:
         for i in range(0, len(lines)):
 
-            if "<!--articles begin-->\n" in lines[i]:
+            if "<!--articles begin-->" in lines[i]:
 
                 for a in range(0, len(write_list)):
                     lines.insert(i+1, write_list[a])
+                    print(write_list[a])
 
         for i in range(0, len(lines)):
             file.write(lines[i])
