@@ -21,31 +21,18 @@
         <p><span class="bold">[05-09-2022] |</span> Github Actions - HTML formatting<br></p>
     </div>
     <hr>
-
-<p class="articleBody">
-    TL;DR - I wanted to experiment with github actions, so the HTML files on this site are now autoformatted on git commit by my <a href=https://github.com/efranken/efranken.github.io/blob/master/.github/workflows/html_tidy.yml>html_tidy action.</a><br />
-
-    <br />
-    At work, we use Bitbucket for Git and Jenkins for automation.  I'm interested in checking out Github Actions for a couple things to organize this site:
-    </p>
+    <p class="articleBody">TL;DR - I wanted to experiment with github actions, so the HTML files on this site are now autoformatted on git commit by my <a href="https://github.com/efranken/efranken.github.io/blob/master/.github/workflows/html_tidy.yml">html_tidy action.</a><br>
+    <br>
+    At work, we use Bitbucket for Git and Jenkins for automation. I'm interested in checking out Github Actions for a couple things to organize this site:</p>
     <ul>
-    <li>HTML file formatting</li>
-    <li>Python file formatting to conform to pep standards</li>
-    <li>Automatically run index generator on commit</li>
+        <li>HTML file formatting</li>
+        <li>Python file formatting to conform to pep standards</li>
+        <li>Automatically run index generator on commit</li>
     </ul>
-    <p class="articleBody">
-        As with the other projects I've done - this is to learn, rather than to complete a goal with maximal efficiency.  File formatters cause issues with code, and modification of working code after a commit can lead to errors.  Who cares.  I want to learn Github Actions and this website is a sandbox.
-        
-    <br />
-    
-
-
-        <p class="articleBody bold">Getting Started</p>
-  
-        <p class="articleBody">
-        Starting off, the index.html of this site copy/pasted into a test repo.  I mimicked the folder structure of .github/workflows/$name.yml, with the yml containing in structions to:
-
-        <pre>
+    <p class="articleBody">As with the other projects I've done - this is to learn, rather than to complete a goal with maximal efficiency. File formatters cause issues with code, and modification of working code after a commit can lead to errors. Who cares. I want to learn Github Actions and this website is a sandbox.<br></p>
+    <p class="articleBody bold">Getting Started</p>
+    <p class="articleBody">Starting off, the index.html of this site copy/pasted into a test repo. I mimicked the folder structure of .github/workflows/$name.yml, with the yml containing in structions to:</p>
+    <pre>
             <code>
         ---
         name: Test
@@ -62,13 +49,10 @@
             - run: cat index.html
             </code>
         </pre>
-        <p class = "articleBody">
-        It ran the first time.  I honestly did not expect this to take 2 minutes.  I thought I was going to be fighting configurations, formatting, file pathing, and so on. <br />
-          I blocked off multiple hours to figure this out. 
-          <br />
-           Instead, all I did was push code and Github Actions automatically picked up my YML file and off it went.  Of course, there are multiple errors on the index.html alone due to me handwriting the HTML originally.
-        </p>
-        <pre>
+    <p class="articleBody">It ran the first time. I honestly did not expect this to take 2 minutes. I thought I was going to be fighting configurations, formatting, file pathing, and so on.<br>
+    I blocked off multiple hours to figure this out.<br>
+    Instead, all I did was push code and Github Actions automatically picked up my YML file and off it went. Of course, there are multiple errors on the index.html alone due to me handwriting the HTML originally.</p>
+    <pre>
             <code>
         Run tidy --indent auto --indent-spaces 4 --force-output yes -o index_output.html index.html
         line 14 column 9 - Warning: missing /div
@@ -79,25 +63,18 @@
         Tidy found 3 warnings and 0 errors!
         </code>
     </pre>
-    
-<p class = "articleBody">
-        It looks like I need to update some of the HTML on this site, but I'd rather see this project through before I go in a completely different direction.  Also it exited with error code 1 and no logs providing information as to why it failed.  Maybe this is where it takes hours.
-        <br />
-        <br />
-        I'd guess the issue is something with the command I pass to tidy.  I can't run that command from cmd on Windows, so here we go, install WSL, reboot, install tidy, try again.
-        <br />
-        <br />
-        That command works locally.  It's probably an issue with github actions not being allowed to create a file, as index_output.html does appear in the repo.
-        <br />
-        <br />
-        NOPE THAT'S NOT IT.  For some reason it always fails even though it's completing the action.  Adding continue-on-error: true after the run command makes it go through.  I wouldn't do this in any kind of real deployment, but the goal of this is to figure out Github Actions not troubleshoot something random all night.
-        <br />
-        <br />
-        Now that we're past that, it runs on index.html, resume.html, and **.html in articles/.  The only issue I encountered was that Tidy was wrapping text lines, which might have conflicted with how generate_index.py works.  Setting --wrap 0 fixes this.
-        <br />
-        <br />
-        Here is the final YML used:
-        <pre>
+    <p class="articleBody">It looks like I need to update some of the HTML on this site, but I'd rather see this project through before I go in a completely different direction. Also it exited with error code 1 and no logs providing information as to why it failed. Maybe this is where it takes hours.<br>
+    <br>
+    I'd guess the issue is something with the command I pass to tidy. I can't run that command from cmd on Windows, so here we go, install WSL, reboot, install tidy, try again.<br>
+    <br>
+    That command works locally. It's probably an issue with github actions not being allowed to create a file, as index_output.html does appear in the repo.<br>
+    <br>
+    NOPE THAT'S NOT IT. For some reason it always fails even though it's completing the action. Adding continue-on-error: true after the run command makes it go through. I wouldn't do this in any kind of real deployment, but the goal of this is to figure out Github Actions not troubleshoot something random all night.<br>
+    <br>
+    Now that we're past that, it runs on index.html, resume.html, and **.html in articles/. The only issue I encountered was that Tidy was wrapping text lines, which might have conflicted with how generate_index.py works. Setting --wrap 0 fixes this.<br>
+    <br>
+    Here is the final YML used:</p>
+    <pre>
             <code>
     ---
     name: html_tidy
@@ -132,15 +109,11 @@
             git commit -a --reuse-message=HEAD
             git push
             </code>
-        </pre>
-        <br />
-        <br />
-        <br />
-        <br />
-     <a class="title" href="../index.html">HOME</a> &nbsp;
-     <br />
-     <br />
-    </p>
-    
-    </p>
-   
+        </pre><br>
+    <br>
+    <br>
+    <br>
+    <a class="title" href="../index.html">HOME</a> &nbsp;<br>
+    <br>
+</body>
+</html>
