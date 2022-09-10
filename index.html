@@ -2,53 +2,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>EricFr@nkenberger.com</title> 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>EricFr@nkenberger.com</title> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-	<br>
-	<center>
-	<div style="display: inline-block; vertical-align:middle;">
-		<a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
-		<br>
-		<hr style="width:200px"/>
-		<span class="bold">
-			<a class="title" href="index.html">HOME</a> &nbsp;
-			<a class="title" href="resume.html">RESUME/CONTACT</a> &nbsp;
+    <br>
+    <center>
+    <div style="display: inline-block; vertical-align:middle;">
+        <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
+    </div>
+        <br>
+        <hr style="width:200px"/>
+        <span class="bold">
+            <a class="title" href="index.html">HOME</a> &nbsp;
+            <a class="title" href="resume.html">RESUME/CONTACT</a> &nbsp;
             <a class="title" href="https://github.com/efranken">GITHUB</a>
-		</span>
-	</center>
-	<br>
+        </span>
+    </center>
+    <br>
 
-	
-	
-	
+    
+    
+    
 
-	<div class="column">
-		<p align=center>This website contains articles on various technical and mechanical projects I have worked on.
-		<!--
-		<div style="text-align: center; font-weight:bold">
-			<div style="display: inline-block; text-align: left;">
-				+ articles are related to learning DevOps <br /> 
-				- articles are non-tech,<br /> 
-				&nbsp; all others are general tech.</p>
-			</div>
-		</div>
-		-->				
-	</div>
-	
-	<hr />
-	
-	<div class="counter" id="counter"><script>document.write(counter);</script></div>
-	
-	<div class="articlesList">
-		<br />
-		<p>
-		<span class="bold">[About]</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="other_pages/aboutSite.html">About this site</a> <br /><br />
-		<!--articles begin-->
+    <div class="column">
+        <p align="center">This website contains articles on various technical and mechanical projects I have worked on.		
+    </div>
+    
+    <hr />
+    
+    <div class="counter" id="counter"><script>document.write(counter);</script></div>
+    
+    <div class="articlesList">
+        <br />
+        <p>
+        <span class="bold">[About]</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="other_pages/aboutSite.html">About this site</a> <br /><br />
+        <!--articles begin-->
 <!--generated-->		<span class="bold">[05-09-2022] | </span><a href="articles/articleListGenerator.html">Generated Article List </a><br />
 <!--generated-->		<span class="bold">[03-09-2022] | </span><a href="articles/videoRecording.html">Selenium 4 Custom Video Recording </a><br />
 <!--generated-->		<span class="bold">[07-07-2021] | </span><a href="articles/remoteApp.html">RemoteApp Cert Woes </a><br />
@@ -64,37 +56,28 @@
 <!--generated-->		<span class="bold">[09-06-2020] | </span><a href="articles/0x800.html">0x800f0922</a><br />
 <!--generated-->		<span class="bold">[01-04-2020] | </span><a href="articles/simhubRPM.html">Arduino RPM and Gear indicator </a><br />
 <!--generated-->		<span class="bold">[11-04-2019] | </span><a href="articles/mapLite.html">Mikrotik mAP Lite Travel Router </a><br />
-		<!--
-			Selenium 4 node design
-			Selenium 4 fully distributed model
-			Selenium 4 scaling
-			Selenium 4 overview
-		-->
-
-	</div>
+    </div>
 
 
 
-	
-	    <script>
-		var test = 1;
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+    
+    <script>
+        var test = 1;
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
-    let counter = document.getElementById('counter');
+        let counter = document.getElementById('counter');
 
-    fetch("https://qgb12s4p01.execute-api.us-east-2.amazonaws.com/test/transactions", requestOptions)
-        .then(response => response.text())
-        .then(result => {
-
-            counter.innerHTML = result;
-        })
+        fetch("https://qgb12s4p01.execute-api.us-east-2.amazonaws.com/test/transactions", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                counter.innerHTML = result;
+            })
         .catch(error => {
             counter.innerHTML = error;
-        });
+            });
     </script>
-
 </body>
 </html>

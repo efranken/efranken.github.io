@@ -1,0 +1,32 @@
+github actions
+
+TL;DR - the files of this site are now autoformatted and generate_articles.py is ran to generate index.html's article list on a git push with Github Actions.  Learning this will provide utility at work so I can set up commit actions with Bitbucket as well.
+
+At work, we use Bitbucket for Git and Jenkins for automation.  I'm interested in checking out Github Actions for a couple things to organize this site.
+
+HTML file formatting
+Python file formatting to conform to pep standards
+Automatically run index generator on commit
+
+As with the other projects I've done - this isn't always the greatest way to do things.  File formatters cause issues with code, and modification of working code after a commit can lead to errors.  Who cares.  I want to learn Github Actions and this website is a sandbox.
+
+
+HTML file formatting
+
+Starting off with index.html of this site copy/pasted into a new repo to see how tidy works when ran from github actions, along with a yml telling Github to get the latest ubuntu for the action, install Tidy, format the file, and output the resultant .html.
+
+I honestly did not expect this to take 2 minutes.  I thought I was going to be fighting configurations, formatting, file pathing, and so on.  I blocked off multiple hours to figure this out.  Instead, all I did was push code and Github Actions automatically picked up my YML file and off it went.
+
+Of course, there are multiple errors on the index.html alone due to me handwriting the HTML originally.
+
+Run tidy --indent auto --indent-spaces 4 --tidy-mark no --force-output yes -o index_output.html index.html
+line 14 column 9 - Warning: missing </div>
+line 31 column 17 - Info: value for attribute "align" missing quote marks
+line 13 column 9 - Warning: <center> element removed from HTML5
+line 31 column 17 - Warning: <p> attribute "align" not allowed for HTML5
+Info: Document content looks like HTML5
+Tidy found 3 warnings and 0 errors!
+
+It looks like I need to update some of the HTML on this site, but I'd rather see this project through before I go in a completely different direction.  Also it exited with error code 1 and no logs providing information as to why it failed.  Maybe this is where it takes hours.
+
+I'd guess the issue is something with the command I pass to tidy - - run: tidy --indent auto --indent-spaces 2 --tidy-mark no --force-output yes -o index_output.html index.html .  I can't run that command from cmd on Windows, so here we go, install WSL, reboot, install tidy, try again.
