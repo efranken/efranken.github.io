@@ -36,17 +36,15 @@ def parse_titles():
     all_lines = []
     title_lines = []
     locator_iterator = 0
-
-    print(str(ARTICLE_PATH))  
     
     for article in DIR_LIST:                                            # get lines of all articles
-        if platform.system() is "Windows":
+        if platform.system() ==  "Windows":
             with open(str(ARTICLE_PATH) + "\\" + article, 'rt') as file:
                 for line in file:
                     all_lines.append(line)
                 file.close()
 
-        if platform.system() is "Linux":
+        if platform.system() == "Linux":
             with open(str(ARTICLE_PATH) + "/" + article, 'rt') as file:
                 for line in file:
                     all_lines.append(line)
@@ -108,7 +106,7 @@ def sort_links():
 
 def write_index():
     write_list = sort_links()
-    print(os.listdir())
+
     with open("index.html", 'r') as file:
         lines = file.readlines()
         file.close()
