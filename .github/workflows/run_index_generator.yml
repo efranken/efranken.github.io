@@ -4,11 +4,10 @@ name: run_index_generator
 on: push
 
 jobs:
-  html_tidy:
+  run_index_generator:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.1.0
-      - run: sudo apt install tidy
       
       - name: Run index_generator.py
         run: python3 index_generator.py
