@@ -7,7 +7,6 @@ on:
     types:
       - completed
 
-
 jobs:
   html_tidy:
     runs-on: ubuntu-latest
