@@ -12,6 +12,9 @@ jobs:
       - name: Run index_generator.py
         run: python3 index_generator.py
 
+      - name: cat index.html
+        run: cat index.html
+
       - run: |
           git status
           git config --global user.name 'actions-efranken'
