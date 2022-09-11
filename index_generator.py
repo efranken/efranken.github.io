@@ -3,6 +3,7 @@
 
 import os
 import pathlib
+import platform
 import re
 from datetime import datetime
 
@@ -20,7 +21,6 @@ def count_articles():
     for article in DIR_LIST:
         article_count += 1
     print("Found", article_count, "articles")
-
     return article_count
 
 
@@ -37,11 +37,20 @@ def parse_titles():
     title_lines = []
     locator_iterator = 0
 
+    print(str(ARTICLE_PATH))  
+    
     for article in DIR_LIST:                                            # get lines of all articles
-        with open(str(ARTICLE_PATH) + "\" + article, 'rt') as file:
-            for line in file:
-                all_lines.append(line)
-            file.close()
+        if platform.system() is "Windows":
+            with open(str(ARTICLE_PATH) + "\\" + article, 'rt') as file:
+                for line in file:
+                    all_lines.append(line)
+                file.close()
+
+        if platform.system() is "Linux":
+            with open(str(ARTICLE_PATH) + "/" + article, 'rt') as file:
+                for line in file:
+                    all_lines.append(line)
+                file.close()
 
     for line in all_lines:                                              # store next line after locator is found
         if TITLE_LOCATOR in line:
@@ -85,7 +94,7 @@ def add_links():
 
     links_added_titles = ["<!--generated-->" + item for item in links_added_titles]
     return links_added_titles
-
+    
 
 def sort_links():
     sort_list = add_links()
