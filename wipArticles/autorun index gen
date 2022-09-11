@@ -1,0 +1,18 @@
+Index generator now runs on a push.  It runs first, then html_tidy workflow runs after.  This requires 2 git pushes as they run on separate containers.  It's obviously more efficient to run this on the same workflow, but I wanted to figure out how to chain workflows.
+
+html_tidy.yml now looks like this at the start:
+
+---
+name: html_tidy
+
+on:
+  workflow_run:
+    workflows: ["run_index_generator"]
+    types:
+      - completed
+
+This index_generator runs and modifies the index, then tidying can commence.
+
+Another interesting consideration is that the container (I'm assuming it's a container at least) that it runs on has python3 by default.
+
+
