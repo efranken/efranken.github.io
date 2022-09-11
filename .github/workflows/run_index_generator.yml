@@ -21,4 +21,3 @@ jobs:
           git config --global user.email 'efranken@users.noreply.github.com'
           git commit --allow-empty -a --reuse-message=HEAD
           git push
-          
