@@ -1,7 +1,12 @@
 ---
 name: html_tidy
 
-on: push
+on:
+  workflow_run:
+    workflows: ["run_index_generator"]
+    types:
+      - completed
+
 
 jobs:
   html_tidy:
