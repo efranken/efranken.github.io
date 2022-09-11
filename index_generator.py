@@ -38,7 +38,7 @@ def parse_titles():
     locator_iterator = 0
 
     for article in DIR_LIST:                                            # get lines of all articles
-        with open(str(ARTICLE_PATH) + "\\" + article, 'rt') as file:
+        with open(str(ARTICLE_PATH) + "\" + article, 'rt') as file:
             for line in file:
                 all_lines.append(line)
             file.close()
@@ -86,6 +86,7 @@ def add_links():
     links_added_titles = ["<!--generated-->" + item for item in links_added_titles]
     return links_added_titles
 
+
 def sort_links():
     sort_list = add_links()
 
@@ -94,6 +95,7 @@ def sort_links():
         key=lambda x: datetime.strptime(x[43:55], '[%d-%m-%Y]'))  # very dependent on doc format
 
     return sort_list
+
 
 def write_index():
     write_list = sort_links()
