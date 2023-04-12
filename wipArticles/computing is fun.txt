@@ -1,0 +1,67 @@
+barries to installing ml libraries
+
+windows hijacked python env var and takes you to app store to download python, making me question if i had it installed before (i did)
+
+windows app store python installs 3.10 alongside the 3.9 that i already had installed
+
+wsl uses a different environment for python, didn't figure out what it is
+
+windows install resets path that pip installs to
+
+this path is not included in the original PATH env var so all commands for individual packages fail
+
+Gym ML library does not support windows?  cannot render?
+
+also does not mention anywhere that it should be used on linux, and is barely supported on windows
+
+jupyter notebook is what a lot of people use, tried it out, still fails because windows base machine
+
+try to run jupyter notebook on WSL, local server is so slow it is unresponsive
+
+try to run a VM on virtualbox, vm startup fails
+
+Disable hyper-v and do the bcdedit thing to keep it from running
+
+start it up, start installing ubuntu
+
+can't install all python packages because disk size is too small
+
+can't expand disk size because not enough space left on my computer
+
+try to resize vdi after making more space, fails
+	Resizing to new size 21474836480 is not yet supported for medium 'C:\Users\Erc\VirtualBox VMs\ml\ml.vdi'.
+
+have to make a copy and delete the old one
+
+then reattach the one i just created
+
+try to reinstall
+
+ubuntu does not autoexpand to new size of disk, partition still small
+
+partition can not be resized
+
+the built in tool was likely forcing an align to either a mb or cylinder which threw off the rest of the part when trying to resize
+
+had to download gparted and use the gui to expand while setting align to none
+
+gparted fails unless not set to max
+
+installed on python and ran code, still does not render?
+
+even after I get it running exactly as the youtube video does it the fucker still does not render anything
+
+none of these examples work
+
+they are all out of date, even the ones on the official websites.  Every single one of them has failed.
+
+Every gym example is outdated and still uses v0
+
+Every online example tells you to set "mode="human"" after in env.render()
+
+This has been deprecated, but it won't tell you that it's been deprecated, it just says it doesn't accept it as an argument
+
+You can also set env.render_mode but can't actaully pass a variable to it
+
+it turns out it needs to be set in env=gym.make('env', render_mode="human)
+

@@ -1,0 +1,71 @@
+Making the map in hammer
+
+Spawn is a box big enough for the player to start in, that leads the player off onto the left side of the ramp
+
+The floor is a teleporter that shoots the player into a black box the size of the player model + 1 unit, then the player falls down onto another teleporter
+
+This way, when they reach the spawn teleport again, they have no momentum.
+
+The win condition will be defined by being within a range of coordinates that the wintele moves you to.
+
+
+Next steps
+	set up timer on server
+	figure out how to get realtime telemetry outside of game
+	figure out how to write it to a database?
+	figure out which ml library to use
+
+AREA
+Action		move mouse and keys
+Reward		time to completion
+Environment	database outputs of
+			player position
+			speed
+Agent
+
+I got the sourcemod plugin working.  It writes player coordinates, left-right look angle, velocity, and tick to a database every tick.
+
+Now I need to go back in and modify the map so the start point is exactly at 0/0/0 just to make things easier, so I don't have to translate any numbers.
+
+what data do I need to write to the table?
+
+name    range       data type
+id		0-64		tinyint unsigned
+x       -3k+3k      smallint signed
+y       -3k+3k      smallint signed
+z       -3k+3k      smallint signed
+angle   -180+180    smallint signed
+speed   0-3500      smallint unsigned
+ticknum 0           int signed
+
+CREATE TABLE IF NOT EXISTS playerloc (
+	id		TINYINT		UNSIGNED	NOT NULL,
+	x		SMALLINT				NOT NULL,
+	y		SMALLINT				NOT NULL,
+	z		SMALLINT				NOT NULL,
+	angle	SMALLINT				NOT NULL,
+	speed	SMALLINT	UNSIGNED	NOT NULL,
+	ticknum	INT			UNSIGNED	NOT NULL,
+	INDEX (id)	
+) ENGINE=MyISAM
+
+how do I create the DB table
+
+create a new schema on local
+root blading 3 
+paste above sql into a query
+
+refreshing all does not list, click table then i icon by it
+then you can browse everything
+
+add within the configurations of /addons/sourcemod/configs/databases.cfg
+	{
+		"driver" "mysql"
+		"host" "localhost"
+		"database" "dbstats"
+		"user" "dbstats" CHANGE THIS LINE TO YOUR USER
+		"pass" "dbstats" CHANGE THIS LINE TO YOUR PW
+	}
+
+
+At some point I moved CSS to my SSD and hammer failed to launch because it was still looking for a file called gameinfo.txt on the old hard drive.  Registry keys had to be deleted for it to work again.  Computers, man.
