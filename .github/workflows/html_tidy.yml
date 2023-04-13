@@ -26,7 +26,7 @@ jobs:
         run: tidy --indent auto --wrap 0 --indent-spaces 4 --force-output yes -mq articles/**.*
         continue-on-error: true
 
-      - run: tree tidy/efranken.github.io/
+      - run: tree 
 
       - run: |
           git status
