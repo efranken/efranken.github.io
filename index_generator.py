@@ -31,7 +31,6 @@ def file_names():
 
     return file
 
-
 def parse_titles():
     all_lines = []
     title_lines = []
@@ -93,7 +92,6 @@ def add_links():
     links_added_titles = ["<!--generated-->" + item for item in links_added_titles]
     return links_added_titles
     
-
 def sort_links():
     sort_list = add_links()
 
@@ -102,7 +100,6 @@ def sort_links():
         key=lambda x: datetime.strptime(x[43:55], '[%d-%m-%Y]'))  # very dependent on doc format
 
     return sort_list
-
 
 def write_index():
     write_list = sort_links()
