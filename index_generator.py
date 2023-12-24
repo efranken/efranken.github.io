@@ -20,7 +20,7 @@ def count_articles():
     article_count = 0
     for article in DIR_LIST:
         article_count += 1
-    print("Found", article_count, "articles")
+    #print("Found", article_count, "articles")
     return article_count
 
 
@@ -97,7 +97,10 @@ def sort_links():
 
     sort_list = sorted(
         sort_list,
-        key=lambda x: datetime.strptime(x[43:55], '[%d-%m-%Y]'))  # very dependent on doc format
+        key=lambda x: datetime.strptime(re.search(r'\[(\d{2}-\d{2}-\d{4})\]', x).group(1), '%d-%m-%Y'))
+
+    for item in sort_list:
+        print(item)
 
     return sort_list
 
@@ -125,7 +128,7 @@ def write_index():
 
                 for a in range(0, len(write_list)):
                     lines.insert(i+1, write_list[a])
-                    print(write_list[a])
+                    #print(write_list[a])
 
         for i in range(0, len(lines)):
             file.write(lines[i])
