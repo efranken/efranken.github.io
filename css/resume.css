@@ -30,6 +30,14 @@ hr{
   margin:0px;
 }
 
+ul{
+  margin: 0px;
+}
+
+li{
+  margin: 1px;
+}
+
 table{
   font-size:11px;
   width: 0%;

@@ -1,0 +1,33 @@
+Service unavailable
+
+I recently took a new job.  I'll forever be thankful to my manager Chris and friends I made at Genesys, but I needed to move on for career growth.  At my new job, I found myself as the owner of our Tricentis Tosca deployment.  It led me on my biggest wild goose chase since https://nkenberger.com/articles/0x800.html.
+
+The rewrite
+
+When I came on, there was a server and 5 agents, all about 3 years old.  They were originally configured using manual click-ops.  The configuration drift between the agents was staggering.  When there was an issue, someone would remote in and fix it.  Sometimes, the fix would be applied to other agents.  One of them had failed Windows updates for over 2 years.  Testers had no faith in the infrastructure. 
+
+I started off on a rewrite to using configuration as code/infrastructure as code, with jobs as Azure DevOps pipelines.  This paid dividends almost immediately.  An upgrade from 16 patch 3 to 16 patch 6 took 20 minutes, whereas the last upgrade took a month.  Upgrading from 5 agents to 15 was as simple as changing $agents = 5 to $agents = 15.  
+
+Tosca Dashboards
+
+Tricentis Tosca was likely never made with a fully scripted install in mind.  Some things are only possible through the UI.  I had to go as far as diffing JSON files before/after changes in the UI to see if I could script a change.
+
+I deployed Tosca Dashboards as a replacement for ADO dashboards that showed test reports.  One part of the deployment is configuring the Notification Service, which can send data about tests to a separate database, which Tosca Dashboards reads.
+
+The Notification Service has a .json file that needs a few things modified: AnalyticsStreaming set to True, and 2 DB connection strings.  This was exciting because it was human readable and evident as to what needed to be changed.  I was also happy to see how well Powershell interacted with JSON.  I tested my change manually, then built it into the scripting and ran it.  I even double checked the resultant JSON with a linter.
+
+Next steps were running the uninstall job, then the install job to start fresh.  After that, I kicked off a test to make sure the agents would accept work.  Everything looked good.
+
+Initialization
+
+I ran the steps to initialize Tosca Dashboards with the data from previous tests.  It failed because the notification service wasn't running.  This was odd, because everything was exactly the same as I had configured it just before running the pipelines.  
+
+Event viewer showed various failures as I modified the service's appsettings.json.  I linted the JSON again to make sure it was valid.  I compared the lines I modified to a known good appsettings.json and verified they were fine.
+
+In a moment of despair I remoted into the server and saw that every single service was listed as "service unavailable".  Nothing could be modified, it wouldn't accept tests, and everything seemed to be stuck in some weird "running but not working" state.  
+
+After finally finding the relevant logs, I noticed an odd entry about failed JSON deserialization.  Even though I linted the thing 3 times.  Eventually I just got mad, reinstalled, got an unmodified appsettings.json.  Services worked again.
+
+After diffing the working and non working appsettings.json files, the issue was apparent.  For some rason, IN A PART OF THE FILE I DIDN'T EVEN MODIFY, Powershell's JSON writer had replaced ,'s with ;'s which caused the deserialization to fail.
+
+
