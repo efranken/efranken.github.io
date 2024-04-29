@@ -63,6 +63,8 @@ def remove_tags():
 
     for title in title_lines:
         pattern = re.compile("(<p>|</p>)", re.I)
+        title = re.sub(r'</span>\s+', '</span>', title) # remove trailing space after span from original title
+        title = re.sub(r'\|', '| ', title) # add space in after pipe to build link properly
         tags_removed_titles.append(pattern.sub("", title))
 
     return tags_removed_titles
@@ -81,11 +83,12 @@ def add_links():
     for title in title_lines:
         link_builder_open = "<a href=\"articles/" + links[link_iterator] + "\">"
         link_builder_open_pattern = re.compile(link_locator_open, re.I)
-        link_builder_string = (link_builder_open_pattern.sub(link_locator_open+link_builder_open, title))
-        
-        link_builder_close_pattern = re.compile(link_locator_close, re.I)
-        link_builder_string = (link_builder_close_pattern.sub(link_builder_close+link_locator_close, link_builder_string))
 
+        link_builder_string = (link_builder_open_pattern.sub(link_locator_open+link_builder_open,title))
+
+        link_builder_close_pattern = re.compile(link_locator_close, re.I)
+        link_builder_string = (link_builder_close_pattern.sub(link_builder_close+link_locator_close,link_builder_string))
+        print(link_builder_string)
         links_added_titles.append(link_builder_string)
         link_iterator += 1
 
@@ -100,7 +103,8 @@ def sort_links():
         key=lambda x: datetime.strptime(re.search(r'\[(\d{2}-\d{2}-\d{4})\]', x).group(1), '%d-%m-%Y'))
 
     for item in sort_list:
-        print(item)
+        #print(item)
+        pass
 
     return sort_list
 
