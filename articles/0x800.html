@@ -31,12 +31,12 @@
     Looking around further, there was a drive mounted as E:\ with a folder "BOOT" in it, along with all associated boot files! Clearly shouldn't be like that, and clearly that was the issue. Opening the partition with "detail part" in command line diskpart shows:</p>
     <pre>
                 <code>
-                        Partition 3
-                        Type    : ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
-                        Hidden  : No
-                        Required: No
-                        Attrib  : 0x800000000000000
-                        Offset in Bytes: 541065216
+        Partition 3
+        Type    : ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+        Hidden  : No
+        Required: No
+        Attrib  : 0x800000000000000
+        Offset in Bytes: 541065216
                 </code>
         </pre>
     <p class="articleBody">The type being "EBD.." marks it as a BDP, Basic Data Partition. This is why I could browse to it. It's also why Windows update was failing, it didn't know how to locate the system reserved partition. I don't know why it was still booting, but I was already 3 hours late at the office so it wasn't really the time to continue researching.<br>
@@ -44,23 +44,23 @@
     Here's the full set of commands I ran (dependent on :</p>
     <pre>
                 <code>
-                        list disk
-                        sel disk 3
-                        list part
-                        sel part 3
-                        set id=c12a7328-f81f-11d2-ba4b-00a0c93ec93b
-                        detail part
+        list disk
+        sel disk 3
+        list part
+        sel part 3
+        set id=c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+        detail part
                 </code>
         </pre>
     <p class="articleBody">After that detail part, diskpart shows:</p>
     <pre>
                 <code>
-                        Partition 3
-                        Type    : c12a7328-f81f-11d2-ba4b-00a0c93ec93b
-                        Hidden  : No
-                        Required: No
-                        Attrib  : 0x800000000000000
-                        Offset in Bytes: 541065216
+        Partition 3
+        Type    : c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+        Hidden  : No
+        Required: No
+        Attrib  : 0x800000000000000
+        Offset in Bytes: 541065216
                 </code>
         </pre>
     <p class="articleBody">And running a list part shows partition 3 as a "system" type instead of "primary" as it previously displayed. I rebooted the laptop and the updates kicked off and went fine!<br>
@@ -68,10 +68,10 @@
     For reference, Microsoft lists the types of partitions as:</p>
     <pre>
                 <code>
-                        Recovery: de94bba4-06d1-4d40-a16a-bfd50179d6ac
-                        Normal:   ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
-                        EFI:      c12a7328-f81f-11d2-ba4b-00a0c93ec93b
-                        Reserved: e3c9e316-0b5c-4db8-817d-f92df00215ae
+        Recovery: de94bba4-06d1-4d40-a16a-bfd50179d6ac
+        Normal:   ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+        EFI:      c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+        Reserved: e3c9e316-0b5c-4db8-817d-f92df00215ae
                 </code>
         </pre><br>
     <br>
