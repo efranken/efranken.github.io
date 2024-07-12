@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
@@ -21,25 +22,22 @@
     </div>
     <hr>
     <h3>Curl broke it</h3>
-<p class="articleBody">A couple mornings ago I logged in to check the nightly web UI test runs.  Every test pipeline failed after 20 seconds.  Each job&#39;s log showed: <br> </p><code>2024-07-10 13:56:27 +0000 [ERR] curl: option --cacert: blank argument where content is expected</code>
-<p class="articleBody">The tests run using bash version of Tosca Execution Client, <a href="https://github.com/Tricentis/ToscaExecutionClient">available on their GitHub</a>.  The script has 4 separate usages of curl, and 2 of them make use of the <span class="bold">--cacert</span> flag.</p>
-<p class="articleBody">That's a start, but why did this just happen out of nowhere after months of working?  The day before I walked our intern through rebuilding the host of the test build agents, but how could a rebuild have caused this?</p>
-<p class="articleBody">The tests are kicked off by a containerized self-hosted ADO agents, running Alpine Linux, that also pull down the Tricentis script at build time.  
-    <br>
+    <p class="articleBody">A couple mornings ago I logged in to check the nightly web UI test runs. Every test pipeline failed after 20 seconds. Each job's log showed:<br></p><code>2024-07-10 13:56:27 +0000 [ERR] curl: option --cacert: blank argument where content is expected</code>
+    <p class="articleBody">The tests run using bash version of Tosca Execution Client, <a href="https://github.com/Tricentis/ToscaExecutionClient">available on their GitHub</a>. The script has 4 separate usages of curl, and 2 of them make use of the <span class="bold">--cacert</span> flag.</p>
+    <p class="articleBody">That's a start, but why did this just happen out of nowhere after months of working? The day before I walked our intern through rebuilding the host of the test build agents, but how could a rebuild have caused this?</p>
+    <p class="articleBody">The tests are kicked off by a containerized self-hosted ADO agents, running Alpine Linux, that also pull down the Tricentis script at build time.<br></p>
     <ul>
-        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.19&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.19</a></span>, released in late 2023, used curl 8.5.0.  </li>
-        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.20&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.20.0</span></a>, released about 15 days before I rebuilt, uses curl 8.8.0.</li>
+        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.19&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.19</a></span>, released in late 2023, used curl 8.5.0.</li>
+        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.20&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.20.0</a></span>, released about 15 days before I rebuilt, uses curl 8.8.0.</li>
     </ul>
-<p class="articleBody">Curl 8.6.0 introduced <a href="https://github.com/curl/curl/pull/12620">PR 12620</a>, titled &quot;tool: make parser reject blank arguments if not supported&quot;, which introduces the same error text we see - &quot;blank argument where content is expected&quot;.</p>
-<p class="articleBody">The Tosca Execution Client shell script accepts <span class="bold">--caCertificate</span> as an argument, and assigns the value to <span class="bold">$caCertificate</span>.  curl is fed the $caCertificat value by &quot;<span class="bold">curl --cacert &quot;${caCertificate}</span>&quot;.  So, even if <span class="bold">$caCertificate</span> is blank, it still gets passed.  As of curl 8.6.0, this is now invalid.</p>
-<p class="articleBody">My <a href="https://github.com/Tricentis/ToscaExecutionClient/pull/25">proposed solution</a> is simple.  <span class="bold">--caCertificate</span> now sets <span class="bold">$caCertificatSwitch</span>, which is equal to &quot;<span class="bold">--cacert ${2}</span>&quot;, with <span class="bold"> ${2}</span> being the value of the arg.  curl is now fed the arg like &quot;<span class="bold">curl $caCertificateSwitch</span>&quot;, so if it&#39;s blank, nothing gets passed in.</p>
-<p class="articleBody">Takeaways
-<ul>
-<li>I need to finally start running a simple UI test as a periodic healthcheck</li>
-<li>Pinning versions could have technically kept this from happening but feels a little absurd</li>
-</ul>
-</p>
-<br>
-<a class="title" href="../index.html">HOME</a> &nbsp;</p>
+    <p class="articleBody">Curl 8.6.0 introduced <a href="https://github.com/curl/curl/pull/12620">PR 12620</a>, titled "tool: make parser reject blank arguments if not supported", which introduces the same error text we see - "blank argument where content is expected".</p>
+    <p class="articleBody">The Tosca Execution Client shell script accepts <span class="bold">--caCertificate</span> as an argument, and assigns the value to <span class="bold">$caCertificate</span>. curl is fed the $caCertificat value by "<span class="bold">curl --cacert "${caCertificate}</span>". So, even if <span class="bold">$caCertificate</span> is blank, it still gets passed. As of curl 8.6.0, this is now invalid.</p>
+    <p class="articleBody">My <a href="https://github.com/Tricentis/ToscaExecutionClient/pull/25">proposed solution</a> is simple. <span class="bold">--caCertificate</span> now sets <span class="bold">$caCertificatSwitch</span>, which is equal to "<span class="bold">--cacert ${2}</span>", with <span class="bold">${2}</span> being the value of the arg. curl is now fed the arg like "<span class="bold">curl $caCertificateSwitch</span>", so if it's blank, nothing gets passed in.</p>
+    <p class="articleBody">Takeaways</p>
+    <ul>
+        <li>I need to finally start running a simple UI test as a periodic healthcheck</li>
+        <li>Pinning versions could have technically kept this from happening but feels a little absurd</li>
+    </ul><br>
+    <a class="title" href="../index.html">HOME</a> &nbsp;
 </body>
 </html>
