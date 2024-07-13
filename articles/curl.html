@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
@@ -26,8 +27,8 @@
 <p class="articleBody">The tests are kicked off by a containerized self-hosted ADO agents.  At build time, the containers  
     <br>
     <ul>
-        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.19&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.19</a></span>, released in late 2023, used curl 8.5.0.  </li>
-        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.20&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.20.0</span></a>, released about 15 days before I rebuilt, uses curl 8.8.0.</li>
+        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.19&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.19</a></span>, released in late 2023, used curl 8.5.0.</li>
+        <li><span class="bold"><a href="https://pkgs.alpinelinux.org/packages?name=curl&amp;branch=v3.20&amp;repo=&amp;arch=&amp;maintainer=">Alpine Linux v3.20.0</a></span>, released about 15 days before I rebuilt, uses curl 8.8.0.</li>
     </ul>
 <p class="articleBody">Curl 8.6.0 introduced <a href="https://github.com/curl/curl/pull/12620">PR 12620</a>, titled &quot;tool: make parser reject blank arguments if not supported&quot;, which introduces the same error text we see - &quot;blank argument where content is expected&quot;.</p>
 <p class="articleBody">The Tosca Execution Client shell script accepts <span class="bold">--caCertificate</span> as an argument, and assigns the value to <span class="bold">$caCertificate</span>.  curl is fed the $caCertificat value by &quot;<span class="bold">curl --cacert &quot;${caCertificate}</span>&quot;.  So, even if <span class="bold">$caCertificate</span> is blank, it still gets passed.  As of curl 8.6.0, this is now invalid.</p>
