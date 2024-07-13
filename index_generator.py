@@ -7,22 +7,16 @@ import platform
 import re
 from datetime import datetime
 
-
 FOLDER_NAME = "articles"
 ARTICLE_PATH = pathlib.Path(__file__).parent / FOLDER_NAME
-
 DIR_LIST = os.listdir(ARTICLE_PATH)
-
 TITLE_LOCATOR = "<div class=\"articles\">"
-
 
 def count_articles():
     article_count = 0
     for article in DIR_LIST:
         article_count += 1
-    #print("Found", article_count, "articles")
     return article_count
-
 
 def file_names():
     file = []
@@ -56,7 +50,6 @@ def parse_titles():
 
     return title_lines
 
-
 def remove_tags():
     title_lines = parse_titles()
     tags_removed_titles = []
@@ -68,7 +61,6 @@ def remove_tags():
         tags_removed_titles.append(pattern.sub("", title))
 
     return tags_removed_titles
-
 
 def add_links():
     title_lines = remove_tags()
@@ -100,11 +92,7 @@ def sort_links():
 
     sort_list = sorted(
         sort_list,
-        key=lambda x: datetime.strptime(re.search(r'\[(\d{2}-\d{2}-\d{4})\]', x).group(1), '%d-%m-%Y'))
-
-    for item in sort_list:
-        #print(item)
-        pass
+        key=lambda x: datetime.strptime(re.search(r'\[(\d{2}-\d{2}-\d{4})\]', x).group(1), '%m-%d-%Y'))
 
     return sort_list
 
@@ -124,19 +112,13 @@ def write_index():
     with open("index.html", 'r') as file:
         lines = file.readlines()
 
-
     with open("index.html", 'w') as file:
         for i in range(0, len(lines)):
-
             if "<!--articles begin-->" in lines[i]:
-
                 for a in range(0, len(write_list)):
                     lines.insert(i+1, write_list[a])
-                    #print(write_list[a])
-
         for i in range(0, len(lines)):
             file.write(lines[i])
-
 
 def main():
     write_index()

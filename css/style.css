@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'RobotoMono';
+    src: url('../fonts/UbuntuMono-Regular.ttf') format('truetype');
+}
+ 
  * {
      box-sizing: border-box;
 }
@@ -8,8 +13,8 @@
      color:black;
 }
  body {
-     font-family: Monaco, consolas;
-     font-size: 14px;
+     font-family: RobotoMono;
+     font-size: 16px;
      background: #E0E0E0;
      max-width:800px;
      margin:auto;
@@ -18,7 +23,7 @@
      margin:auto;
      display: block;
      font-size: 90%;
-     font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+     font-family: Consolas, monospace;
      color: #dadedf;
      background: #0f0f0f;
      padding-bottom: 7px;
@@ -29,9 +34,15 @@
      max-width: 700px;
      box-shadow: 3px 3px #888888;
 }
-codeLine {
-    background-color: #dadedf;
-    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+ .codeLine {
+    background-color: #0f0f0f;
+    color: #dadedf;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    font-size: 85%;
+    font-family: Consolas, monospace;
 }
  h2 {
      padding-left: 15px;
