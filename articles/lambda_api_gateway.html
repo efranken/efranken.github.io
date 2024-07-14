@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
     <br>
     <center>
@@ -21,9 +23,10 @@
     </div>
     <hr>
     <p class="articleBody">The goal of this is to eventually make an API that interacts with DynamoDB to log a visit count to this site. I'm going to use API Gateway, Lambda, and DynamoDB for this.<br>
-    <br>
-    Following an Amazon tutorial, I set up the PetStore example API, then used postman to view the POST of it from the URL found in API Gateway's POST URL found in the resources tab:</p>
-    <pre> 
+        <br>
+        Following an Amazon tutorial, I set up the PetStore example API, then used postman to view the POST of it from the URL found in API Gateway's POST URL found in the resources tab:
+    </p>
+    <pre>
         <code>
     [
         {
@@ -59,8 +62,9 @@
     jprint(response.json())
         </code> </pre>
     <p class="articleBody">Now that I've gotten the API request in Python locally, I need to figure out how to create and connect to a DynamoDB table and get the data in a format that I can push directly to it.<br>
-    <br>
-    Following a tutorial, I modified some code to create a table, and use <span class="bold">print(table.item_count)</span> to verify if and when it gets created.</p>
+        <br>
+        Following a tutorial, I modified some code to create a table, and use <span class="bold">print(table.item_count)</span> to verify if and when it gets created.
+    </p>
     <pre> <code>
     import boto3
 
@@ -99,10 +103,11 @@
     print(table.item_count)
         </code> </pre>
     <p class="articleBody">After this runs it will return 0.<br>
-    <br>
-    Feeling pretty good at this point after getting the basics going, building some good confidence in this. Now I need to write some data to the table. It looks like boto3 is the library I need to use.<br>
-    <br>
-    I'm gonna add Frankie and Annabelle as pets for this one.</p>
+        <br>
+        Feeling pretty good at this point after getting the basics going, building some good confidence in this. Now I need to write some data to the table. It looks like boto3 is the library I need to use.<br>
+        <br>
+        I'm gonna add Frankie and Annabelle as pets for this one.
+    </p>
     <pre> <code>
     import boto3
 
@@ -135,8 +140,9 @@
     print(table.item_count)
         </code> </pre>
     <p class="articleBody">I thought I was gonna get crafty with my before and after table.item_count but AWS states that DynamoDB only updates this value every 6 hours, so it doesn't work. I can check everything live on the DynamoDB portal though.<br>
-    <br>
-    Anyway, now I have 3 small separate parts of code to do what I need, just need to bring it together and write the API call to DynamoDB. I got it working by parsing the JSON into an array, then iterating through the array with a loop to push the data.</p>
+        <br>
+        Anyway, now I have 3 small separate parts of code to do what I need, just need to bring it together and write the API call to DynamoDB. I got it working by parsing the JSON into an array, then iterating through the array with a loop to push the data.
+    </p>
     <pre> <code>
     import json
     import requests
@@ -169,16 +175,17 @@
     print(array)
         </code> </pre>
     <p class="articleBody">Hit multiple issues trying to figure this one out. The first issue I had was the <span class="bold">'id'</span> type expected a string. This was easy because all I had to do was wrap the <span class="bold">'id'</span> definition in a <span class="bold">str()</span> on the <span class="bold">put_item</span> section of the code.<br>
-    <br>
-    The next issue was price, boto3/dynamodb handle decimals differently than python. Reading up on it, it looks like the float is inaccurate due to Python's base 2 numbering system. Decimal type is what needs to be used.<br>
-    <br>
-    First error was <span class="bold">"TypeError: Float types are not supported. Use Decimal types instead."</span> Then, after trying to wrap everything in a Decimal() I kept getting <span class="bold">decimal.Inexact: [&lt;class 'decimal.Inexact'&gt;, &lt;class 'decimal.Rounded'&gt;]</span><br>
-    <br>
-    I think my issue was that I was trying to convert another variable to decimal, instead of converting the number itself directly? I can convert to int type but it just rounds to the nearest whole. This might not be an issue for the type of data I need to collect in the next step of this, but it's still kinda ugly.<br>
-    <br>
-    The solution is - <span class="bold">Decimal(str(*variable*))</span>. Seems pretty inelegant but it works. Now we have API call directly into DynamoDB! The next steps will be adapting the API to what I need to get user data, and then adapting the Lambda code with the correct variables to write to DynamoDB.<br>
-    <br>
-    Now that all that's done, that concludes this section of accomplishing the goal to make a call and write it to DynamoDB in one swoop.</p><br>
+        <br>
+        The next issue was price, boto3/dynamodb handle decimals differently than python. Reading up on it, it looks like the float is inaccurate due to Python's base 2 numbering system. Decimal type is what needs to be used.<br>
+        <br>
+        First error was <span class="bold">"TypeError: Float types are not supported. Use Decimal types instead."</span> Then, after trying to wrap everything in a Decimal() I kept getting <span class="bold">decimal.Inexact: [&lt;class 'decimal.Inexact'&gt;, &lt;class 'decimal.Rounded'&gt;]</span><br>
+        <br>
+        I think my issue was that I was trying to convert another variable to decimal, instead of converting the number itself directly? I can convert to int type but it just rounds to the nearest whole. This might not be an issue for the type of data I need to collect in the next step of this, but it's still kinda ugly.<br>
+        <br>
+        The solution is - <span class="bold">Decimal(str(*variable*))</span>. Seems pretty inelegant but it works. Now we have API call directly into DynamoDB! The next steps will be adapting the API to what I need to get user data, and then adapting the Lambda code with the correct variables to write to DynamoDB.<br>
+        <br>
+        Now that all that's done, that concludes this section of accomplishing the goal to make a call and write it to DynamoDB in one swoop.
+    </p><br>
     <br>
     <br>
     <br>
@@ -189,4 +196,5 @@
     <br>
     <br>
 </body>
+
 </html>

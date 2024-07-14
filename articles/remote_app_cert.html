@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="prism.js"></script>
 </head>
+
 <body>
     <script src="prism.js"></script><br>
     <center>
@@ -22,10 +24,11 @@
     </div>
     <hr>
     <p class="articleBody">I was tasked with serving up some software as a RemoteApp for the purposes of bug testing. I set up a DC that also had DNS, ADCS, and RDS to make this happen. I was able to load the RemoteApp on a MacOS client, but when someone tried to connect form Windows 10, it didn't work.<br>
-    <br>
-    Not only did it just not work, each of the 3 ways to add a RemoteApp provided a different error, with one not even providing any information at all. It turns out this was all due to cert errors, something which Microsoft seems to barely cover anywhere, and all third party help sites have a different idea on how to handle.<br>
-    <br>
-    The complications I faced are:</p>
+        <br>
+        Not only did it just not work, each of the 3 ways to add a RemoteApp provided a different error, with one not even providing any information at all. It turns out this was all due to cert errors, something which Microsoft seems to barely cover anywhere, and all third party help sites have a different idea on how to handle.<br>
+        <br>
+        The complications I faced are:
+    </p>
     <ol>
         <li>Domain is private, will not be made public</li>
         <li>Internally issued enterprise certs are really only useful for domain added computers</li>
@@ -33,7 +36,8 @@
         <li>Almnost no feasible way to use a public cert internally</li>
     </ol>
     <p class="articleBody">The only realistic solution is just to get certificates working enough to allow a win10 connection to this short-term server. Here's how I did it:<br>
-    <br></p>
+        <br>
+    </p>
     <div class="bold articleBody">
         Make sure IIS and Certificate Authority roles are installed
     </div><br>
@@ -90,8 +94,10 @@
         <li>Click apply</li>
     </ul>
     <p class="articleBody">You can now browse to the server's FQDN as https://fqdn/rdweb and, although you will still be prompted with certification warnings, at least you can proceed.<br>
-    <br>
-    <a class="title" href="../index.html">HOME</a> &nbsp;<br>
-    <br></p>
+        <br>
+        <a class="title" href="../index.html">HOME</a> &nbsp;<br>
+        <br>
+    </p>
 </body>
+
 </html>

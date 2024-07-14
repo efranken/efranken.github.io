@@ -1,100 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <link rel="stylesheet" type="text/css" href="../css/style.css">
-      <title>EricFr@nkenberger.com</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script src="prism.js"></script>
-   </head>
-   <body>
-      <script src="prism.js"></script>
-      <br>
-      <center>
-         <div style="display: inline-block; vertical-align:middle;">
+
+<head>
+   <link rel="stylesheet" type="text/css" href="../css/style.css">
+   <title>EricFr@nkenberger.com</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <script src="prism.js"></script>
+</head>
+
+<body>
+   <script src="prism.js"></script>
+   <br>
+   <center>
+      <div style="display: inline-block; vertical-align:middle;">
          <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a>
          <br>
-         <hr style="width:200px"/>
+         <hr style="width:200px" />
          <span class="bold">
-         <a class="title" href="../index.html">HOME</a> &nbsp;
-         <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
-         <a class="title" href="https://github.com/efranken">GITHUB</a>
+            <a class="title" href="../index.html">HOME</a> &nbsp;
+            <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp;
+            <a class="title" href="https://github.com/efranken">GITHUB</a>
          </span>
-      </center>
-      <br>
-      <div class="articles">
-         <p><span class="bold">[03-09-2022] | </span>Selenium 4 Custom Video Recording <br /></p>
-      </div>
-      <hr />
-      <p class="articleBody">         
-         Selenium 4, at the time of writing, only offers processed video of test runs when running the dynamic grid configuration.
-         Due to constraints outside of the scope of this article, I am unable to run the dynamic grid configuration as supplied by Selenium. <br /> <br />
-         
-         If not run as a dynamic grid, the video recording container provided by Selenium only checks if it can see the node's XVFB, then starts 
-         recording forever.  When the containers are shut down, the video is left corrupted.  Even if the FFMPEG process ends gracefully, the resultant
-         video is as long as the node's lifetime with the test somewhere in the middle.  <br /> <br />
-         
-         There are <a href=https://github.com/SeleniumHQ/selenium/issues/10018>multiple issues</a> and
-         <a href=https://github.com/SeleniumHQ/selenium/issues/9845>feature requests</a> 
-         on SeleniumHQ’s github detailing this, with only 
-         <a href=https://github.com/SeleniumHQ/selenium/issues/9845#issuecomment-1217874645>one contributor</a> mentioning that they 
-         ultimately wrote their own solution for a Kubernetes deployment.  
-         I was unable to find any other information about how people have handled this. <br /><br />
+   </center>
+   <br>
+   <div class="articles">
+      <p><span class="bold">[03-09-2022] | </span>Selenium 4 Custom Video Recording <br /></p>
+   </div>
+   <hr />
+   <p class="articleBody">
+      Selenium 4, at the time of writing, only offers processed video of test runs when running the dynamic grid configuration.
+      Due to constraints outside of the scope of this article, I am unable to run the dynamic grid configuration as supplied by Selenium. <br /> <br />
 
-         After hours of research, I was left with the conclusion that if I wanted video recording without using dynamic grid, I'd have to roll my own.
-      </p>
-         
-      <div class="bold articleBody">How does it work?</div>
-      
-      <p class="articleBody">
-         Selenium Nodes, for the purposes of this grid, are made up of an ec2 instance running a node and video container 
-         alongside each other.  The node container runs XVFB on port 99, and the video container runs FFMPEG that connects to the node over the same 
-         port.  As detailed in the scaling article, the video container will only ever record 1 video before being thrown away. <br /> <br />
-         
-         In order to process video, logic had to be written for the video container to: <br /> 
-      
-         
-         <ul>
-            <li>Pass the SessionId of the test from the node to the video container</li>
-            <li>Trigger starting and stopping of FFMPEG recording</li>
-            <li>Set the name of the video to $SessionId.mp4</li>
-            <li>Upload, and confirm upload of, video to s3</li><br />
-         </ul>
-      </p>
+      If not run as a dynamic grid, the video recording container provided by Selenium only checks if it can see the node's XVFB, then starts
+      recording forever. When the containers are shut down, the video is left corrupted. Even if the FFMPEG process ends gracefully, the resultant
+      video is as long as the node's lifetime with the test somewhere in the middle. <br /> <br />
 
-      <div class="bold articleBody">Passing the SessionId</div>
-         
-      <p class="articleBody">
-         The video container runs a loop that sends a get request to the node at 127.0.0.1:5555/status, then parses the returned JSON for a SessionId
-         contained in the slots key.  
-         Loopback IP is used because the mapping of node to video containers is 1:1, and the node responds on port 5555 by default.<br /> <br />
-         
-         If all 3 slots (due to nodes having Chrome, Firefox, and Edge) return null SessionId, the node is not running a test.  Max concurrency on a node
-         is 1, so if 1 of 3 slots has a SessionId, a test has started and the SessionId is stored. <br /> <br />
-      </p>
-         
-      <div class="bold articleBody">Starting and stopping video</div>
-      
-      <p class="articleBody">
-         When a SessionId is detected, a thread that runs FFMPEG starts recording a video with a file name of the SessionId that was previously determined.  
-         While FFMPEG is running, another thread continues a loop to get the JSON output of 127.0.0.1:5555/status, and when 3 of 3 slots 
-         report that there is no SessionId, the test has ended.  FFMPEG is sent a SIGTERM to cause it to end recording and stop gracefully. <br /> <br />
-      </p>
-         
-      <div class="bold articleBody">Uploading/confirming upload to s3</div> 
-      
-      <p class="articleBody">
-         Once the FFMPEG process has stopped, and is confirmed to no longer be running, a video file matching the SessionId is checked 
-         for existence.  If it exists, it is uploaded to s3.  After that, local MD5 is calculated and checked against the s3 MD5.  If 
-         one doesn’t match the other, re-upload is attempted 3 times before exiting.  After successful upload or exit, the video container 
-         sends a sigterm to itself and is destroyed. <br /> <br />
-         
-         Once both node and video containers are confirmed by the ec2 instance hosting them as not running, life begins anew after a 30 
-         second wait period during which the instance will determine if it is up for termination or not. <br /> <br />
-         <br />
-         <br />
-         <a class="title" href="../index.html">HOME</a> &nbsp;
-         <br />
-         <br />
-   </body>
+      There are <a href=https://github.com/SeleniumHQ/selenium/issues/10018>multiple issues</a> and
+      <a href=https://github.com/SeleniumHQ/selenium/issues/9845>feature requests</a>
+      on SeleniumHQ’s github detailing this, with only
+      <a href=https://github.com/SeleniumHQ/selenium/issues/9845#issuecomment-1217874645>one contributor</a> mentioning that they
+      ultimately wrote their own solution for a Kubernetes deployment.
+      I was unable to find any other information about how people have handled this. <br /><br />
+
+      After hours of research, I was left with the conclusion that if I wanted video recording without using dynamic grid, I'd have to roll my own.
+   </p>
+
+   <div class="bold articleBody">How does it work?</div>
+
+   <p class="articleBody">
+      Selenium Nodes, for the purposes of this grid, are made up of an ec2 instance running a node and video container
+      alongside each other. The node container runs XVFB on port 99, and the video container runs FFMPEG that connects to the node over the same
+      port. As detailed in the scaling article, the video container will only ever record 1 video before being thrown away. <br /> <br />
+
+      In order to process video, logic had to be written for the video container to: <br />
+
+
+   <ul>
+      <li>Pass the SessionId of the test from the node to the video container</li>
+      <li>Trigger starting and stopping of FFMPEG recording</li>
+      <li>Set the name of the video to $SessionId.mp4</li>
+      <li>Upload, and confirm upload of, video to s3</li><br />
+   </ul>
+   </p>
+
+   <div class="bold articleBody">Passing the SessionId</div>
+
+   <p class="articleBody">
+      The video container runs a loop that sends a get request to the node at 127.0.0.1:5555/status, then parses the returned JSON for a SessionId
+      contained in the slots key.
+      Loopback IP is used because the mapping of node to video containers is 1:1, and the node responds on port 5555 by default.<br /> <br />
+
+      If all 3 slots (due to nodes having Chrome, Firefox, and Edge) return null SessionId, the node is not running a test. Max concurrency on a node
+      is 1, so if 1 of 3 slots has a SessionId, a test has started and the SessionId is stored. <br /> <br />
+   </p>
+
+   <div class="bold articleBody">Starting and stopping video</div>
+
+   <p class="articleBody">
+      When a SessionId is detected, a thread that runs FFMPEG starts recording a video with a file name of the SessionId that was previously determined.
+      While FFMPEG is running, another thread continues a loop to get the JSON output of 127.0.0.1:5555/status, and when 3 of 3 slots
+      report that there is no SessionId, the test has ended. FFMPEG is sent a SIGTERM to cause it to end recording and stop gracefully. <br /> <br />
+   </p>
+
+   <div class="bold articleBody">Uploading/confirming upload to s3</div>
+
+   <p class="articleBody">
+      Once the FFMPEG process has stopped, and is confirmed to no longer be running, a video file matching the SessionId is checked
+      for existence. If it exists, it is uploaded to s3. After that, local MD5 is calculated and checked against the s3 MD5. If
+      one doesn’t match the other, re-upload is attempted 3 times before exiting. After successful upload or exit, the video container
+      sends a sigterm to itself and is destroyed. <br /> <br />
+
+      Once both node and video containers are confirmed by the ec2 instance hosting them as not running, life begins anew after a 30
+      second wait period during which the instance will determine if it is up for termination or not. <br /> <br />
+      <br />
+      <br />
+      <a class="title" href="../index.html">HOME</a> &nbsp;
+      <br />
+      <br />
+</body>
+
 </html>

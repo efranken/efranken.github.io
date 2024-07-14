@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
     <br>
     <center>
@@ -21,14 +23,15 @@
     </div>
     <hr>
     <p class="articleBody">A lot of the computers I work on are very uniquely configured. It can take days to build, then weeks for a user to be back to 100% with software. Wipe and rebuild is rarely an option.<br>
-    <br>
-    One of our users had a recurring 0x800f0922 on any new feature packs for Windows. Updates would install to 63%, fail, reboot, and roll back changes. This took about 20 minutes and was no longer feasible.<br>
-    <br>
-    Error 0x800f0922 states that updates may be failing due to a system reserved partition size being less than 500mb. The only partion marked "reserved" that showed up in diskpart was 300mb, but I really wasn't convinced that was it. The system had been upgraded from 7-10, then cloned from 1tb to 2tb, but nothing that would have changed the partition size existed.<br>
-    <br>
-    I kept digging further and my coworker was able to figure out a couple .NET framework install issues that kept a couple updates from installing. I tried the usual powershell script to fix clear all Windows updates out and install fresh, tried downloading the feature udpate pack independently, and tried forcing updates from the internet instead of our WSUS servr, all to no avail. Then I tried everything in different orders. Still nothing.<br>
-    <br>
-    Looking around further, there was a drive mounted as E:\ with a folder "BOOT" in it, along with all associated boot files! Clearly shouldn't be like that, and clearly that was the issue. Opening the partition with "detail part" in command line diskpart shows:</p>
+        <br>
+        One of our users had a recurring 0x800f0922 on any new feature packs for Windows. Updates would install to 63%, fail, reboot, and roll back changes. This took about 20 minutes and was no longer feasible.<br>
+        <br>
+        Error 0x800f0922 states that updates may be failing due to a system reserved partition size being less than 500mb. The only partion marked "reserved" that showed up in diskpart was 300mb, but I really wasn't convinced that was it. The system had been upgraded from 7-10, then cloned from 1tb to 2tb, but nothing that would have changed the partition size existed.<br>
+        <br>
+        I kept digging further and my coworker was able to figure out a couple .NET framework install issues that kept a couple updates from installing. I tried the usual powershell script to fix clear all Windows updates out and install fresh, tried downloading the feature udpate pack independently, and tried forcing updates from the internet instead of our WSUS servr, all to no avail. Then I tried everything in different orders. Still nothing.<br>
+        <br>
+        Looking around further, there was a drive mounted as E:\ with a folder "BOOT" in it, along with all associated boot files! Clearly shouldn't be like that, and clearly that was the issue. Opening the partition with "detail part" in command line diskpart shows:
+    </p>
     <pre>
                 <code>
         Partition 3
@@ -40,8 +43,9 @@
                 </code>
         </pre>
     <p class="articleBody">The type being "EBD.." marks it as a BDP, Basic Data Partition. This is why I could browse to it. It's also why Windows update was failing, it didn't know how to locate the system reserved partition. I don't know why it was still booting, but I was already 3 hours late at the office so it wasn't really the time to continue researching.<br>
-    <br>
-    Here's the full set of commands I ran (dependent on :</p>
+        <br>
+        Here's the full set of commands I ran (dependent on :
+    </p>
     <pre>
                 <code>
         list disk
@@ -64,8 +68,9 @@
                 </code>
         </pre>
     <p class="articleBody">And running a list part shows partition 3 as a "system" type instead of "primary" as it previously displayed. I rebooted the laptop and the updates kicked off and went fine!<br>
-    <br>
-    For reference, Microsoft lists the types of partitions as:</p>
+        <br>
+        For reference, Microsoft lists the types of partitions as:
+    </p>
     <pre>
                 <code>
         Recovery: de94bba4-06d1-4d40-a16a-bfd50179d6ac
@@ -76,4 +81,5 @@
         </pre><br>
     <br>
 </body>
+
 </html>

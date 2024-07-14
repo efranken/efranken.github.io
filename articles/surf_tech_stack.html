@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="prism.js"></script>
 </head>
+
 <body>
     <script src="prism.js"></script><br>
     <center>
@@ -33,17 +35,19 @@
         <li>Dynamic generation of website with Google Drive and Sheets APIs</li>
     </ul>
     <p class="articleBody">And it all works and it's FREE. <a href="https://github.com/CS-SURF-ARCHIVE/cs-surf-archive.github.io">A series of Python scripts</a> and a little Javascript tie it all together, allowing me to dynamically generate the website when we receive new information.<br>
-    <br>
-    Spending even just $5 a month could have eliminated almost all of the hurdles I've had to jump through to get this working, but keeping it free has been a fun challenge.</p>
+        <br>
+        Spending even just $5 a month could have eliminated almost all of the hurdles I've had to jump through to get this working, but keeping it free has been a fun challenge.
+    </p>
     <h3>The Database</h3>
     <table>
         <tr>
             <td width="50%">
                 <p>One of the core goals of this project was to make all of the information easily editable by anyone in the community. So, a full on database wasn't really an option.<br>
-                <br>
-                We started sharing information back and forth with a Google Sheet. This was nice, as it had no barrier to entry. The only thing needed to contribute was a computer with a web browser.<br>
-                <br>
-                After we got some good content in the sheet, I started tinkering to see if I could parse the contents into a website. Orteil's <a href="https://orteil.dashnet.org/nested">Nested</a> served as an inspiration for the site's collapsible design.</p>
+                    <br>
+                    We started sharing information back and forth with a Google Sheet. This was nice, as it had no barrier to entry. The only thing needed to contribute was a computer with a web browser.<br>
+                    <br>
+                    After we got some good content in the sheet, I started tinkering to see if I could parse the contents into a website. Orteil's <a href="https://orteil.dashnet.org/nested">Nested</a> served as an inspiration for the site's collapsible design.
+                </p>
             </td>
             <td>
                 <img class="image90Cent" src="../images/surfSheet.jpg" alt="surf_christmas">
@@ -55,10 +59,11 @@
     </table>
     <h3>The Code</h3>
     <p class="articleBody">Another goal of the website was to keep the time spent working on it to a minimum. I didn't want to waste a bunch of time on something that might not catch on.<br>
-    <br>
-    Well, it caught on, and we have over 300 rare and hard to find maps. Over the last 2 years, multiple creators have given us maps that hadn't been seen online for nearly 2 decades.<br>
-    <br>
-    The general flow of the code is this:</p>
+        <br>
+        Well, it caught on, and we have over 300 rare and hard to find maps. Over the last 2 years, multiple creators have given us maps that hadn't been seen online for nearly 2 decades.<br>
+        <br>
+        The general flow of the code is this:
+    </p>
     <ol>
         <li>Generate Google token for API, if needed</li>
         <li>Read the contents of the Sheet, maps folder in Drive, and screenshots folder in Drive</li>
@@ -70,19 +75,22 @@
     <p class="articleBody">This all helps to ensure that the data in the Sheet and Drive are tightly coupled, so the data between the 2 always matches.</p>
     <h3>Hiccups</h3>
     <p class="articleBody">Naturally, when doing something as arrogant as relying on free portions of paid products, there's going to be breaking changes that I can do nothing about.<br>
-    <br>
-    The first was Google "breaking" the way I embedded images straight out of Drive. It was apparent from when I first developed this feature that it wasn't an intended use. Well, according to <a href="https://issuetracker.google.com/issues/319531488?pli=1">319531488</a>, it wasn't. Some time around January I pulled the site up and noticed that no images would load.<br>
-    <br>
-    After some searching around I found someone providing a workaround for this solution at <a href="https://lienuc.com/">lienuc.com</a>. After quickly modifying the way links are generated for screenshots in my code, it was up and running again. I don't expect this to be a permanent fix, but it's working for now.<br>
-    <br>
-    This next one's on me. When I originally wrote the code, I wrote the tests to check one row at a time, then update each individual row. This worked fine when we had ~50 maps. Now, if I add a map in the Drive and run the code to make an entry for it in the Sheet, every row beneath the map's entry needs to be updated. The free Google Sheets API has a limit of <a href="https://developers.google.com/sheets/api/limits">300 requests per minute.</a>. This limit can pretty quickly get hit when updating a row at a time.<br>
-    <br>
-    The eventual fix is to build the whole sheet in the code and update it in one request. The site's been running for a couple years, and I update maybe once every 2 months, so I just haven't gotten around to it yet.</p>
+        <br>
+        The first was Google "breaking" the way I embedded images straight out of Drive. It was apparent from when I first developed this feature that it wasn't an intended use. Well, according to <a href="https://issuetracker.google.com/issues/319531488?pli=1">319531488</a>, it wasn't. Some time around January I pulled the site up and noticed that no images would load.<br>
+        <br>
+        After some searching around I found someone providing a workaround for this solution at <a href="https://lienuc.com/">lienuc.com</a>. After quickly modifying the way links are generated for screenshots in my code, it was up and running again. I don't expect this to be a permanent fix, but it's working for now.<br>
+        <br>
+        This next one's on me. When I originally wrote the code, I wrote the tests to check one row at a time, then update each individual row. This worked fine when we had ~50 maps. Now, if I add a map in the Drive and run the code to make an entry for it in the Sheet, every row beneath the map's entry needs to be updated. The free Google Sheets API has a limit of <a href="https://developers.google.com/sheets/api/limits">300 requests per minute.</a>. This limit can pretty quickly get hit when updating a row at a time.<br>
+        <br>
+        The eventual fix is to build the whole sheet in the code and update it in one request. The site's been running for a couple years, and I update maybe once every 2 months, so I just haven't gotten around to it yet.
+    </p>
     <h3>The End</h3>
     <p class="articleBody">All in all, the challenge of keeping everything free has presented some interesting technical problems that served as some solid learning opportunities. I'm happy with how this site turned out, and really enjoy that the tech stack allows contributors to update it with no barriers to entry.<br>
-    <br>
-    <br>
-    <a class="title" href="../index.html">HOME</a> &nbsp;<br></p><br>
+        <br>
+        <br>
+        <a class="title" href="../index.html">HOME</a> &nbsp;<br>
+    </p><br>
     <br>
 </body>
+
 </html>

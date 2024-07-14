@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
     <br>
     <center>
@@ -21,10 +23,11 @@
     </div>
     <hr>
     <p class="articleBody">Spending ~100 nights a year in a hotel necessitated a travel router. There's some off the shelf options available but I wanted to go with an offering from MikroTik to continue learning their ecosystem.<br>
-    I've since been able to implement MikroTik gear at work in multiple different niche deployments, thanks in part to what I learned over a couple years of tinkering with this thing here and there.<br>
-    <br>
-    <img class="imageSmall" src="../images/mapLite.jpg"><br>
-    The steps to configure, without terminal, are as follows:</p>
+        I've since been able to implement MikroTik gear at work in multiple different niche deployments, thanks in part to what I learned over a couple years of tinkering with this thing here and there.<br>
+        <br>
+        <img class="imageSmall" src="../images/mapLite.jpg"><br>
+        The steps to configure, without terminal, are as follows:
+    </p>
     <ol>
         <li>Initiate Winbox connection over ethernet</li>
         <li>Set to CPE mode in quickset</li>
@@ -38,9 +41,11 @@
         <li>Device should connect to hotel wifi, authenticate, and all devices that have that SSID saved will connect!</li>
     </ol>
     <p class="articleBody"><br>
-    <br>
-    The big key to it is the NetWatch tool. This allows the router to reset to a default configuration that transmits an SSID of "Unconfigured" so you can reconnect to it. Without this, it will always hunt for the last SSID it was connected to, leaving you unable to reconnect wirelessly without resetting and reloading a backup.<br>
-    <br>
-    Here's a link to the MikroTik forums with some more info from others who have used this router in a similar configuration: <a href="https://forum.mikrotik.com/viewtopic.php?t=129398">https://forum.mikrotik.com/viewtopic.php?t=129398</a></p>
+        <br>
+        The big key to it is the NetWatch tool. This allows the router to reset to a default configuration that transmits an SSID of "Unconfigured" so you can reconnect to it. Without this, it will always hunt for the last SSID it was connected to, leaving you unable to reconnect wirelessly without resetting and reloading a backup.<br>
+        <br>
+        Here's a link to the MikroTik forums with some more info from others who have used this router in a similar configuration: <a href="https://forum.mikrotik.com/viewtopic.php?t=129398">https://forum.mikrotik.com/viewtopic.php?t=129398</a>
+    </p>
 </body>
+
 </html>

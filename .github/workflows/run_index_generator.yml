@@ -1,21 +1,24 @@
----
-name: run_index_generator
+# was used as a learning experience for github actions. 
+# is now run locally so code isn't modified after I push it.
 
-on: push
+# ---
+# name: run_index_generator
 
-jobs:
-  run_index_generator:
-    runs-on: ubuntu-latest
+# on: push
+
+# jobs:
+#   run_index_generator:
+#     runs-on: ubuntu-latest
     
-    steps:
-      - uses: actions/checkout@v3
+#     steps:
+#       - uses: actions/checkout@v3
       
-      - name: Run index_generator.py
-        run: python3 index_generator.py
+#       - name: Run index_generator.py
+#         run: python3 index_generator.py
 
-      - run: |
-          git status
-          git config --global user.name 'actions-efranken'
-          git config --global user.email 'efranken@users.noreply.github.com'
-          git commit -a --reuse-message=HEAD
-          git push
+#       - run: |
+#           git status
+#           git config --global user.name 'actions-efranken'
+#           git config --global user.email 'efranken@users.noreply.github.com'
+#           git commit -a --reuse-message=HEAD
+#           git push

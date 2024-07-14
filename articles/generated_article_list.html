@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="prism.js"></script>
 </head>
+
 <body>
     <script src="prism.js"></script><br>
     <center>
@@ -21,39 +23,52 @@
         <p><span class="bold">[09-05-2022] |</span> Generated Article List<br></p>
     </div>
     <hr>
-    <p class="articleBody">The article list for this website is now generated. To see the block of HTML that is generated, view the source of <a href="../index.html">index.html</a> and note the comments prepending the articles. <a href="https://github.com/efranken/efranken.github.io/blob/master/index_generator.py">index_generator.py</a> contains the full source code for the generator.<br>
-    <br>
-    I was looking for a productive way to keep learning Python, and this seemed like an interesting project to tackle. However, Python is not the best option for text processing, and I could have done this with a few lines of bash and sed/awk.</p>
+    <p class="articleBody">The article list for this website is now generated. To see the block of HTML that is generated, view the source of <a href="../index.html">index.html</a> and note the
+        comments prepending the articles. <a href="https://github.com/efranken/efranken.github.io/blob/master/index_generator.py">index_generator.py</a> contains the full source code for the
+        generator.<br>
+        <br>
+        I was looking for a productive way to keep learning Python, and this seemed like an interesting project to tackle. However, Python is not the best option for text processing, and I could have
+        done this with a few lines of bash and sed/awk.
+    </p>
     <div class="articleBody bold">
         How does index_generator.py work?
     </div>
-    <p class="articleBody">The Python script looks in the /articles directory and starts by counting all files within that directory. It then adds all the file names to a list, opens each individual file, and parses for a line that contains the TITLE_LOCATOR string (in this case, <span class="bold">&ltdiv class=\"articles\"&gt;</span>).<br>
-    <br>
-    This class is only ever found in one place within an article - one line above the actual title of the article. A raw line looks like this:<br>
-    <br>
-    <span class="codeLine">&ltp&gtspan class="bold"&gt[05-09-2022] | &lt/span&gtGenerated Article List&ampltbr /&gt;&lt;/p&gt;</span><br>
-    <br>
-    The line saved contains <span class="bold">&ltp&gt;&lt;/p&gt;</span> tags not needed in the article block, so they are pruned.<br>
-    <br>
-    <span class="codeLine">&ltspan class="bold"&gt;[05-09-2022] | &lt;/span&gtGenerated Article List&ltbr /&gt;</span><br>
-    <br>
-    <span class="bold">&lta href&gt;</span> tags are added between <span class="bold">&lt;/span&gt;</span> and <span class="bold">&ltbr /&gt;</span> tags by searching each line for the first and second tags, and adding the respective link tags after and before. Because articles names are not tied directly to the article, the file name list is used to build the links.<br>
-    <br>
-    <span class="codeLine">&ltspan class="bold"&gt;[03-09-2022] | &lt;/span&gt;&lta href="articles/articleListGenerator.html"&gtArticle List Generator &lt;/a&gt;&ltbr /&gt;</span><br>
-    <br>
-    The links are now built, but they are in alphabetical order by file name. They need to be sorted by date. So, a sort of <span class="bold">key=lambda x: datetime.strptime(x[37:49], '[%d-%m-%Y]'</span> is ran on the list. This works but it's rickety - it depends on the format of the line to always have the date start at column 37. It seems like there's no good way to easily sort based on a date that's anywhere within a string that contains other data.<br>
-    <br>
-    The data is ready to be injected into index.html. Care had to be taken to make sure I could run this in whatever state the last generation left it in. To mark the lines that are added by the script, <span class="bold">&lt;!--generated--&gt;</span> comments are added at the beginning of each line that gets injected.<br>
-    <br>
-    <span class="codeLine">&lt;!--generated--&gt;&ltspan class="bold"&gt;[05-09-2022] | &lt;/span &gt;&lt; a href="articles/articleListGenerator html" &gt; Generated Article List &lt;/a&gt;&ltbr /&gt;</span><br>
-    <br>
-    Before injection, the file needs to be prepared. The generator looks at the file, and rewrites all lines except for those that contain the aforementioned <span class="bold">&lt;!--generated--&gt;</span> comment.<br>
-    <br>
-    Another comment <span class="bold">&lt;!--articles begin--&gt;</span> is used as a locator for the beginning of the articles block. With the articles blank and the start of the block located, the list of finished article strings is injected into index.html.<br>
-    <br>
-    <br>
-    <br>
-    <a class="title" href="../index.html">HOME</a> &nbsp;<br>
-    <br></p>
+    <p class="articleBody">The Python script looks in the /articles directory and starts by counting all files within that directory. It then adds all the file names to a list, opens each individual
+        file, and parses for a line that contains the TITLE_LOCATOR string (in this case, <span class="bold">&ltdiv class=\"articles\"&gt;</span>).<br>
+        <br>
+        This class is only ever found in one place within an article - one line above the actual title of the article. A raw line looks like this:<br>
+        <br>
+        <span class="codeLine">&ltp&gtspan class="bold"&gt[05-09-2022] | &lt/span&gtGenerated Article List&ampltbr /&gt;&lt;/p&gt;</span><br>
+        <br>
+        The line saved contains <span class="bold">&ltp&gt;&lt;/p&gt;</span> tags not needed in the article block, so they are pruned.<br>
+        <br>
+        <span class="codeLine">&ltspan class="bold"&gt;[05-09-2022] | &lt;/span&gtGenerated Article List&ltbr /&gt;</span><br>
+        <br>
+        <span class="bold">&lta href&gt;</span> tags are added between <span class="bold">&lt;/span&gt;</span> and <span class="bold">&ltbr /&gt;</span> tags by searching each line for the first and
+        second tags, and adding the respective link tags after and before. Because articles names are not tied directly to the article, the file name list is used to build the links.<br>
+        <br>
+        <span class="codeLine">&ltspan class="bold"&gt;[03-09-2022] | &lt;/span&gt;&lta href="articles/articleListGenerator.html"&gtArticle List Generator &lt;/a&gt;&ltbr /&gt;</span><br>
+        <br>
+        The links are now built, but they are in alphabetical order by file name. They need to be sorted by date. So, a sort of <span class="bold">key=lambda x: datetime.strptime(x[37:49],
+            '[%d-%m-%Y]'</span> is ran on the list. This works but it's rickety - it depends on the format of the line to always have the date start at column 37. It seems like there's no good way to
+        easily sort based on a date that's anywhere within a string that contains other data.<br>
+        <br>
+        The data is ready to be injected into index.html. Care had to be taken to make sure I could run this in whatever state the last generation left it in. To mark the lines that are added by the
+        script, <span class="bold">&lt;!--generated--&gt;</span> comments are added at the beginning of each line that gets injected.<br>
+        <br>
+        <span class="codeLine">&lt;!--generated--&gt;&ltspan class="bold"&gt;[05-09-2022] | &lt;/span &gt;&lt; a href="articles/articleListGenerator html" &gt; Generated Article List &lt;/a&gt;&ltbr
+            /&gt;</span><br>
+        <br>
+        Before injection, the file needs to be prepared. The generator looks at the file, and rewrites all lines except for those that contain the aforementioned <span class="bold">&lt;!--generated--&gt;</span> comment.<br>
+        <br>
+        Another comment <span class="bold">&lt;!--articles begin--&gt;</span> is used as a locator for the beginning of the articles block. With the articles blank and the start of the block located,
+        the list of finished article strings is injected into index.html.<br>
+        <br>
+        <br>
+        <br>
+        <a class="title" href="../index.html">HOME</a> &nbsp;<br>
+        <br>
+    </p>
 </body>
+
 </html>
