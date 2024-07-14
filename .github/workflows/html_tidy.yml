@@ -1,4 +1,8 @@
 # may revisit at some point
+# tidy was changing stuff like this:
+# <span class="codeLine">&ltp&gtspan class="bold"&gt[05-09-2022] | &lt/span&gtGenerated Article List&ampltbr /&gt;&lt;/p&gt;</span><br>
+# <span class="codeLine">&amp;ltp&amp;gtspan class="bold"&gt;[05-09-2022] | &lt;/span&amp;gtGenerated Article List&amp;ampltbr /&gt;&lt;/p&gt;</span><br>
+# and it was really annoying
 
 # ---
 # name: html_tidy

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
     <br>
     <center>
@@ -17,7 +19,7 @@
         </div>
     </center><br>
     <div class="articles">
-        <p><span class="bold">[12-08-2020] |</span> Boto3 and DynamoDB continued<br></p>
+        <p><span class="bold">[12-08-2020] |</span> Boto3 and DynamoDB<br></p>
     </div>
     <hr>
     <p class="articleBody">As I start this off, I don't even know how to figure out how to ask the question of what I need to do next, but my steps seem to be:</p>
@@ -27,10 +29,11 @@
         <li>Use the Lambda function to increment the visitor counter number in DynamoDB</li>
     </ol>
     <p class="articleBody">Now that I typed it out, it seems easier. I had some more grandiose plans including logging IP of visitor to do a pseudo unique visit count, but that's really a little much for what I want to do here. I have a lot more to go and I want to focus more on the CI/CD aspect of all this. Maybe more in the future.<br>
-    <br>
-    I think that the plan is to "store" a variable in DynamoDB, get it, increment by 1, then edit the table entry to increment by 1.<br>
-    <br>
-    I tried this code against the test I had set up in the last article:</p>
+        <br>
+        I think that the plan is to "store" a variable in DynamoDB, get it, increment by 1, then edit the table entry to increment by 1.<br>
+        <br>
+        I tried this code against the test I had set up in the last article:
+    </p>
     <pre> <code>
     test = table.query(
            ProjectionExpression="id",
@@ -57,7 +60,7 @@
     frankie
     </code> </pre>
     <p class="articleBody">Now I can adapt this to the "counter" I want to do.<br>
-    I created a new table and got it all going using this code:</p>
+        I created a new table and got it all going using this code:</p>
     <pre> <code>
     import boto3
     from boto3.dynamodb.conditions import Key
@@ -98,4 +101,5 @@
     </code> </pre>
     <p class="articleBody">This is sloppy but it works. I'll clean the code up for the actual Lambda function. Now that I have the update going, I just need to do the POST API call and have API Gateway trigger Lamda.</p>
 </body>
+
 </html>

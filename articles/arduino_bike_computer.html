@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="prism.js"></script>
 </head>
+
 <body>
     <script src="prism.js"></script><br>
     <center>
@@ -40,7 +42,8 @@
         </tr>
     </table>
     <p class="articleBody">Strain gauges for cranks are prohibitively expensive, and due to the resistance trainer I have applying a constant force, I can use average speed over the ride as a pretty good gauge of performance. Instead of just pedaling for 20-30 minutes, I have a goal to beat each time now.<br>
-    <br></p>
+        <br>
+    </p>
     <h3>Putting it all together</h3>
     <p class="articleBody"><span class="bold">List of items required</span></p>
     <ol>
@@ -54,7 +57,8 @@
         <li>Hall effect sensor</li>
     </ol><img class="imageDef" src="../images/bikeComputerAnim.gif" alt="Bike Computer GIF">
     <p class="articleBody"><br>
-    <span class="bold">Wiring it all up</span> First things first - measure the distance from where you want to mount the computer to where you'll place the sensor (likely on the chainstay near the outside of the wheel) and keep this in mind as you measure out the length for the sensor end of the wires.</p>
+        <span class="bold">Wiring it all up</span> First things first - measure the distance from where you want to mount the computer to where you'll place the sensor (likely on the chainstay near the outside of the wheel) and keep this in mind as you measure out the length for the sensor end of the wires.
+    </p>
     <ul>
         <li>Arduino wires</li>
         <ol>
@@ -84,8 +88,9 @@
         <li>Compile the code and upload to Arduino</li>
     </ol>
     <p class="articleBody"><span class="bold">Printing the case:</span><br>
-    <br>
-    Not much to say here - print the case out on a 3d printer or use a web store to get it done. It takes a bit to cram all the wires in there, but you can put some superglue or other around the edges to get it all to stay together. The brackets on the bottom of the extruded cylinder are used to tywrap the case to handlebars.<br></p><img class="image50Cent" src="../images/bikeComputerCase.jpg" alt="Bike Computer Case"><br>
+        <br>
+        Not much to say here - print the case out on a 3d printer or use a web store to get it done. It takes a bit to cram all the wires in there, but you can put some superglue or other around the edges to get it all to stay together. The brackets on the bottom of the extruded cylinder are used to tywrap the case to handlebars.<br>
+    </p><img class="image50Cent" src="../images/bikeComputerCase.jpg" alt="Bike Computer Case"><br>
     <br>
     <h3>Troubleshooting</h3>
     <p class="articleBody">I used an Arduino Nano for this. The Nextion.h library is set up to use an Arduino with multiple serial ports by default. First build of my code I got this -</p>
@@ -104,21 +109,23 @@
         </pre>
     <h3>Things learned in the process/final notes</h3>
     <p class="articleBody">I actually started all this using a SSD1306 TFT display. I tried multiple different libraries and rewrote my code a few times, but updating the screen took so much of the Arduino's processing power that the main loop slowed down to the point where the hall effect sensor wouldn't register the magnet on a rotation of the wheel. It went from 100+hz to about 4hz. The SSD1306 also required something like 8 wires and 6 resistors.<br>
-    <br>
-    The Nextion display has a built in processor for the screen, so it only needs power and 2 data lines, which makes packaging much easier. The built in processor for video processing means instructions are just passed over the RX/TX lines, rather than requiring the Arduino to use its own processing power to draw every frame. The editor is also incredibly easy to use, and updating the screen with a Micro SD card is a dead simple process.<br>
-    <br>
-    I think I spent $7 extra on this Nextion as compared to the SSD1306. I read elsewhere that TJC panels are the same as Nextion, and can be found for around half price on AliExpress. I'll probably go that route next time.<br>
-    <br>
-    I found the main code for the timer and added my functionality on top. I originally tried using the main loop to measure everything, but as I added more features to the code, it slowed down and would only read millis() at like 3hz, so the magnet could pass by the sensor without being read among other issues.<br>
-    <br>
-    The basic part of the code is to read the time between when the magnet passes by the hall effect sensor. Each other piece of functionality (avg mph, mph, distance) is all built on top of that. I also rely on millis() to do hour/minute/second readout. I don't necessarily need the precision of an RTC.<br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br></p>
+        <br>
+        The Nextion display has a built in processor for the screen, so it only needs power and 2 data lines, which makes packaging much easier. The built in processor for video processing means instructions are just passed over the RX/TX lines, rather than requiring the Arduino to use its own processing power to draw every frame. The editor is also incredibly easy to use, and updating the screen with a Micro SD card is a dead simple process.<br>
+        <br>
+        I think I spent $7 extra on this Nextion as compared to the SSD1306. I read elsewhere that TJC panels are the same as Nextion, and can be found for around half price on AliExpress. I'll probably go that route next time.<br>
+        <br>
+        I found the main code for the timer and added my functionality on top. I originally tried using the main loop to measure everything, but as I added more features to the code, it slowed down and would only read millis() at like 3hz, so the magnet could pass by the sensor without being read among other issues.<br>
+        <br>
+        The basic part of the code is to read the time between when the magnet passes by the hall effect sensor. Each other piece of functionality (avg mph, mph, distance) is all built on top of that. I also rely on millis() to do hour/minute/second readout. I don't necessarily need the precision of an RTC.<br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </p>
 </body>
+
 </html>

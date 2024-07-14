@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+    
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>EricFr@nkenberger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="prism.js"></script>
 </head>
+
 <body>
     <script src="prism.js"></script><br>
     <center>
@@ -23,8 +25,9 @@
     <hr>
     <h3>Increases in performance</h3>
     <p class="articleBody"><a href="http://cs-surf-archive.github.io">cs-surf-archive.github.io</a> had a problem. A lot of problems, actually. It worked, but I wasn't proud of it.<br>
-    <br>
-    After about 15 hours of a complete rewrite of the generation code for the website, I have:</p>
+        <br>
+        After about 15 hours of a complete rewrite of the generation code for the website, I have:
+    </p>
     <ul>
         <li>Decreased API calls per build from 400+ to 4(!)</li>
         <li>Decreased build time by 90%</li>
@@ -36,24 +39,26 @@
     <p class="articleBody">The full PR can be <a href="https://github.com/CS-SURF-ARCHIVE/cs-surf-archive.github.io/pull/90">found here.</a></p>
     <h3>Glaring inefficiencies</h3>
     <p class="articleBody">The last time I re-generated the site, it made over 400 API calls, took 10 full runs to be built correctly, and threw errors all over the place.<br>
-    <br>
-    The free tier of Google Sheets API only allows for 300 calls over 60 seconds. Getting data from a Sheet and updating it should not take 10+ minutes of build time, an hour of troubleshooting, and hundreds of API calls.<br>
-    <br>
-    Beyond just API inefficiencies, sorting of data began to take an odd route. Maps would be sorted into 2 lists - download or no download. Then, they'd be split into 2 more lists depending on their game type. Finally, HTML would be appended to the end to add the jump link on the site, a feature that worked only because of a total hack.<br>
-    <br>
-    Cases existed where, if items were added to the Sheet or Drive in different orders, the Sheet would never get updated properly. I can't even remember all of the unique issue-causing cases I managed to uncover.<br>
-    <br>
-    It was time to finally treat this as a real software project, and not just some random hobby code.</p>
+        <br>
+        The free tier of Google Sheets API only allows for 300 calls over 60 seconds. Getting data from a Sheet and updating it should not take 10+ minutes of build time, an hour of troubleshooting, and hundreds of API calls.<br>
+        <br>
+        Beyond just API inefficiencies, sorting of data began to take an odd route. Maps would be sorted into 2 lists - download or no download. Then, they'd be split into 2 more lists depending on their game type. Finally, HTML would be appended to the end to add the jump link on the site, a feature that worked only because of a total hack.<br>
+        <br>
+        Cases existed where, if items were added to the Sheet or Drive in different orders, the Sheet would never get updated properly. I can't even remember all of the unique issue-causing cases I managed to uncover.<br>
+        <br>
+        It was time to finally treat this as a real software project, and not just some random hobby code.
+    </p>
     <h3>WELL HOW DID YOU DO IT</h3>
     <p class="articleBody">I went with the solution I wrote about at the end of the tech stack article. The short version is this - Get data from Sheet and Drive folders, store it locally as JSON, perform matching between all files, then upload the whole sheet at once. No more row by row comparisons.<br>
-    <br>
-    This alone saved the majority of flippant API calls and build time. I also save a pre processed JSON file and post processed JSON file for debugging purposes. These get uploaded to the repo as well, and can (unintentionally) serve as archives for different versions of the Sheet as it changes over time.<br>
-    <br>
-    Variable sprawl was a huge issue, and I had several instances of repeating code in different files before the rewrite. <a href="https://github.com/CS-SURF-ARCHIVE/cs-surf-archive.github.io/blob/main/python/config.py">config.py</a> reels this in by keeping all reused variables in one place. I really like how this turned out.<br>
-    <br>
-    After the code to handle all of the Google API operations was completed, I moved on to the website generation code. Part of the functionality is to accept a list of HTML collapsibles which are built by taking the Sheet data and formatting it for the website. Before the rewrite, the code was so unreadably convoluted it was hard to tell what route it was taking. 3 functions and 100+ lines of code have been replaced by <a href="https://github.com/CS-SURF-ARCHIVE/cs-surf-archive.github.io/blob/74b9b72973c0f6488d132798f9302be1c0daba2f/python/generate_website.py#L39">1 function with around 20 lines of code</a>.<br>
-    <br>
-    This also aids in decoupling the code from the specific structure of the data. If I ever need to change hosting providers or layout of the website, it's nearly trivial.</p>
+        <br>
+        This alone saved the majority of flippant API calls and build time. I also save a pre processed JSON file and post processed JSON file for debugging purposes. These get uploaded to the repo as well, and can (unintentionally) serve as archives for different versions of the Sheet as it changes over time.<br>
+        <br>
+        Variable sprawl was a huge issue, and I had several instances of repeating code in different files before the rewrite. <a href="https://github.com/CS-SURF-ARCHIVE/cs-surf-archive.github.io/blob/main/python/config.py">config.py</a> reels this in by keeping all reused variables in one place. I really like how this turned out.<br>
+        <br>
+        After the code to handle all of the Google API operations was completed, I moved on to the website generation code. Part of the functionality is to accept a list of HTML collapsibles which are built by taking the Sheet data and formatting it for the website. Before the rewrite, the code was so unreadably convoluted it was hard to tell what route it was taking. 3 functions and 100+ lines of code have been replaced by <a href="https://github.com/CS-SURF-ARCHIVE/cs-surf-archive.github.io/blob/74b9b72973c0f6488d132798f9302be1c0daba2f/python/generate_website.py#L39">1 function with around 20 lines of code</a>.<br>
+        <br>
+        This also aids in decoupling the code from the specific structure of the data. If I ever need to change hosting providers or layout of the website, it's nearly trivial.
+    </p>
     <h3>Satisfaction</h3>
     <p class="articleBody">I work on so many random hobby projects that it's hard for me to circle back and give them a second pass. The only other time I've really done this is with working on my ls1 swapped BMW over the years. Getting this project done has been very satisfying, and I'm looking forward to making incremental improvements in the future.</p><br>
     <br>
@@ -61,4 +66,5 @@
     <a class="title" href="../index.html">HOME</a> &nbsp;<br>
     <br>
 </body>
+
 </html>
