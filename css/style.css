@@ -1,7 +1,4 @@
-@font-face {
-    font-family: 'RobotoMono';
-    src: url('../fonts/UbuntuMono-Regular.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 * {
     box-sizing: border-box;
@@ -18,8 +15,8 @@ a:hover {
 }
 
 body {
-    font-family: RobotoMono;
-    font-size: 16px;
+    font-family: "Open Sans", "Consolas", "Courier";
+    font-size: 14px;
     background: #E0E0E0;
     max-width: 800px;
     margin: auto;
@@ -118,7 +115,7 @@ ol {
 
 .articlesList {
     padding-left: 1%;
-    line-height: 1.4;
+    line-height: 1.6;
     overflow-wrap: break-word;
 }
 
