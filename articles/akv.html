@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>EricFr@nkenberger.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="prism.js"></script>
+</head>
+
+<body>
+    <script src="prism.js"></script><br>
+    <center>
+        <div style="display: inline-block; vertical-align:middle;">
+            <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a><br>
+            <hr style="width:200px">
+            <span class="bold"><a class="title" href="../index.html">HOME</a> &nbsp; <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp; <a class="title" href="https://github.com/efranken">GITHUB</a></span>
+        </div>
+    </center><br>
+    <div class="articles">
+        <p><span class="bold">[02-27-2025] |</span> Secret Metadata? In this economy?<br></p>
+    </div>
+    <hr>
+    <h4>Thank You Kanye, Very Cool!</h4>
+    <p class="articleBody">Azure DevOps allows linking of Azure Key Vaults in libraries (known to the API as variable groups).  This in turn effectively allows an AKV to be brought into a pipeline as a variable group in YAML.  
+        <br/><br/>It's also frustratingly confusing.</p>
+    <p class="articleBody">The documentation states "By linking the variable group to the key vault, you can ensure that your secrets are stored securely and your pipelines always have access to the latest secret values at runtime."</p>
+    <p class="articleBody">This is true.  Maybe?  Partially?</p>
+    <p class="articleBody">The library UI lists most of the AKV secret metadata, none of which ever is updated, refreshed, or accessible from a pipeline. It can be retrieved via the <span class="codeLine">_apis/distributedtask/variablegroups/$groupNumber</span> endpoint, but that never updates either.  So what if I want to get the expiration date of a secret in a pipeline?  
+    <br /> <br />WELL.  There are 2 refresh buttons in the library UI, one for the Azure subscription, one for for the Key vault.  Neither of them update the "Last refreshed" time.  Neither of them appear to even do anything. Neither of them even make a network call when inspecting the webpage? 
+    <br><br>why are they here why are they here why are they here why is the metadata even shown in the ui if it never updates</p>
+    <p class="articleBody">Whatever.  Maybe the docs are right in the most strict and specific sense possible, because it does get the right vars at runtime. Maybe it's totally fine that the only way to get the updated information out of the UI or API endpoint is to remove and re-add the variable.</p>
+    <h4>Well how the HECK am I supposed to get metadata of variables</h4>
+    <p class="articleBody">The workaround I came up with is to add a <span class="codeLine">`AzureCLI@2`</span> task in pipeline YAML to obtain the expiration date (or other metadata) directly from the AKV:</p>
+    <pre>
+        <code>
+        - task: AzureCLI@2
+          displayName: 'az keyvault secret show EXPIRATION'
+          inputs:
+          azureSubscription: $subscription
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+              KEYVAULT_NAME=$keyvault
+              SECRET_NAME=$secret
+            
+              az keyvault secret show \
+              --vault-name $KEYVAULT_NAME \
+              --name $SECRET_NAME \
+              --query "attributes.expires" \
+              --output tsv
+        </code>
+    </pre>
+    <p class="articleBody">This operation piggybacks off of the same service connection used by the AKV, which (depending on configuration) the pipeline should have access to.</p>
+    <p class="articleBody">And there you have it, access to variable metadata within a pipeline, the long way.</p>
+    <a class="title" href="../index.html">HOME</a> &nbsp;
+</body>
+
+</html>
