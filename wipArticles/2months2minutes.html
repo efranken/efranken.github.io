@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>EricFr@nkenberger.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="prism.js"></script>
+</head>
+
+<body>
+    <script src="prism.js"></script><br>
+    <center>
+        <div style="display: inline-block; vertical-align:middle;">
+            <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a><br>
+            <hr style="width:200px">
+            <span class="bold"><a class="title" href="../index.html">HOME</a> &nbsp; <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp; <a class="title" href="https://github.com/efranken">GITHUB</a></span>
+        </div>
+    </center><br>
+    <div class="articles">
+        <p><span class="bold">[1-12-2024] |</span> 2 Months to 15 Minutes<br></p>
+    </div>
+    <hr>
+    <h4>The Tosca Infrastructure</h4>
+    <p class="articleBody">When I started at my new role as Senior DevOps engineer with TRIMEDX, one of the first things I was shown was our deployment of Tricentis Tosca.  It more resembled something I'd deploy when I worked as a SysAdmin for Chip Ganassi Racing than what I'd do at Genesys.  The infrastructure consisted of one server and five agents which ran tests.</p>
+    <p class="articleBody">The server was at least 3 years old and had traces of every previous admin.  The agents started off similarly, but had 3 years of compounding configuration drift from manual fixes. This resulted in 5 full time QA testers producing tests that ran on unreliable infrastructure, giving us results that were unreliable at best and meaningless at worst.</p>
+    <p class="articleBody">In my first month, we upgraded the server and agents.  It took 2 months of collaboration from 5 employees across 3 departments to complete.  After that, I spent a month automating the process.  The results were:</p>
+    <ol>
+        <li>2 month upgrade time shortened to 15 minutes</li>
+        <li>New deployments built from scratch, instead of upgrading old infrastructure</li>
+        <li>Fully CI/CD compliang build and teardown</li>
+        <li>Ability to change number of agents built by simply editing a JSON file</li>
+        <li>Error rate decreased by >95%</li>
+    </ol>
+    <p class="articleBody">Since then we've upgraded versions at least 3 times.  Each upgrade has been done by me, over 1 hour, with no business outage.  Our agent count has increased to from 5 to 15, which would have not been feasible if we were still manually configuring them.</p>
+    <h4>The Dirty Details</h4>
+    <p class="articleBody">Tosca is a purely Windows application.  When I began attempting to build it as a deployable service, it quickly became aparent that it was not designed with this in mind.  I had to implement several hacks that I hope I never have to repeat.  <br /><br />My favorite(?) was discovering the need to write to a file path that was not present until a specific user's profile was built.  There was no apparent way to trigger a login for the user in the context I faced.  I ended up automating the steps to:</p>
+    <ul>
+        <li>Set a registry key to auto log in the user</li>
+        <li>Reboot the computer to login/build the profile</li>
+        <li>Copy a self-destructing .bat to the user's startup folder to perform necessary steps after next login</li>
+        <li>Reboot again</li>
+    </ul>
+    <p class="articleBody">This was all done within the context of a single ADO pipeline run to configure the Tosca agents.  Several other constraints funneled me into having to come up with some whacky solutions.  I:</p>
+    <ul>
+        <li>Could not utilize cloud infrastructure or IaC tooling</li>
+        <li>Received VMs after they are manually built by the internal infra team</li>
+        <li>Needed to deploy the service under the same domain restrictions imposed on end-user computers</li>
+        <li>Was limited to Azure DevOps tooling for deployment</li>
+    </ul>
+    <p class="articleBody">I could write for quite awhile about the unique challenges and hurdles.  A couple articles already exist - <br></p>
+
+    <h4>The Outcome</h4>
+    <p class="articleBody">During my first month, we went through a Tosca version upgrade.  It took 2 months between Infra, DevOps, and management to get it done.  We faced 2 weeks of downtime.<br /> <br /> I spent another 2 months fully automating the build and teardown of the deployment.  The next time we deployed, a version upgrade took 15 minutes.<br /> <br />Other benefits:</p>
+
+    <ul>
+        <li>I need to finally start running a simple UI test as a periodic healthcheck</li>
+        <li>Pinning versions could have technically kept this from happening but feels a little absurd</li>
+    </ul><br>
+    <a class="title" href="../index.html">HOME</a> &nbsp;
+</body>
+
+</html>
