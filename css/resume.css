@@ -1,9 +1,9 @@
 body {
   font-family: "Times New Roman", Times, serif;
   background-color: #E0E0E0;
-  font-size: 11px;
+  font-size: 12px;
   padding: 10px;
-  line-height: 12px;
+  line-height: 15px;
   margin-top: 100px;
 }
 
@@ -36,6 +36,7 @@ ul {
 
 li {
   margin: 1px;
+  margin-bottom: 2px;
 }
 
 table {
@@ -71,6 +72,7 @@ td {
   text-decoration: underline;
   margin: auto;
   padding-bottom: 2px;
+  margin-bottom: 2px;
 }
 
 .profile {
