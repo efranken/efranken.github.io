@@ -1,235 +1,196 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-a:link,
-a:active {
-    color: #3d3d3d;
+html, body {
+  font-family: "Open Sans", "Consolas", "Courier", monospace;
+  font-size: 14px;
+  max-width: 800px;
+  margin: auto;
+  background: transparent;
+  color: 111;
 }
 
-a:visited,
-a:hover {
-    color: black;
-}
-
-body {
-    font-family: "Open Sans", "Consolas", "Courier";
-    font-size: 14px;
-    background: #E0E0E0;
-    max-width: 800px;
-    margin: auto;
+a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 code {
-    margin: auto;
-    display: block;
-    font-size: 90%;
-    font-family: Consolas, monospace;
-    color: #dadedf;
-    background: #0f0f0f;
-    padding-bottom: 7px;
-    padding-left: 10px;
-    padding-top: 5px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.896796218487395) 0%, rgba(40, 40, 40, 1) 100%);
-    overflow: auto;
-    max-width: 700px;
-    box-shadow: 3px 3px #888888;
+  display: block;
+  margin: auto;
+  font-size: 90%;
+  font-family: Consolas, monospace;
+  padding: 5px 10px 7px;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, rgba(40, 40, 40, 1) 100%);
+  color: inherit;
+  overflow: auto;
+  max-width: 700px;
+  box-shadow: 3px 3px #888888;
 }
 
 .codeLine {
-    background-color: #0f0f0f;
-    color: #dadedf;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 1px;
-    padding-bottom: 2px;
-    font-size: 85%;
-    font-family: Consolas, monospace;
-    text-align: initial;
+  background-color: #0f0f0f;
+  color: inherit;
+  padding: 1px 5px 2px;
+  font-size: 85%;
+  font-family: Consolas, monospace;
+  text-align: initial;
 }
 
-h2 {
-    padding-left: 15px;
-}
-
-h3 {
-    padding-left: 15px;
-}
-
-h4 {
-    padding-left: 15px;
+h2, h3, h4 {
+  padding-left: 15px;
 }
 
 hr {
-    margin: auto;
-    margin-left: 50px;
-    margin-right: 50px;
+  margin: auto;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 p {
-    text-align: justify;
+  text-align: justify;
 }
 
 pre {
-    display: block;
-    margin: auto;
-    white-space: pre;
-    overflow: auto;
-    padding-left: 5px;
-    padding-right: 5px;
+  display: block;
+  margin: auto;
+  white-space: pre;
+  overflow: auto;
+  padding: 0 5px;
 }
 
 table {
-    padding-left: 15px;
+  padding-left: 15px;
 }
 
-th,
-td {
-    margin: auto;
-    padding-right: 5px;
-    border: 5px;
+th, td {
+  margin: auto;
+  padding-right: 5px;
+  border-width: 5px;
 }
 
-ul,
-ol {
-    padding-left: 55px;
+ul, ol {
+  padding-left: 55px;
 }
 
 .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .middle {
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .articles {
-    padding-left: 10px;
-    overflow-wrap: break-word;
+  padding-left: 10px;
+  overflow-wrap: break-word;
 }
 
 .articlesList {
-    padding-left: 5%;
-    line-height: 1.6;
-    overflow-wrap: break-word;
+  padding-left: 5%;
+  line-height: 1.6;
+  overflow-wrap: break-word;
 }
 
 .articleBody {
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: justify;
-    text-justify: inter-word;
+  padding: 0 15px;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .boldRight {
-    font-weight: bold;
-    text-align: right;
+  font-weight: bold;
+  text-align: right;
 }
 
 .codeIndent {
-    indent: 200px;
+  text-indent: 200px;
 }
 
 .column {
-    margin: auto;
-    max-width: 900px;
-    padding: 10px;
+  margin: auto;
+  max-width: 900px;
+  padding: 10px;
 }
 
 .counter {
-    color: #E0E0E0;
-    text-align: center;
+  text-align: center;
+  color: inherit;
 }
 
 .header {
-    padding: 15px;
-    text-align: center;
-    font-size: 24px;
+  padding: 15px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.imageDef,
+.image25Cent,
+.image75Cent,
+.image90Cent,
+.image50Cent,
+.imageVert,
+.imageVertSmall,
+.imageSmall {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
 }
 
 .imageDef {
-    max-width: 75%;
-    height: auto;
-    margin: auto;
-    display: block;
+  max-width: 75%;
 }
 
 .image25Cent {
-    max-width: 25%;
-    max-height: 25%;
-    align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 25%;
+  max-height: 25%;
 }
 
 .image75Cent {
-    max-width: 75%;
-    max-height: 75%;
-    align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 75%;
+  max-height: 75%;
 }
 
 .image90Cent {
-    max-width: 90%;
-    max-height: 90%;
-    align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .image50Cent {
-    max-width: 50%;
-    max-height: 50%;
-    align: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 50%;
+  max-height: 50%;
 }
 
-.imageVert {
-    max-width: 70%;
-    height: auto;
-    display: block;
-    margin: auto;
-}
-
+.imageVert,
 .imageVertSmall {
-    max-width: 70%;
-    height: auto;
-    display: block;
-    margin: auto;
+  max-width: 70%;
 }
 
 .imageSmall {
-    max-width: 30%;
-    height: auto;
-    display: block;
-    margin: auto;
+  max-width: 30%;
 }
 
 .indent {
-    text-indent: 200px;
+  text-indent: 200px;
 }
 
 .smallText {
-    font-size: 10px;
-    text-align: justify;
-    text-justify: inter-word;
+  font-size: 10px;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .tab {
-    tab-size: 6;
+  tab-size: 6;
 }
