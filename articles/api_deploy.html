@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>EricFr@nkenberger.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="prism.js"></script>
+</head>
+
+<body>
+    <script src="prism.js"></script><br>
+    <center>
+        <div style="display: inline-block; vertical-align:middle;">
+            <a href="mailto:ericfr@nkenberger.com"><b>EricFr@nkenberger.com</b></a><br>
+            <hr style="width:200px">
+            <span class="bold"><a class="title" href="../index.html">HOME</a> &nbsp; <a class="title" href="../resume.html">RESUME/CONTACT</a> &nbsp; <a class="title" href="https://github.com/efranken">GITHUB</a></span>
+        </div>
+    </center><br>
+    <div class="articles">
+        <p><span class="bold">[07-04-2025] |</span> we do a little interviewing<br></p>
+    </div>
+    <hr>
+    <p class="articleBody">
+        While going full goblin mode playing world of warcraft for 5-10 hours a day during covid quarantine, I met a Hashicorp DevOps engineer who became an unintentional mentor.  He gave me a tip to always get ideas for the scope of work during the first interview, in order to build something and discuss it in the second interview.  I've used this advice for my past 3 jobs.
+        <br />
+        The first was setting up a Selenium grid after learning the company ran a massive internal deployment.  The second was spinning up a VM in Azure, connecting a datadog agent to it, configuring alerting, and intentionally triggering an alert.  I try to keep time spend to 5-10 hours.
+        <br />
+        My third execution didn't give as clear of a path from the first interview.  I ended up settling on a design prompt from distilling some of the main talking points:
+        <br />
+        <ol>
+        <li>1.  How might I automate Azure resource deployment with something other than Terraform?</li>
+        <li>2.  If a developer came to me with an API, how would I deploy it?</li>
+        <li>3.  How can I demonstrate ownership mentality, and design philosophy?</li>
+        </ol>
+        <br />
+        The final deliverable was a wrapper for the Azure CLI as a series of shell commands that deployed an API which served JSON containing the folder structure and all files in the repo used.  The build and redeploy scripts read from a configuration file for resource naming, making the solution portable and modular.
+        <br />
+        It can be viewed at <a href"https://api.nkenberger.com">api.nkenberger.com</a>. The top level response contains a link to the Git repo, as JSON doesn't lend itself well to the data I'm displaying.
+        <br />
+        <h3>Other Notes</h3>
+        <br />
+        Due to GitHub Pages being the host for this site, subdomain redirects are difficult.  I switched to Cloudflare for DNS after Google sold to Squarespace.  Cloudflare prefers proxied DNS, but GitHub Pages won't work properly or issue SSL cert without more work than necessary for this.  
+        <br />
+        I settled on using a Cloudflare worker, a new DNS A record with name API and 192.0.2.1 with Cloudflare proxied DNS.  Any requests to api.nkenberger.com are intercepted by the Cloudflare worker, and redirected to the public URL that Azure provisions for the API.
+        </p>
+    <a class="title" href="../index.html">HOME</a> &nbsp;
+</body>
+
+</html>
