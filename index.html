@@ -22,16 +22,12 @@
         <p align="center">This website contains articles on various technical and mechanical projects I have worked on.</p>
     </div>
     <hr>
-    <div class="counter" id="counter">
-        <script>
-            document.write(counter);
-        </script>
-    </div>
     <div class="articlesList">
         <br>
         <p><span class="bold">[About]</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="other_pages/aboutSite.html">About this site</a><br>
             <br>
             <!--articles begin-->
+<!--generated-->        <span class="bold">[07-04-2025] | </span><a href="articles/api_deploy.html">we do a little interviewing</a><br>
 <!--generated-->        <span class="bold">[02-27-2025] | </span><a href="articles/akv.html">Secret Metadata? In this economy?</a><br>
 <!--generated-->        <span class="bold">[07-10-2024] | </span><a href="articles/curl.html">curl broke it</a><br>
 <!--generated-->        <span class="bold">[05-10-2024] | </span><a href="articles/the_rewrite.html">The Rewrite</a><br>
@@ -55,24 +51,6 @@
 <!--generated-->        <span class="bold">[04-01-2020] | </span><a href="articles/simhub_RPM.html">Arduino RPM and Gear indicator</a><br>
 <!--generated-->        <span class="bold">[04-11-2019] | </span><a href="articles/map_lite.html">Mikrotik mAP Lite Travel Router</a><br>
     </div>
-    <script>
-        var test = 1;
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        let counter = document.getElementById('counter');
-
-        fetch("https://qgb12s4p01.execute-api.us-east-2.amazonaws.com/test/transactions", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                counter.innerHTML = result;
-            })
-            .catch(error => {
-                counter.innerHTML = error;
-            });
-    </script>
 </body>
 
 </html>
